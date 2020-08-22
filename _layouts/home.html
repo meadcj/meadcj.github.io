@@ -4,9 +4,14 @@ layout: default
 <div class="home">
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
+    {%- endif -%}
 
-  {{ content }}
+<div class="container1">
+    <img class="container1__image" src="/assets/headshot-320.jpg">
+    <div class="container1__text">
+      {{ content }}
+    </div>
+</div>
 
 
   {% if site.paginate %}
