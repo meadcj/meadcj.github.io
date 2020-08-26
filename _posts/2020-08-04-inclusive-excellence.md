@@ -6,8 +6,6 @@ categories: research
 excerpt_separator: <!--more-->
 ---
 
-10 am // 1pm
+Most of my research examines how science education can be made more effective, but effectiveness only partially captures the overall mission of a university or other school. It is equally important that high quality education is equitably provided. I am currently working with a team at ASU funded by the Howard Hughes Medical Institute's [Inclusive Excellence][hhmi-ie] program to study ASU's growing online degree and course offerings in order to understand whether they are providing _inclusive excellence_.
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+[hhmi-ie]: https://www.hhmi.org/science-education/programs/inclusive-excellence
