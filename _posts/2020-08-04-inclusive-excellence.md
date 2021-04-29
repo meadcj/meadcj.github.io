@@ -3,6 +3,7 @@ layout: post
 title:  "Inclusive Excellence"
 date:   2020-08-04 13:00:00
 categories: research
+tags: pinned
 excerpt_separator: <!--more-->
 ---
 

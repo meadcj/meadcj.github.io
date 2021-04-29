@@ -3,6 +3,7 @@ layout: post
 title:  "Studying Digital Learning Experiences"
 date:   2020-08-08
 categories: research
+tags: pinned
 excerpt_separator: <!--more-->
 ---
 
