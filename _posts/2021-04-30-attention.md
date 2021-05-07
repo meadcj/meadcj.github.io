@@ -17,10 +17,10 @@ CBE--Life Sciences Education
 ![Dimensions of student attention](/assets/Keller-fig-1.png)
 
 ## What we might learn from it
-This paper did not present new reserach data, but the authors do make a few suggestions for practice that follow from their review.
+The authors make a few suggestions for practice that follow from their review.
 - Instructors should take care to avoid making multiple, simultaneous demands on students' attention. For example, moving on to summarizing a group-work activity before all students have finished answering the question.
-- Is it possible that graded in-class activities cause students' attention to drift into the off-topic subject of their grade?
-- Most important, in my opinion, is the suggestion that instructors should take care to orchestrate students' balancing of external and internal attention. Reflection and consideration of new concepts is an essential part of learning, so 30 seconds or a minute of silence in class may be something more instructors should be comfortable with.
+- Be thoughtful about emphasizing grading or points during in-class activities as this might cause students' attention to drift into the off-topic subject of their grade.
+- Most important, in my opinion, is the suggestion that instructors should work to orchestrate students' transitions between external and internal attention. Reflection and consideration of new concepts is an essential part of learning, so 30 seconds or a minute of silence in class may be something more instructors should be comfortable with.
 
 
 [doi]: https://doi.org/10.1187/cbe.20-05-0106
