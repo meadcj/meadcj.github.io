@@ -11,7 +11,7 @@ Most of my research examines how science education can be made more effective, b
 
 <!--more-->
 
-I recently co-authored a [paper][plos] with this group.
+I recently co-authored a [paper][plos] with this group analyzing the grade equity of the online biology degree program at ASU---the first study to directly compare equivalent online and in-person degree programs. Overall, our findings show that the online students earn substantially lower grades than comparable in-person students and that the demographic-based grade differences observed in-person are mostly reproduced online. These findings have several implications for the future of these online STEM degree programs. First, although these online programs are increasing the accessibility of STEM degrees, this access will be hollow if the outcomes are not equivalent to in-person programs. Second, the fact that demographic-based grade differences are largely reproduced online highlights the systemic drivers of grade inequity and should prompt similarly systemic solutions. 
 
 [hhmi-ie]: https://www.hhmi.org/science-education/programs/inclusive-excellence
 [plos]: https://doi.org/10.1371/journal.pone.0243916
