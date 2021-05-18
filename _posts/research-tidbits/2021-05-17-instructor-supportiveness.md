@@ -7,8 +7,9 @@ excerpt_separator: <!--more-->
 ---
 *[Student perceptions of instructor supportiveness: what characteristics make a difference?][doi]*
 
-Schussler, E. E., Weatherton, M., Chen Musgrove, M. M., Brigati, J. R., & England, B. J. (2021). CBE---Life Sciences Education, 20(2), ar29.
 <!--more-->
+Schussler, E. E., Weatherton, M., Chen Musgrove, M. M., Brigati, J. R., & England, B. J. (2021). CBE---Life Sciences Education, 20(2), ar29.
+
 ## What it says
 - Although the authors set out to examine instructional practices that increased and decreased student anxiety, their results ultimately speak more broadly to what separates supportive instructors from unsupportive ones.
 - They collected surveys from about 900 students across six biology classes. They then took a qualitative coding approach to identify common themes in how students described their instructors' supportiveness. 

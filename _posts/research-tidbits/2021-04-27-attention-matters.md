@@ -7,9 +7,9 @@ excerpt_separator: <!--more-->
 ---
 *[Attention matters: how orchestrating attention may relate to classroom learning][doi]*
 
+<!--more-->
 Keller, A. S., Davidesco, I., & Tanner, K. D. (2020). CBE---Life Sciences Education, 19(3), fe5.
 
-<!--more-->
 ## What it says
 - The authors propose that a closer examination of student attention might help us to understand what makes certain teaching effective
 - In this review and commentary, they discuss how student attention can be classified along two dimensions. Attention is either external, focused on people and things, or it is internal, focused on one's own thoughts. Additionally, in an educational setting attention can be seen as generally focused on the topic being taught or else focused on various off-topic ideas or activities.

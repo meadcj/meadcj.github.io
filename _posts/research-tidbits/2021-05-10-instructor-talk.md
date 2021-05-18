@@ -7,6 +7,7 @@ excerpt_separator: <!--more-->
 ---
 *[Beyond the Biology: A Systematic Investigation of Noncontent Instructor Talk in an Introductory Biology Course][doi1]*
 
+<!--more-->
 Seidel, S. B., Reggi, A. L., Schinske, J. N., Burrus, L. W., & Tanner, K. D. (2015).  CBE---Life Sciences Education, 14(4), ar43.
 
 *[Investigating Instructor Talk in Novel Contexts: Widespread Use, Unexpected Categories, and an Emergent Sampling Strategy][doi2]*
@@ -14,7 +15,6 @@ Seidel, S. B., Reggi, A. L., Schinske, J. N., Burrus, L. W., & Tanner, K. D. (20
 Harrison, C. D. et al. (2019).  CBE---Life Sciences Education, 18(3), ar47.
 
 
-<!--more-->
 ## What it says
 - This pair of papers introduce and explore the dimensions of a construct called *instructor talk*---"language used by an instructor that is not directly related to the concepts under study but instead focuse[d] on creating the learning environment." Instructor talk varies interestingly among instructors and may prove to be an explanatory factor in effective teaching.
 - The initial study examined a single, co-taught, course, while Harrison et al.'s follow-up studied eight courses in detail and a further 61 using an efficient sampling technique. 
