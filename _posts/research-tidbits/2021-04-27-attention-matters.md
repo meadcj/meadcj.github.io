@@ -7,9 +7,8 @@ excerpt_separator: <!--more-->
 ---
 *[Attention matters: how orchestrating attention may relate to classroom learning][doi]*
 
-Arielle Keller, Ido Davidesco, and Kimberly Tanner, 2020
+Keller, A. S., Davidesco, I., & Tanner, K. D. (2020). CBE---Life Sciences Education, 19(3), fe5.
 
-CBE--Life Sciences Education
 <!--more-->
 ## What it says
 - The authors propose that a closer examination of student attention might help us to understand what makes certain teaching effective
