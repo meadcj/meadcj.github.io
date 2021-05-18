@@ -24,8 +24,9 @@ Harrison, C. D. et al. (2019).  CBE---Life Sciences Education, 18(3), ar47.
   * Preframing classroom activities, e.g., “One thing I like to do in these classes is have people talk to each other and discuss problems, and take apart problems that I show. So, just to get started, because you’re going to be talking to each other a lot, I’d like to start with this simple index card exercise that I always do.”
 
 ![](/assets/Harrison-fig-1.png)
-**Illustration of the range of "positively-phrased" instructor talk observed in Harrison et al. (black bars) and Seidel et al. (gray bars). Although most instructors employ most types of instructor talk, the total amount of such communication varies substantially between instructors.**
-{: style="text-align: center;"}
+
+**Illustration of the range of "positively-phrased" instructor talk observed in Harrison et al. (black bars) and Seidel et al. (gray bars). Although most instructors employ most types of instructor talk, the total amount of such communication varies substantially between instructors (Figure 2 from Harrison et al.).**
+{: style="width: 80%; margin-left: auto; margin-right: auto;"}
 
 ## What we might learn from it
 - Active learning is understood to be effective, but the mechanisms and the ideal circumstances are very much under investigation. Harrison et al. argue that instructor talk could be an important dimension of this research, including the way it may lower student resistance to active learning or otherwise establish a productive classroom culture for active learning.

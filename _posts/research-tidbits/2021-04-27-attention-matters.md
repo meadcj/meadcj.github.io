@@ -13,7 +13,11 @@ Keller, A. S., Davidesco, I., & Tanner, K. D. (2020). CBE---Life Sciences Educat
 ## What it says
 - The authors propose that a closer examination of student attention might help us to understand what makes certain teaching effective
 - In this review and commentary, they discuss how student attention can be classified along two dimensions. Attention is either external, focused on people and things, or it is internal, focused on one's own thoughts. Additionally, in an educational setting attention can be seen as generally focused on the topic being taught or else focused on various off-topic ideas or activities.
+
 ![Dimensions of student attention](/assets/Keller-fig-1.png)
+
+**An illustration of the two dimensions of attention as well as examples for each quadrant (Figure 1 from Keller et al.)**
+{: style="width: 80%; margin-left: auto; margin-right: auto;"}
 
 ## What we might learn from it
 The authors make a few suggestions for practice that follow from their review.

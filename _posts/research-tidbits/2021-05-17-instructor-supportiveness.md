@@ -17,8 +17,9 @@ Schussler, E. E., Weatherton, M., Chen Musgrove, M. M., Brigati, J. R., & Englan
 - Interestingly, the *instrumental* code, which describes the "what" of instructor support more-so than the how and why, did not correlate with overall support. 
 
 ![Examples of Themes and Codes](/assets/Schussler-fig-1.png)
-**Examples of the themes and codes developed by the authors to describe the ways that students discussed the ways their instructs were (or weren't) supportive.**
-{: style="text-align: center;"}
+
+**Examples of the themes and codes developed by the authors to describe the ways that students discussed the ways their instructs were (or weren't) supportive (modified from Figure 2 in Schussler et al.).**
+{: style="width: 80%; margin-left: auto; margin-right: auto;"}
 
 ## What we might learn from it
 - This is a small and preliminary study, but results suggest that instances of poor teaching---such as bad or indifferent efforts to explain concepts and answer questions---are more predictive of students overall feeling of instructor support than the specific methods of support offered or an instructor's personality.
