@@ -382,7 +382,8 @@ table tr:nth-child(even) {
 }
 table th,
 table td {
- padding:10px 15px
+ padding:10px 15px;
+ vertical-align: top;
 }
 table th {
  background-color:#f0f0f0;
