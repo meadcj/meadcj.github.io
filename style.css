@@ -660,13 +660,13 @@ display:flex
 .container1 {
  max-width:900px;
  padding:0px 0px 10px;
- display:flex
+ display:float
 }
 .container1__image {
  margin:10px 30px 0 0;
  height:250px;
  object-fit:contain;
- align-self:flex-start
+ float:left
 }
 .container1__text {
  flex:1 1 auto
