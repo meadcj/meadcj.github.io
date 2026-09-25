@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Pannellum 360 Viewer</title>
+
+        <link
+                rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.css"
+                >
+
+        <link
+                rel="stylesheet"
+                href="vfe.css"
+                >
+    </head>
+
+    <body>
+        <div id="panorama"></div>
+        <div id="error"></div>
+        <div
+                id="videoOverlay"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="videoTitle"
+                aria-hidden="true">
+            <button
+                    id="closeVideo"
+                    type="button"
+                    aria-label="Close">
+                &times;
+            </button>
+
+            <div id="videoTitle"></div>
+            <div id="youtubeContainer" class="media-container">
+                <iframe
+                        id="youtubeFrame"
+                        src=""
+                        title="YouTube video"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                </iframe>
+            </div>
+            <div id="imageContainer" class="media-container">
+                <img
+                        id="hotspotImage"
+                        src=""
+                        alt="">
+            </div>
+            <div id="videoContainer" class="media-container">
+                <video
+                        id="video"
+                        controls
+                        playsinline
+                        preload="metadata">
+                    <source
+                            id="videoSource"
+                            src=""
+                            type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js"></script>
+        <script src="vfe.js"></script>
+
+    </body>
+</html>

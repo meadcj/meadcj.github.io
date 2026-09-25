@@ -1,0 +1,61 @@
+
+{
+    "default": {
+        "firstScene": "palm1",
+        "autoLoad": true,
+        "showControls": true
+    },
+
+    "scenes": {
+        "palm1": {
+            "title": "Example Room",
+            "type": "equirectangular",
+            "panorama": "palm_walk.jpg",
+            "hotSpotDebug": true,
+            "hfov": 100,
+
+            "hotSpots": [
+                {
+                    "pitch": -2,
+                    "yaw": -177,
+                    "type": "scene",
+                    "text": "palm 2",
+                    "sceneId": "palm2"
+                },
+                {
+                    "pitch": -5,
+                    "yaw": 60,
+                    "hotspotType": "youtube",
+                    "text": "Interview",
+                    "videoTitle": "Interview",
+                    "youtubeId": "jwi_CM5jRHU"
+                },
+                {
+                    "pitch": 20,
+                    "yaw": 20,
+                    "hotspotType": "image",
+                    "text": "rocks",
+                    "imageTitle": "a rock",
+                    "imageSrc": "granite.jpg"
+                }
+            ]
+        },
+        "palm2": {
+            "title": "Palm 2",
+            "type": "equirectangular",
+            "panorama": "palm_walk2.jpg",
+            "hotSpotDebug": true,
+            "hfov": 100,
+
+            "hotSpots": [
+                {
+                    "pitch": -2,
+                    "yaw": 0,
+                    "type": "scene",
+                    "text": "palm 1",
+                    "sceneId": "palm1"
+                }
+            ]
+        }
+    }
+}
