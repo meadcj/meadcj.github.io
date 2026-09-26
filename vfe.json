@@ -25,21 +25,12 @@
                     "targetYaw": 180
                 },
                 {
-                    "pitch": -5,
-                    "yaw": 60,
+                    "pitch": -2,
+                    "yaw": -57,
                     "hotspotType": "youtube",
                     "text": "Interview",
-                    "videoTitle": "Interview",
-                    "youtubeId": "jwi_CM5jRHU"
-                },
-                {
-                    "pitch": 20,
-                    "yaw": 20,
-                    "hotspotType": "image",
-                    "text": "rocks",
-                    "imageTitle": "a rock",
-                    "imageSrc": "granite.jpg",
-                    "icon": "icons/image.svg"
+                    "videoTitle": "Stop 6",
+                    "youtubeId": "xe47COnXCYc"
                 }
             ]
         },
@@ -57,6 +48,14 @@
                     "type": "scene",
                     "text": "palm 1",
                     "sceneId": "palm1"
+                },
+                {
+                    "pitch": -7,
+                    "yaw": -24,
+                    "hotspotType": "youtube",
+                    "text": "interview",
+                    "videoTitle": "Stop 5",
+                    "youtubeId": "ybzatb95e5Q"
                 }
             ]
         }
