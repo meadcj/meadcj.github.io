@@ -20,7 +20,9 @@
                     "yaw": -177,
                     "type": "scene",
                     "text": "palm 2",
-                    "sceneId": "palm2"
+                    "sceneId": "palm2",
+                    "targetPitch": -1.5,
+                    "targetYaw": 180
                 },
                 {
                     "pitch": -5,

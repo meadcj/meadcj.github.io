@@ -173,6 +173,28 @@ function prepareConfig(config, configUrl) {
         scene.hotSpots.forEach(hotspot => {
             hotspot.scale = false;
 
+            if (hotspot.hotspotType === "scene") {
+                hotspot.type = "scene";
+
+                hotspot.clickHandlerFunc = function(event, args) {
+                    event.stopPropagation();
+
+                    viewer.loadScene(
+                        args.sceneId,
+                        args.targetPitch,
+                        args.targetYaw,
+                        args.targetHfov
+                    );
+                };
+
+                hotspot.clickHandlerArgs = {
+                    sceneId: hotspot.sceneId,
+                    targetPitch: hotspot.targetPitch,
+                    targetYaw: hotspot.targetYaw,
+                    targetHfov: hotspot.targetHfov
+                };
+            }
+
             // IMAGE HOTSPOT
             if (hotspot.hotspotType === "image") {
                 hotspot.type = hotspot.type || "info";
@@ -278,9 +300,7 @@ function prepareConfig(config, configUrl) {
 async function initializeViewer() {
     try {
         const configUrl = new URL("vfe.json", document.baseURI);
-
         const response = await fetch(configUrl);
-
         if (!response.ok) {
             throw new Error(
                 `Unable to load json: ${response.status}`
@@ -288,22 +308,19 @@ async function initializeViewer() {
         }
 
         // Parse external JSON.
-            const config =
-            await response.json();
+            const config = await response.json();
 
         // Attach JavaScript behavior to the JSON-defined hotspots.
             prepareConfig(config, configUrl);
 
         // Create Pannellum.
-            const viewer = pannellum.viewer(
+            viewer = pannellum.viewer(
                 "panorama",
                 config
             );
 
         // Stop video when moving to another scene.
-            viewer.on("scenechange",
-                closeVideo
-            );
+            viewer.on("scenechange", closeVideo);
     }
     catch (error) {
         console.error(error);
