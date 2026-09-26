@@ -1,43 +1,16 @@
 
-const videoOverlay =
-    document.getElementById("videoOverlay");
+const videoOverlay = document.getElementById("videoOverlay");
+const video = document.getElementById("video");
+const videoSource = document.getElementById("videoSource");
+const videoTitle = document.getElementById("videoTitle");
+const closeVideoButton = document.getElementById("closeVideo");
+const errorElement = document.getElementById("error");
+const youtubeFrame = document.getElementById("youtubeFrame");
+const hotspotImage = document.getElementById("hotspotImage");
+const youtubeContainer = document.getElementById("youtubeContainer");
+const imageContainer = document.getElementById("imageContainer");
+const videoContainer = document.getElementById("videoContainer");
 
-const video =
-    document.getElementById("video");
-
-const videoSource =
-    document.getElementById("videoSource");
-
-const videoTitle =
-    document.getElementById("videoTitle");
-
-const closeVideoButton =
-    document.getElementById("closeVideo");
-
-const errorElement =
-    document.getElementById("error");
-
-const youtubeFrame =
-    document.getElementById("youtubeFrame");
-
-const hotspotImage =
-    document.getElementById("hotspotImage");
-
-const youtubeContainer =
-    document.getElementById("youtubeContainer");
-
-const imageContainer =
-    document.getElementById("imageContainer");
-
-const videoContainer =
-    document.getElementById("videoContainer");
-
-
-/*
- * ----------------------------------------------------------
- * VIDEO
- * ----------------------------------------------------------
- */
 
 function hideAllMedia() {
     youtubeContainer.classList.remove("active");
@@ -149,25 +122,16 @@ function closeVideo() {
 
 
 
-/*
- * ----------------------------------------------------------
- * VIDEO HOTSPOT
- * ----------------------------------------------------------
- */
-
-function createVideoHotspot(
+function createMediaHotspot(
     hotSpotDiv,
     args
 ) {
 
-    const icon =
-        document.createElement("div");
+    const icon = document.createElement("img");
 
-    icon.className =
-        "video-hotspot-icon";
-
-    icon.textContent =
-        "▶";
+    icon.className = "media-hotspot-icon";
+    icon.src = args.icon || "icons/video.svg";
+    icon.alt = "";
 
     hotSpotDiv.appendChild(icon);
 
@@ -197,22 +161,7 @@ function handleVideoClick(
 }
 
 
-/*
- * ----------------------------------------------------------
- * CONVERT JSON HOTSPOTS INTO PANNELLUM HOTSPOTS
- * ----------------------------------------------------------
- *
- * JSON can't contain JavaScript functions.
- *
- * We use:
- *
- *     "hotspotType": "video"
- *
- * to tell this code which behavior to attach.
- */
-
 function prepareConfig(config, configUrl) {
-
     if (!config.scenes) {
         return config;
     }
@@ -224,20 +173,16 @@ function prepareConfig(config, configUrl) {
         scene.hotSpots.forEach(hotspot => {
             hotspot.scale = false;
 
-            /*
-             * IMAGE HOTSPOT
-             */
+            // IMAGE HOTSPOT
             if (hotspot.hotspotType === "image") {
                 hotspot.type = hotspot.type || "info";
-                hotspot.cssClass =
-                    hotspot.cssClass || "video-hotspot";
-                hotspot.createTooltipFunc =
-                    createVideoHotspot;
+                hotspot.cssClass = hotspot.cssClass || "media-hotspot";
+                hotspot.createTooltipFunc = createMediaHotspot;
                 hotspot.createTooltipArgs = {
-                    title:
-                    hotspot.imageTitle ||
+                    title: hotspot.imageTitle ||
                     hotspot.text ||
-                    "View image"
+                    "View image",
+                    icon: hotspot.icon || "icons/image.svg"
                 };
 
                 hotspot.clickHandlerFunc =
@@ -251,8 +196,8 @@ function prepareConfig(config, configUrl) {
 
                 hotspot.clickHandlerArgs = {
                     src: hotspot.imageSrc
-                        ? new URL(hotspot.imageSrc, configUrl).href
-                        : "",
+                    ? new URL(hotspot.imageSrc, configUrl).href
+                    : "",
                     title:
                     hotspot.imageTitle ||
                     hotspot.text ||
@@ -260,15 +205,12 @@ function prepareConfig(config, configUrl) {
                 };
             }
 
-            /*
-             * YOUTUBE HOTSPOT
-             */
+            // YOUTUBE HOTSPOT
             else if (hotspot.hotspotType === "youtube") {
                 hotspot.type = hotspot.type || "info";
                 hotspot.cssClass =
-                    hotspot.cssClass || "video-hotspot";
-                hotspot.createTooltipFunc =
-                    createVideoHotspot;
+                    hotspot.cssClass || "media-hotspot";
+                hotspot.createTooltipFunc = createMediaHotspot;
                 hotspot.createTooltipArgs = {
                     title:
                     hotspot.videoTitle ||
@@ -294,15 +236,12 @@ function prepareConfig(config, configUrl) {
                 };
             }
 
-            /*
-             * LOCAL VIDEO HOTSPOT
-             */
+            // LOCAL VIDEO HOTSPOT
             else if (hotspot.hotspotType === "video") {
                 hotspot.type = hotspot.type || "info";
                 hotspot.cssClass =
-                    hotspot.cssClass || "video-hotspot";
-                hotspot.createTooltipFunc =
-                    createVideoHotspot;
+                    hotspot.cssClass || "media-hotspot";
+                hotspot.createTooltipFunc = createMediaHotspot;
                 hotspot.createTooltipArgs = {
                     title:
                     hotspot.videoTitle ||
@@ -321,8 +260,8 @@ function prepareConfig(config, configUrl) {
 
                 hotspot.clickHandlerArgs = {
                     src: hotspot.videoSrc
-                        ? new URL(hotspot.videoSrc, configUrl).href
-                        : "",
+                    ? new URL(hotspot.videoSrc, configUrl).href
+                    : "",
                     title:
                     hotspot.videoTitle ||
                     hotspot.text ||
@@ -335,21 +274,12 @@ function prepareConfig(config, configUrl) {
     return config;
 }
 
-/*
- * ----------------------------------------------------------
- * LOAD JSON
- * ----------------------------------------------------------
- */
 
 async function initializeViewer() {
-
     try {
+        const configUrl = new URL("vfe.json", document.baseURI);
 
-        const configUrl =
-            new URL("vfe.json", document.baseURI);
-
-        const response =
-            await fetch(configUrl);
+        const response = await fetch(configUrl);
 
         if (!response.ok) {
             throw new Error(
@@ -357,61 +287,43 @@ async function initializeViewer() {
             );
         }
 
-
-        /*
-         * Parse external JSON.
-         */
-
-        const config =
+        // Parse external JSON.
+            const config =
             await response.json();
 
+        // Attach JavaScript behavior to the JSON-defined hotspots.
+            prepareConfig(config, configUrl);
 
-        /*
-         * Attach JavaScript behavior to the JSON-defined
-         * hotspots.
-         */
-
-        prepareConfig(config, configUrl);
-
-
-        /*
-         * Create Pannellum.
-         */
-
-        const viewer =
-            pannellum.viewer(
+        // Create Pannellum.
+            const viewer = pannellum.viewer(
                 "panorama",
                 config
             );
 
-
-        /*
-         * Stop video when moving to another scene.
-         */
-
-        viewer.on(
-            "scenechange",
-            closeVideo
-        );
-
+        // Stop video when moving to another scene.
+            viewer.on("scenechange",
+                closeVideo
+            );
     }
     catch (error) {
-
         console.error(error);
-
-        errorElement.textContent =
-            error.message;
-
-        errorElement.style.display =
-            "block";
-
+        errorElement.textContent = error.message;
+        errorElement.style.display = "block";
     }
-
 }
 
 closeVideoButton.addEventListener(
     "click",
     closeVideo
 );
+
+document.addEventListener("keydown", function(event) {
+    if (
+        event.key === "Escape" &&
+        videoOverlay.classList.contains("open")
+    ) {
+        closeVideo();
+    }
+});
 
 initializeViewer();

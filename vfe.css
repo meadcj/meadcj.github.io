@@ -21,7 +21,7 @@
      * Pannellum controls the transform of this outer element.
      * Do not apply CSS transforms or transitions to it.
      */
-    .video-hotspot {
+    .media-hotspot {
         width: 44px;
         height: 44px;
         margin-left: -22px;
@@ -33,33 +33,15 @@
      * Visual effects belong on the inner element so they don't
      * interfere with Pannellum's hotspot positioning.
      */
-    .video-hotspot-icon {
+    .media-hotspot-icon {
         width: 44px;
         height: 44px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border: 2px solid #fff;
-        border-radius: 50%;
-
-        background: rgba(0, 0, 0, 0.75);
-        color: #fff;
-
-        font-size: 18px;
-        font-weight: 700;
-
-        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.45);
-
-        transition:
-            transform 0.15s ease,
-        background 0.15s ease;
+        display: block;
+        cursor: pointer;
     }
 
-    .video-hotspot:hover .video-hotspot-icon {
+    .media-hotspot:hover .media-hotspot-icon {
         transform: scale(1.1);
-        background: rgba(0, 0, 0, 0.9);
     }
 
     /* Video overlay */
@@ -69,7 +51,7 @@
         right: 24px;
         bottom: 24px;
 
-        width: min(420px, calc(100vw - 32px));
+        width: min(600px, calc(100vw - 32px));
 
         z-index: 9999;
 

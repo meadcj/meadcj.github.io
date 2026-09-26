@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44">
+
+  <circle cx="22" cy="22" r="20" fill="rgba(0,0,0,0.75)" stroke="white" stroke-width="2"></circle>
+
+  <!-- image frame -->
+  <rect x="12" y="14" width="20" height="16" rx="1" fill="none" stroke="white" stroke-width="2"></rect>
+
+  <!-- sun -->
+  <circle cx="27" cy="19" r="2" fill="white"></circle>
+
+  <!-- mountains -->
+  <path d="M13 28 L19 21 L23 25 L26 22 L31 28" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"></path>
+
+</svg>

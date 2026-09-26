@@ -8,7 +8,7 @@
 
     "scenes": {
         "palm1": {
-            "title": "Example Room",
+            "title": "Palm Walk 1",
             "type": "equirectangular",
             "panorama": "palm_walk.jpg",
             "hotSpotDebug": true,
@@ -36,12 +36,13 @@
                     "hotspotType": "image",
                     "text": "rocks",
                     "imageTitle": "a rock",
-                    "imageSrc": "granite.jpg"
+                    "imageSrc": "granite.jpg",
+                    "icon": "icons/image.svg"
                 }
             ]
         },
         "palm2": {
-            "title": "Palm 2",
+            "title": "Palm Walk 2",
             "type": "equirectangular",
             "panorama": "palm_walk2.jpg",
             "hotSpotDebug": true,
