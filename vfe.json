@@ -9,10 +9,16 @@
     "scenes": {
         "palm1": {
             "title": "Palm Walk 1",
-            "type": "equirectangular",
-            "panorama": "palm_walk.jpg",
+            "type": "cubemap",
+            "cubeMap": [
+                "palm_walk_face_0.jpg",
+                "palm_walk_face_1.jpg",
+                "palm_walk_face_2.jpg",
+                "palm_walk_face_3.jpg",
+                "palm_walk_face_4.jpg",
+                "palm_walk_face_5.jpg"
+            ],
             "hotSpotDebug": true,
-            "hfov": 100,
 
             "hotSpots": [
                 {
@@ -36,10 +42,16 @@
         },
         "palm2": {
             "title": "Palm Walk 2",
-            "type": "equirectangular",
-            "panorama": "palm_walk2.jpg",
+            "type": "cubemap",
+            "cubeMap": [
+                "palm_walk2_face_0.jpg",
+                "palm_walk2_face_1.jpg",
+                "palm_walk2_face_2.jpg",
+                "palm_walk2_face_3.jpg",
+                "palm_walk2_face_4.jpg",
+                "palm_walk2_face_5.jpg"
+            ],
             "hotSpotDebug": true,
-            "hfov": 100,
 
             "hotSpots": [
                 {

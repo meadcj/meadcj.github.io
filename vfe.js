@@ -10,6 +10,7 @@ const hotspotImage = document.getElementById("hotspotImage");
 const youtubeContainer = document.getElementById("youtubeContainer");
 const imageContainer = document.getElementById("imageContainer");
 const videoContainer = document.getElementById("videoContainer");
+const panorama = document.getElementById("panorama");
 
 
 function hideAllMedia() {
@@ -343,5 +344,11 @@ document.addEventListener("keydown", function(event) {
         closeVideo();
     }
 });
+
+panorama.addEventListener("keydown", function(event) {
+    if (event.key === "Shift" || event.key === "Control") {
+        event.stopImmediatePropagation();
+    }
+}, true);
 
 initializeViewer();
