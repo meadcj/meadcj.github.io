@@ -19,26 +19,49 @@
                 "palm_walk_face_5.jpg"
             ],
             "hotSpotDebug": true,
-
-            "hotSpots": [
-                {
-                    "pitch": -2,
-                    "yaw": -177,
-                    "type": "scene",
-                    "text": "palm 2",
-                    "sceneId": "palm2",
-                    "targetPitch": -1.5,
-                    "targetYaw": 180
+            "hotSpotSlates": {
+                "all": {
+                    "label": "All",
+                    "hotSpots": [
+                        {
+                            "id": "palm1-scene1",
+                            "pitch": -3,
+                            "yaw": -178,
+                            "type": "scene",
+                            "text": "palm 2",
+                            "sceneId": "palm2",
+                            "targetPitch": -1.5,
+                            "targetYaw": 180,
+                            "icon": "icons/arrow.svg"
+                        },
+                        {
+                            "id": "palm1-video1",
+                            "pitch": -2,
+                            "yaw": -57,
+                            "hotspotType": "youtube",
+                            "text": "Interview",
+                            "videoTitle": "Stop 6",
+                            "youtubeId": "xe47COnXCYc"
+                        }
+                    ]
                 },
-                {
-                    "pitch": -2,
-                    "yaw": -57,
-                    "hotspotType": "youtube",
-                    "text": "Interview",
-                    "videoTitle": "Stop 6",
-                    "youtubeId": "xe47COnXCYc"
+                "reduced": {
+                    "label": "Reduced",
+                    "hotSpots": [
+                        {
+                            "id": "palm1-scene1",
+                            "pitch": -3,
+                            "yaw": -178,
+                            "type": "scene",
+                            "text": "palm 2",
+                            "sceneId": "palm2",
+                            "targetPitch": -1.5,
+                            "targetYaw": 180,
+                            "icon": "icons/arrow.svg"
+                        }
+                    ]
                 }
-            ]
+            }
         },
         "palm2": {
             "title": "Palm Walk 2",
@@ -52,24 +75,30 @@
                 "palm_walk2_face_5.jpg"
             ],
             "hotSpotDebug": true,
-
-            "hotSpots": [
-                {
-                    "pitch": -2,
-                    "yaw": 0,
-                    "type": "scene",
-                    "text": "palm 1",
-                    "sceneId": "palm1"
-                },
-                {
-                    "pitch": -7,
-                    "yaw": -24,
-                    "hotspotType": "youtube",
-                    "text": "interview",
-                    "videoTitle": "Stop 5",
-                    "youtubeId": "ybzatb95e5Q"
+            "hotSpotSlates": {
+                "all": {
+                    "label": "All",
+                    "hotSpots": [
+                        {
+                            "id": "palm2-scene1",
+                            "pitch": -2,
+                            "yaw": 0,
+                            "type": "scene",
+                            "text": "palm 1",
+                            "sceneId": "palm1"
+                        },
+                        {
+                            "id": "palm2-video1",
+                            "pitch": -7,
+                            "yaw": -24,
+                            "hotspotType": "youtube",
+                            "text": "interview",
+                            "videoTitle": "Stop 5",
+                            "youtubeId": "ybzatb95e5Q"
+                        }
+                    ]
                 }
-            ]
+            }
         }
     }
 }
