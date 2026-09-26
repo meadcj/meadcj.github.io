@@ -173,6 +173,7 @@ function prepareConfig(config, configUrl) {
         scene.hotSpots.forEach(hotspot => {
             hotspot.scale = false;
 
+            // Scene hotspot
             if (hotspot.hotspotType === "scene") {
                 hotspot.type = "scene";
 

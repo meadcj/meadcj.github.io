@@ -44,7 +44,14 @@
         transform: scale(1.1);
     }
 
-    /* Video overlay */
+    .pnlm-info {
+        background-image: url("icons/info.svg");
+    }
+
+    .pnlm-scene {
+        background-image: url("icons/arrow.svg");
+    }
+
 
     #videoOverlay {
         position: fixed;
