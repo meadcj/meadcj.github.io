@@ -13,7 +13,7 @@
 
         <link
                 rel="stylesheet"
-                href="vfe.css"
+                href="../vfe.css"
                 >
     </head>
 
@@ -22,7 +22,7 @@
         <div id="slateControls" aria-label="Hotspot slates"></div>
         <div id="error"></div>
         <div
-                id="videoOverlay"
+                id="mediaOverlay"
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="videoTitle"
@@ -62,10 +62,13 @@
                             type="video/mp4">
                 </video>
             </div>
+            <audio id="audio" controls preload="metadata">
+                <source id="audioSource" src="" type="audio/mpeg">
+            </audio>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js"></script>
-        <script src="vfe.js"></script>
+        <script src="../vfe.js"></script>
 
     </body>
 </html>

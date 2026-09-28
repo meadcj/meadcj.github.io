@@ -4,7 +4,7 @@ let configUrl;
 let currentSlate = null;
 let activeHotspotIds = [];
 
-const videoOverlay = document.getElementById("videoOverlay");
+const mediaOverlay = document.getElementById("mediaOverlay");
 const video = document.getElementById("video");
 const videoSource = document.getElementById("videoSource");
 const videoTitle = document.getElementById("videoTitle");
@@ -16,6 +16,8 @@ const youtubeContainer = document.getElementById("youtubeContainer");
 const imageContainer = document.getElementById("imageContainer");
 const videoContainer = document.getElementById("videoContainer");
 const slateControls = document.getElementById("slateControls");
+const audio = document.getElementById("audio");
+const audioSource = document.getElementById("audioSource");
 const panorama = document.getElementById("panorama");
 
 
@@ -35,6 +37,13 @@ function hideAllMedia() {
     video.currentTime = 0;
     videoSource.src = "";
     video.load();
+
+    audio.pause();
+    audio.currentTime = 0;
+    audioSource.src = "";
+    audio.load();
+    audio.classList.remove("active");
+    mediaOverlay.classList.remove("audio-mode");
 }
 
 
@@ -53,8 +62,8 @@ function openYouTube(youtubeId, title) {
 
     youtubeContainer.classList.add("active");
     videoTitle.textContent = title || "";
-    videoOverlay.classList.add("open");
-    videoOverlay.setAttribute("aria-hidden", "false");
+    mediaOverlay.classList.add("open");
+    mediaOverlay.setAttribute("aria-hidden", "false");
 }
 
 
@@ -69,8 +78,8 @@ function openImage(src, title) {
     errorElement.style.display = "none";
     hotspotImage.alt = title || "";
     videoTitle.textContent = title || "";
-    videoOverlay.classList.add("open");
-    videoOverlay.setAttribute("aria-hidden", "false");
+    mediaOverlay.classList.add("open");
+    mediaOverlay.setAttribute("aria-hidden", "false");
 
     hotspotImage.onload = () => {
         imageContainer.classList.add("active");
@@ -104,16 +113,34 @@ function openVideo(src, title) {
     videoTitle.textContent = title || "";
     videoContainer.classList.add("active");
     video.load();
-    videoOverlay.classList.add("open");
-    videoOverlay.setAttribute("aria-hidden", "false");
+    mediaOverlay.classList.add("open");
+    mediaOverlay.setAttribute("aria-hidden", "false");
     video.play().catch(() => {});
 }
 
 
 function closeVideo() {
     hideAllMedia();
-    videoOverlay.classList.remove("open");
-    videoOverlay.setAttribute("aria-hidden", "true");
+    mediaOverlay.classList.remove("open");
+    mediaOverlay.setAttribute("aria-hidden", "true");
+}
+
+
+function openAudio(src, title) {
+    if (!src) {
+        console.error("Audio hotspot has no audioSrc.");
+        return;
+    }
+
+    hideAllMedia();
+    audioSource.src = src;
+    audio.load();
+    videoTitle.textContent = title || "";
+    audio.classList.add("active");
+    mediaOverlay.classList.add("open");
+    mediaOverlay.classList.add("audio-mode");
+    mediaOverlay.setAttribute("aria-hidden", "false");
+    audio.play().catch(() => {});
 }
 
 
@@ -121,7 +148,7 @@ function createMediaHotspot(hotSpotDiv, args) {
     const icon = document.createElement("img");
 
     icon.className = "media-hotspot-icon";
-    icon.src = args.icon || "icons/video.svg";
+    icon.src = args.icon || "../icons/video.svg";
     icon.alt = "";
 
     hotSpotDiv.appendChild(icon);
@@ -180,7 +207,7 @@ function prepareHotspot(hotspot) {
         hotspot.createTooltipFunc = createMediaHotspot;
         hotspot.createTooltipArgs = {
             title: hotspot.imageTitle || hotspot.text || "View image",
-            icon: hotspot.icon || "icons/image.svg"
+            icon: hotspot.icon || "../icons/image.svg"
         };
         hotspot.clickHandlerFunc = function(event, args) {
             event.stopPropagation();
@@ -236,6 +263,29 @@ function prepareHotspot(hotspot) {
         return hotspot;
     }
 
+    // local audio hotspot
+    if (hotspot.hotspotType === "audio") {
+        hotspot.type = hotspot.type || "info";
+        hotspot.cssClass = hotspot.cssClass || "media-hotspot";
+        hotspot.createTooltipFunc = createMediaHotspot;
+        hotspot.createTooltipArgs = {
+            title: hotspot.audioTitle || hotspot.text || "Play audio",
+            icon: hotspot.icon || "../icons/audio.svg"
+        };
+        hotspot.clickHandlerFunc = function(event, args) {
+            event.stopPropagation();
+            openAudio( args.src, args.title
+            );
+        };
+        hotspot.clickHandlerArgs = {
+            src: hotspot.audioSrc
+            ? new URL(hotspot.audioSrc, configUrl).href
+            : "",
+            title: hotspot.audioTitle || hotspot.text || ""
+        };
+        return hotspot;
+    }
+
     return hotspot;
 }
 
@@ -270,6 +320,11 @@ function renderSlateButtons() {
     const scene = currentSceneConfig();
     const entries = getSlateEntries(scene);
 
+    if (entries.length <= 1) {
+        slateControls.hidden = true;
+        return;
+    }
+
     entries.forEach(([id, slate]) => {
         const button = document.createElement("button");
         button.type = "button";
@@ -292,7 +347,7 @@ function renderSlateButtons() {
         slateControls.appendChild(button);
     });
 
-    slateControls.hidden = entries.length === 0;
+    slateControls.hidden = entries.length <= 1;
 }
 
 function removeActiveHotspots() {
@@ -377,7 +432,7 @@ closeVideoButton.addEventListener(
 document.addEventListener("keydown", function(event) {
     if (
         event.key === "Escape" &&
-        videoOverlay.classList.contains("open")
+        mediaOverlay.classList.contains("open")
     ) {
         closeVideo();
     }

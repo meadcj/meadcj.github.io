@@ -11,12 +11,12 @@
             "title": "Palm Walk 1",
             "type": "cubemap",
             "cubeMap": [
-                "palm_walk_face_0.jpg",
-                "palm_walk_face_1.jpg",
-                "palm_walk_face_2.jpg",
-                "palm_walk_face_3.jpg",
-                "palm_walk_face_4.jpg",
-                "palm_walk_face_5.jpg"
+                "media/palm_walk_face_0.jpg",
+                "media/palm_walk_face_1.jpg",
+                "media/palm_walk_face_2.jpg",
+                "media/palm_walk_face_3.jpg",
+                "media/palm_walk_face_4.jpg",
+                "media/palm_walk_face_5.jpg"
             ],
             "hotSpotDebug": true,
             "hotSpotSlates": {
@@ -32,7 +32,7 @@
                             "sceneId": "palm2",
                             "targetPitch": -1.5,
                             "targetYaw": 180,
-                            "icon": "icons/arrow.svg"
+                            "icon": "../icons/arrow.svg"
                         },
                         {
                             "id": "palm1-video1",
@@ -42,6 +42,16 @@
                             "text": "Interview",
                             "videoTitle": "Stop 6",
                             "youtubeId": "xe47COnXCYc"
+                        },
+                        {
+                            "id": "palm1-audio1",
+                            "pitch": -5,
+                            "yaw": -70,
+                            "hotspotType": "audio",
+                            "text": "Audio",
+                            "audioTitle": "Field recording",
+                            "audioSrc": "media/260320-070452 - fwing tyler mall.mp3",
+                            "icon": "../icons/audio.svg"
                         }
                     ]
                 },
@@ -57,7 +67,7 @@
                             "sceneId": "palm2",
                             "targetPitch": -1.5,
                             "targetYaw": 180,
-                            "icon": "icons/arrow.svg"
+                            "icon": "../icons/arrow.svg"
                         }
                     ]
                 }
@@ -67,12 +77,12 @@
             "title": "Palm Walk 2",
             "type": "cubemap",
             "cubeMap": [
-                "palm_walk2_face_0.jpg",
-                "palm_walk2_face_1.jpg",
-                "palm_walk2_face_2.jpg",
-                "palm_walk2_face_3.jpg",
-                "palm_walk2_face_4.jpg",
-                "palm_walk2_face_5.jpg"
+                "media/palm_walk2_face_0.jpg",
+                "media/palm_walk2_face_1.jpg",
+                "media/palm_walk2_face_2.jpg",
+                "media/palm_walk2_face_3.jpg",
+                "media/palm_walk2_face_4.jpg",
+                "media/palm_walk2_face_5.jpg"
             ],
             "hotSpotDebug": true,
             "hotSpotSlates": {

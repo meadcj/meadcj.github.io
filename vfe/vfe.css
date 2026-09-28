@@ -17,6 +17,10 @@ body {
     height: 100%;
 }
 
+.pnlm-hot-spot-debug-indicator {
+    display: none !important;
+}
+
 /* Hotspot slate selector */
 #slateControls {
     position: fixed;
@@ -29,6 +33,10 @@ body {
     border-radius: 8px;
     background: rgba(20, 20, 20, 0.78);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+#slateControls[hidden] {
+    display: none;
 }
 
 #slateControls button {
@@ -79,7 +87,7 @@ body {
 }
 
 
-#videoOverlay {
+#mediaOverlay {
     position: fixed;
     right: 24px;
     bottom: 24px;
@@ -95,10 +103,14 @@ body {
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-#videoOverlay.open {
+#mediaOverlay.open {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+}
+
+#mediaOverlay.audio-mode {
+    width: min(350px, calc(100vw - 32px));
 }
 
 #videoTitle {
@@ -191,6 +203,15 @@ body {
     display: block;
 }
 
+#audio {
+    display: none;
+    width: 100%;
+}
+
+#audio.active {
+    display: block;
+}
+
 @media (max-width: 600px) {
     #slateControls {
         top: 10px;
@@ -203,7 +224,7 @@ body {
         font-size: 12px;
     }
 
-    #videoOverlay {
+    #mediaOverlay {
         right: 16px;
         bottom: 16px;
         width: calc(100vw - 32px);
