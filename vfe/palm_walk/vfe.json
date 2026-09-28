@@ -44,6 +44,15 @@
                             "youtubeId": "xe47COnXCYc"
                         },
                         {
+                            "id": "palm1-video2",
+                            "pitch": 10,
+                            "yaw": 180,
+                            "hotspotType": "youtube",
+                            "text": "Interview",
+                            "videoTitle": "Stop 4",
+                            "youtubeId": "o8sTZFCBCik"
+                        },
+                        {
                             "id": "palm1-audio1",
                             "pitch": -5,
                             "yaw": -70,
