@@ -11,12 +11,12 @@
             "title": "Palm Walk 1",
             "type": "cubemap",
             "cubeMap": [
-                "media/palm_walk_face_0.jpg",
-                "media/palm_walk_face_1.jpg",
-                "media/palm_walk_face_2.jpg",
-                "media/palm_walk_face_3.jpg",
-                "media/palm_walk_face_4.jpg",
-                "media/palm_walk_face_5.jpg"
+                "media/pano_palm_walk1_edited_face_0.jpg",
+                "media/pano_palm_walk1_edited_face_1.jpg",
+                "media/pano_palm_walk1_edited_face_2.jpg",
+                "media/pano_palm_walk1_edited_face_3.jpg",
+                "media/pano_palm_walk1_edited_face_4.jpg",
+                "media/pano_palm_walk1_edited_face_5.jpg"
             ],
             "hotSpotDebug": true,
             "hotSpotSlates": {
@@ -86,12 +86,12 @@
             "title": "Palm Walk 2",
             "type": "cubemap",
             "cubeMap": [
-                "media/palm_walk2_face_0.jpg",
-                "media/palm_walk2_face_1.jpg",
-                "media/palm_walk2_face_2.jpg",
-                "media/palm_walk2_face_3.jpg",
-                "media/palm_walk2_face_4.jpg",
-                "media/palm_walk2_face_5.jpg"
+                "media/pano_palm_walk2_edited_face_0.jpg",
+                "media/pano_palm_walk2_edited_face_1.jpg",
+                "media/pano_palm_walk2_edited_face_2.jpg",
+                "media/pano_palm_walk2_edited_face_3.jpg",
+                "media/pano_palm_walk2_edited_face_4.jpg",
+                "media/pano_palm_walk2_edited_face_5.jpg"
             ],
             "hotSpotDebug": true,
             "hotSpotSlates": {
