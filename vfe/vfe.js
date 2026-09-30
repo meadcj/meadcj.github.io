@@ -228,7 +228,8 @@ function prepareHotspot(hotspot) {
         hotspot.cssClass = hotspot.cssClass || "media-hotspot";
         hotspot.createTooltipFunc = createMediaHotspot;
         hotspot.createTooltipArgs = {
-            title: hotspot.videoTitle || hotspot.text || "Play video"
+            title: hotspot.videoTitle || hotspot.text || "Play video",
+            icon: hotspot.icon || "../icons/video.svg"
         };
         hotspot.clickHandlerFunc = function(event, args) {
             event.stopPropagation();
@@ -247,7 +248,8 @@ function prepareHotspot(hotspot) {
         hotspot.cssClass = hotspot.cssClass || "media-hotspot";
         hotspot.createTooltipFunc = createMediaHotspot;
         hotspot.createTooltipArgs = {
-            title: hotspot.videoTitle || hotspot.text || "Play video"
+            title: hotspot.videoTitle || hotspot.text || "Play video",
+            icon: hotspot.icon || "../icons/video.svg"
         };
         hotspot.clickHandlerFunc = function(event, args) {
             event.stopPropagation();

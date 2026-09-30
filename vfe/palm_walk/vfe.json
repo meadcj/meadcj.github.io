@@ -26,7 +26,7 @@
                         {
                             "id": "palm1-scene1",
                             "pitch": -3,
-                            "yaw": -178,
+                            "yaw": -177,
                             "type": "scene",
                             "text": "palm 2",
                             "sceneId": "palm2",
@@ -50,7 +50,8 @@
                             "hotspotType": "youtube",
                             "text": "Interview",
                             "videoTitle": "Stop 4",
-                            "youtubeId": "o8sTZFCBCik"
+                            "youtubeId": "o8sTZFCBCik",
+                            "icon": "../icons/pink_video.svg"
                         },
                         {
                             "id": "palm1-audio1",
@@ -104,7 +105,8 @@
                             "yaw": 0,
                             "type": "scene",
                             "text": "palm 1",
-                            "sceneId": "palm1"
+                            "sceneId": "palm1",
+                            "icon": "../icons/arrow.svg"
                         },
                         {
                             "id": "palm2-video1",
