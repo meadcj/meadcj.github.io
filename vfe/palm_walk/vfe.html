@@ -6,15 +6,10 @@
 
         <title>Pannellum 360 Viewer</title>
 
-        <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.css"
-        >
+        <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.css" >-->
 
-        <link
-        rel="stylesheet"
-        href="../vfe.css"
-        >
+        <link rel="stylesheet" href="../pannellum.css" >
+        <link rel="stylesheet" href="../vfe.css" >
     </head>
 
         <body>
@@ -25,16 +20,16 @@
                     id="mediaOverlay"
                     role="dialog"
                     aria-modal="true"
-                    aria-labelledby="videoTitle"
+                    aria-labelledby="mediaTitle"
                     aria-hidden="true">
                     <button
-                        id="closeVideo"
+                        id="closeMedia"
                         type="button"
                         aria-label="Close">
                         &times;
                     </button>
 
-                    <div id="videoTitle"></div>
+                    <div id="mediaTitle"></div>
                     <div id="youtubeContainer" class="media-container">
                         <iframe
                             id="youtubeFrame"
@@ -67,7 +62,22 @@
                     </audio>
                 </div>
 
-                <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js"></script>
+                <div
+                    id="descriptionOverlay"
+                    aria-hidden="true">
+                    <button
+                        id="closeDescription"
+                        type="button"
+                        aria-label="Close description">
+                        &times;
+                    </button>
+
+                    <div id="descriptionTitle"></div>
+                    <div id="descriptionContent"></div>
+                </div>
+
+                <!--<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js"></script>-->
+                <script src="../pannellum.js"></script>
                 <script src="../vfe.js"></script>
             </div>
         </body>

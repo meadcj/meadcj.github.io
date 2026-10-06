@@ -1,14 +1,20 @@
 let viewer;
+let viewerConfig;
 let config;
 let configUrl;
 let currentSlate = null;
 let activeHotspotIds = [];
+let openInfoAfterSceneChange = false;
 
 const mediaOverlay = document.getElementById("mediaOverlay");
 const video = document.getElementById("video");
 const videoSource = document.getElementById("videoSource");
-const videoTitle = document.getElementById("videoTitle");
-const closeVideoButton = document.getElementById("closeVideo");
+const mediaTitle = document.getElementById("mediaTitle");
+const closeMediaButton = document.getElementById("closeMedia");
+const descriptionOverlay = document.getElementById("descriptionOverlay");
+const descriptionTitle = document.getElementById("descriptionTitle");
+const descriptionContent = document.getElementById("descriptionContent");
+const closeDescriptionButton = document.getElementById("closeDescription");
 const errorElement = document.getElementById("error");
 const youtubeFrame = document.getElementById("youtubeFrame");
 const hotspotImage = document.getElementById("hotspotImage");
@@ -19,6 +25,7 @@ const slateControls = document.getElementById("slateControls");
 const audio = document.getElementById("audio");
 const audioSource = document.getElementById("audioSource");
 const panorama = document.getElementById("panorama");
+
 
 
 function hideAllMedia() {
@@ -61,7 +68,7 @@ function openYouTube(youtubeId, title) {
         "?autoplay=1&rel=0";
 
     youtubeContainer.classList.add("active");
-    videoTitle.textContent = title || "";
+    mediaTitle.textContent = title || "";
     mediaOverlay.classList.add("open");
     mediaOverlay.setAttribute("aria-hidden", "false");
 }
@@ -77,7 +84,7 @@ function openImage(src, title) {
 
     errorElement.style.display = "none";
     hotspotImage.alt = title || "";
-    videoTitle.textContent = title || "";
+    mediaTitle.textContent = title || "";
     mediaOverlay.classList.add("open");
     mediaOverlay.setAttribute("aria-hidden", "false");
 
@@ -94,7 +101,7 @@ function openImage(src, title) {
         console.error(message);
         errorElement.textContent = message;
         errorElement.style.display = "block";
-        closeVideo();
+        closeMedia();
     };
 
     hotspotImage.src = src;
@@ -110,7 +117,7 @@ function openVideo(src, title) {
     hideAllMedia();
 
     videoSource.src = src;
-    videoTitle.textContent = title || "";
+    mediaTitle.textContent = title || "";
     videoContainer.classList.add("active");
     video.load();
     mediaOverlay.classList.add("open");
@@ -119,7 +126,7 @@ function openVideo(src, title) {
 }
 
 
-function closeVideo() {
+function closeMedia() {
     hideAllMedia();
     mediaOverlay.classList.remove("open");
     mediaOverlay.setAttribute("aria-hidden", "true");
@@ -135,7 +142,7 @@ function openAudio(src, title) {
     hideAllMedia();
     audioSource.src = src;
     audio.load();
-    videoTitle.textContent = title || "";
+    mediaTitle.textContent = title || "";
     audio.classList.add("active");
     mediaOverlay.classList.add("open");
     mediaOverlay.classList.add("audio-mode");
@@ -169,7 +176,7 @@ function prepareHotspot(hotspot) {
     // Scene hotspot
     if (hotspot.type === "scene") {
         if (hotspot.icon) {
-            hotspot.type = "info";
+            //hotspot.type = "info";
             hotspot.cssClass = "media-hotspot";
             hotspot.createTooltipFunc = createMediaHotspot;
             hotspot.createTooltipArgs = {
@@ -183,6 +190,7 @@ function prepareHotspot(hotspot) {
 
         hotspot.clickHandlerFunc = function(event, args) {
             event.stopPropagation();
+            openInfoAfterSceneChange = args.infoOpen === true;
             viewer.loadScene(
                 args.sceneId,
                 args.targetPitch,
@@ -195,14 +203,30 @@ function prepareHotspot(hotspot) {
             sceneId: hotspot.sceneId,
             targetPitch: hotspot.targetPitch,
             targetYaw: hotspot.targetYaw,
-            targetHfov: hotspot.targetHfov
+            targetHfov: hotspot.targetHfov,
+            infoOpen: hotspot.infoOpen
         };
         return hotspot;
     }
 
+    // Info hotspot
+    if (hotspot.type === "info" && hotspot.icon) {
+        const className = `info-icon-${crypto.randomUUID()}`;
+
+        const style = document.createElement("style");
+        style.textContent = `
+            .${className} {
+                background-image: url("${hotspot.icon}") !important;
+            }
+        `;
+        document.head.appendChild(style);
+
+        hotspot.cssClass = `pnlm-info ${className}`;
+    }
+
     // Image hotspot
     if (hotspot.hotspotType === "image") {
-        hotspot.type = hotspot.type || "info";
+        //hotspot.type = hotspot.type || "info";
         hotspot.cssClass = hotspot.cssClass || "media-hotspot";
         hotspot.createTooltipFunc = createMediaHotspot;
         hotspot.createTooltipArgs = {
@@ -224,11 +248,11 @@ function prepareHotspot(hotspot) {
 
     // Youtube hotspot
     if (hotspot.hotspotType === "youtube") {
-        hotspot.type = hotspot.type || "info";
+        //hotspot.type = hotspot.type || "info";
         hotspot.cssClass = hotspot.cssClass || "media-hotspot";
         hotspot.createTooltipFunc = createMediaHotspot;
         hotspot.createTooltipArgs = {
-            title: hotspot.videoTitle || hotspot.text || "Play video",
+            title: hotspot.mediaTitle || hotspot.text || "Play video",
             icon: hotspot.icon || "../icons/video.svg"
         };
         hotspot.clickHandlerFunc = function(event, args) {
@@ -237,18 +261,18 @@ function prepareHotspot(hotspot) {
         };
         hotspot.clickHandlerArgs = {
             youtubeId: hotspot.youtubeId,
-            title: hotspot.videoTitle || hotspot.text || ""
+            title: hotspot.mediaTitle || hotspot.text || ""
         };
         return hotspot;
     }
 
     // local video hotspot
     if (hotspot.hotspotType === "video") {
-        hotspot.type = hotspot.type || "info";
+        //hotspot.type = hotspot.type || "info";
         hotspot.cssClass = hotspot.cssClass || "media-hotspot";
         hotspot.createTooltipFunc = createMediaHotspot;
         hotspot.createTooltipArgs = {
-            title: hotspot.videoTitle || hotspot.text || "Play video",
+            title: hotspot.mediaTitle || hotspot.text || "Play video",
             icon: hotspot.icon || "../icons/video.svg"
         };
         hotspot.clickHandlerFunc = function(event, args) {
@@ -260,14 +284,14 @@ function prepareHotspot(hotspot) {
             src: hotspot.videoSrc
             ? new URL(hotspot.videoSrc, configUrl).href
             : "",
-            title: hotspot.videoTitle || hotspot.text || ""
+            title: hotspot.mediaTitle || hotspot.text || ""
         };
         return hotspot;
     }
 
     // local audio hotspot
     if (hotspot.hotspotType === "audio") {
-        hotspot.type = hotspot.type || "info";
+        //hotspot.type = hotspot.type || "info";
         hotspot.cssClass = hotspot.cssClass || "media-hotspot";
         hotspot.createTooltipFunc = createMediaHotspot;
         hotspot.createTooltipArgs = {
@@ -381,6 +405,44 @@ function loadSlate(name) {
     renderSlateButtons();
 }
 
+async function openDescription() {
+    const sceneId = viewer.getScene();
+    const scene = viewerConfig.scenes[sceneId];
+
+    descriptionTitle.textContent = scene.title || "";
+    descriptionContent.replaceChildren();
+
+    if (scene.descriptionFile) {
+        try {
+            const url = new URL(scene.descriptionFile, viewerConfig.configUrl);
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error(
+                    `Unable to load description: ${response.status}`
+                );
+            }
+
+            descriptionContent.innerHTML = await response.text();
+        }
+        catch (error) {
+            console.error(error);
+            descriptionContent.textContent = "Unable to load description.";
+        }
+    }
+    else {
+        descriptionContent.textContent = scene.description || "";
+    }
+
+    descriptionOverlay.classList.add("open");
+    descriptionOverlay.setAttribute("aria-hidden", "false");
+}
+
+function closeDescription() {
+    descriptionOverlay.classList.remove("open");
+    descriptionOverlay.setAttribute("aria-hidden", "true");
+}
+
 async function initializeViewer() {
     try {
         configUrl = new URL("vfe.json", document.baseURI);
@@ -391,6 +453,8 @@ async function initializeViewer() {
         }
 
         config = await response.json();
+        config.configUrl = configUrl;
+        viewerConfig = config;
 
         // Do not give Pannellum a static hotSpots array. The selected slate
         // is installed after the viewer is created through the API.
@@ -400,12 +464,51 @@ async function initializeViewer() {
 
         viewer = pannellum.viewer("panorama", config);
 
+        const descriptionButton = document.createElement("div");
+
+        descriptionButton.className =
+            "pnlm-controls pnlm-description-toggle";
+
+        descriptionButton.setAttribute("role", "button");
+        descriptionButton.setAttribute("tabindex", "0");
+        descriptionButton.setAttribute("aria-label", "Scene description");
+        descriptionButton.textContent = "i";
+
+        descriptionButton.addEventListener("click", () => {
+            if (descriptionOverlay.classList.contains("open")) {
+                closeDescription();
+            } else {
+                openDescription();
+            }
+        });
+
+        descriptionButton.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                if (descriptionOverlay.classList.contains("open")) {
+                    closeDescription();
+                } else {
+                openDescription();
+                }
+            }
+        });
+
+        document
+            .querySelector(".pnlm-controls-container")
+            .appendChild(descriptionButton);
+
+
         viewer.on("scenechange", () => {
-            closeVideo();
+            closeMedia();
+            closeDescription();
             currentSlate = getDefaultSlate(currentSceneConfig());
             renderSlateButtons();
             if (currentSlate) {
                 loadSlate(currentSlate);
+            }
+            if (openInfoAfterSceneChange) {
+                openDescription();
+                openInfoAfterSceneChange = false;
             }
         });
 
@@ -426,17 +529,25 @@ async function initializeViewer() {
 
 
 
-closeVideoButton.addEventListener(
+closeMediaButton.addEventListener(
     "click",
-    closeVideo
+    closeMedia
+);
+
+closeDescriptionButton.addEventListener(
+    "click",
+    closeDescription
 );
 
 document.addEventListener("keydown", function(event) {
-    if (
-        event.key === "Escape" &&
-        mediaOverlay.classList.contains("open")
-    ) {
-        closeVideo();
+    if (event.key === "Escape") {
+        if (mediaOverlay.classList.contains("open")) {
+            closeMedia();
+        }
+
+        if (descriptionOverlay.classList.contains("open")) {
+            closeDescription();
+        }
     }
 });
 

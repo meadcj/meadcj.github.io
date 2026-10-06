@@ -21,7 +21,6 @@ body {
     display: none !important;
 }
 
-/* Hotspot slate selector */
 #slateControls {
     position: fixed;
     top: 16px;
@@ -78,8 +77,23 @@ body {
     transform: scale(1.1);
 }
 
+.pnlm-description-toggle {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+}
+
 .pnlm-info {
+    width: 44px;
+    height: 44px;
     background-image: url("icons/info.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .pnlm-scene {
@@ -113,7 +127,7 @@ body {
     width: min(350px, calc(100vw - 32px));
 }
 
-#videoTitle {
+#mediaTitle {
     padding: 10px 44px 10px 14px;
     background: #171717;
     color: #fff;
@@ -127,7 +141,7 @@ body {
     background: #000;
 }
 
-#closeVideo {
+#closeMedia {
     position: absolute;
     top: 7px;
     right: 7px;
@@ -143,7 +157,7 @@ body {
     cursor: pointer;
 }
 
-#closeVideo:hover {
+#closeMedia:hover {
     background: rgba(0, 0, 0, 0.95);
 }
 
@@ -242,4 +256,94 @@ body {
     height: 18px;
     display: block;
     object-fit: contain;
+}
+
+#descriptionOverlay {
+    position: fixed;
+    top: 60px;
+    left: 72px;
+
+    width: min(400px, calc(100vw - 96px));
+    max-height: calc(100vh - 48px);
+
+    z-index: 9999;
+
+    background: rgba(20, 20, 20, 0.95);
+    color: #fff;
+
+    border-radius: 10px;
+    overflow: hidden;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+    opacity: 0;
+    transform: translateX(-12px);
+    pointer-events: none;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+#descriptionOverlay.open {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+#descriptionTitle {
+    padding: 10px 44px 10px 14px;
+    background: #171717;
+
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#descriptionContent {
+    padding: 14px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#closeDescription {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+
+    width: 32px;
+    height: 32px;
+
+    z-index: 2;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+
+    font-size: 22px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+#closeDescription:hover {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+#descriptionContent img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+#descriptionContent > :first-child {
+    margin-top: 0;
+}
+
+#descriptionContent > :last-child {
+    margin-bottom: 0;
 }

@@ -10,6 +10,8 @@
         "palm1": {
             "title": "Palm Walk 1",
             "type": "cubemap",
+            "description": "Palm walk 1 description",
+            "descriptionFile": "descriptions/palmwalk1.html",
             "cubeMap": [
                 "media/pano_palm_walk1_edited_face_0.jpg",
                 "media/pano_palm_walk1_edited_face_1.jpg",
@@ -32,7 +34,16 @@
                             "sceneId": "palm2",
                             "targetPitch": -1.5,
                             "targetYaw": 180,
+                            "infoOpen": true,
                             "icon": "../icons/arrow.svg"
+                        },
+                        {
+                            "id": "palm1-info1",
+                            "pitch": -90,
+                            "yaw": 0,
+                            "type": "info",
+                            "text": "Where the tripod used to be",
+                            "icon": "../icons/info.svg"
                         },
                         {
                             "id": "palm1-video1",
