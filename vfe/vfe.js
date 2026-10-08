@@ -3,7 +3,7 @@ let viewerConfig;
 let config;
 let configUrl;
 let currentSlate = null;
-let activeHotspotIds = [];
+let activeHotspotIds = new Set();
 let openInfoAfterSceneChange = false;
 
 const mediaOverlay = document.getElementById("mediaOverlay");
@@ -25,7 +25,6 @@ const slateControls = document.getElementById("slateControls");
 const audio = document.getElementById("audio");
 const audioSource = document.getElementById("audioSource");
 const panorama = document.getElementById("panorama");
-
 
 
 function hideAllMedia() {
@@ -190,11 +189,14 @@ function prepareHotspot(hotspot) {
 
         hotspot.clickHandlerFunc = function(event, args) {
             event.stopPropagation();
-            openInfoAfterSceneChange = args.infoOpen === true;
+
+            const scene = config.scenes[args.sceneId];
+
+            openInfoAfterSceneChange = args.infoOpen ?? scene.infoOpen ?? false;
             viewer.loadScene(
                 args.sceneId,
-                args.targetPitch,
-                args.targetYaw,
+                args.targetPitch ?? config.scenes[args.sceneId].defaultPitch,
+                args.targetYaw ?? config.scenes[args.sceneId].defaultYaw,
                 args.targetHfov
             );
         };
@@ -321,24 +323,75 @@ function currentSceneConfig() {
 }
 
 
+function hotspotIsVisible(hotspot) {
+    // No selected slate means no filtering: show every hotspot.
+    if (currentSlate === null) {
+        return true;
+    }
+
+    // Hotspots with no slate membership are always visible.
+    if (!Array.isArray(hotspot.slates)) {
+        return true;
+    }
+
+    return hotspot.slates.includes(currentSlate);
+}
+
+
+function getVisibleHotspots(sceneId) {
+    const scene = viewerConfig.scenes[sceneId];
+
+    if (!scene || !Array.isArray(scene.allHotSpots)) {
+        return [];
+    }
+
+    return scene.allHotSpots.filter(hotspotIsVisible);
+}
+
+
+function applySlate() {
+    const sceneId = viewer.getScene();
+    const visibleHotspots = getVisibleHotspots(sceneId);
+    const wantedIds = new Set(visibleHotspots.map(hotspot => hotspot.id));
+
+    activeHotspotIds.forEach(id => {
+        if (!wantedIds.has(id)) {
+            viewer.removeHotSpot(id, sceneId);
+            activeHotspotIds.delete(id);
+        }
+    });
+
+    visibleHotspots.forEach(hotspot => {
+        if (!activeHotspotIds.has(hotspot.id)) {
+            viewer.addHotSpot(hotspot, sceneId);
+            activeHotspotIds.add(hotspot.id);
+        }
+    });
+}
+
+
+function setSlate(slate) {
+    currentSlate = slate;
+    applySlate();
+    renderSlateButtons();
+}
+
+
 function getSlateEntries(scene) {
     return Object.entries(scene?.hotSpotSlates || {});
 }
 
 
 function getDefaultSlate(scene) {
-    const entries = getSlateEntries(scene);
-
-    if (entries.length === 0) {
-        return null;
-    }
-
-    if (scene.defaultHotSpotSlate && scene.hotSpotSlates[scene.defaultHotSpotSlate]) {
+    if (
+        scene?.defaultHotSpotSlate &&
+        scene?.hotSpotSlates?.[scene.defaultHotSpotSlate]
+    ) {
         return scene.defaultHotSpotSlate;
     }
-
-    return entries[0][0];
+    return null;
 }
+
 
 function renderSlateButtons() {
     slateControls.replaceChildren();
@@ -346,11 +399,21 @@ function renderSlateButtons() {
     const scene = currentSceneConfig();
     const entries = getSlateEntries(scene);
 
-    if (entries.length <= 1) {
+    if (entries.length === 0) {
         slateControls.hidden = true;
         return;
     }
 
+    // All button
+    const allButton = document.createElement("button");
+    allButton.type = "button";
+    allButton.textContent = "All";
+    allButton.classList.toggle("active", currentSlate === null);
+    allButton.setAttribute( "aria-pressed", String(currentSlate === null));
+    allButton.addEventListener("click", () => setSlate(null));
+    slateControls.appendChild(allButton);
+
+    // Named slates
     entries.forEach(([id, slate]) => {
         const button = document.createElement("button");
         button.type = "button";
@@ -358,52 +421,17 @@ function renderSlateButtons() {
         button.setAttribute("aria-pressed", String(id === currentSlate));
         button.title = slate.title || slate.label || id;
 
-        if (slate.icon) {
-            const icon = document.createElement("img");
-            icon.src = new URL(slate.icon, configUrl).href;
-            icon.alt = "";
-            button.appendChild(icon);
-        }
-
         const label = document.createElement("span");
         label.textContent = slate.label || id;
         button.appendChild(label);
 
-        button.addEventListener("click", () => loadSlate(id));
+        button.addEventListener("click", () => setSlate(id));
         slateControls.appendChild(button);
     });
 
-    slateControls.hidden = entries.length <= 1;
+    slateControls.hidden = false;
 }
 
-function removeActiveHotspots() {
-    const sceneId = viewer.getScene();
-
-    activeHotspotIds.forEach((id) => {
-        viewer.removeHotSpot(id, sceneId);
-    });
-
-    activeHotspotIds = [];
-}
-
-function loadSlate(name) {
-    const scene = currentSceneConfig();
-    const slate = scene?.hotSpotSlates?.[name];
-
-    if (!slate) {
-        return;
-    }
-
-    removeActiveHotspots();
-
-    (slate.hotSpots || []).forEach((hotspot) => {
-        viewer.addHotSpot(prepareHotspot({ ...hotspot }));
-        activeHotspotIds.push(hotspot.id);
-    });
-
-    currentSlate = name;
-    renderSlateButtons();
-}
 
 async function openDescription() {
     const sceneId = viewer.getScene();
@@ -438,10 +466,12 @@ async function openDescription() {
     descriptionOverlay.setAttribute("aria-hidden", "false");
 }
 
+
 function closeDescription() {
     descriptionOverlay.classList.remove("open");
     descriptionOverlay.setAttribute("aria-hidden", "true");
 }
+
 
 async function initializeViewer() {
     try {
@@ -454,14 +484,21 @@ async function initializeViewer() {
 
         config = await response.json();
         config.configUrl = configUrl;
+
+        // override default scene load before initial
+        Object.values(config.scenes).forEach(scene => {
+            if (scene.pitch == null & scene.defaultPitch != null) {
+                scene.pitch = scene.defaultPitch;
+            }
+            if (scene.yaw == null && scene.defaultYaw != null) {
+                scene.yaw = scene.defaultYaw;
+            }
+            scene.allHotSpots = (scene.hotSpots || []).map(prepareHotspot);
+            scene.hotSpots = [];
+        })
+        openInfoAfterSceneChange = config.scenes[config.default.firstScene]?.infoOpen === true;
+
         viewerConfig = config;
-
-        // Do not give Pannellum a static hotSpots array. The selected slate
-        // is installed after the viewer is created through the API.
-        Object.values(config.scenes).forEach((scene) => {
-            delete scene.hotSpots;
-        });
-
         viewer = pannellum.viewer("panorama", config);
 
         const descriptionButton = document.createElement("div");
@@ -497,26 +534,28 @@ async function initializeViewer() {
             .querySelector(".pnlm-controls-container")
             .appendChild(descriptionButton);
 
-
         viewer.on("scenechange", () => {
             closeMedia();
             closeDescription();
+            activeHotspotIds.clear();
             currentSlate = getDefaultSlate(currentSceneConfig());
             renderSlateButtons();
-            if (currentSlate) {
-                loadSlate(currentSlate);
-            }
+        });
+
+        viewer.on("load", () => {
+            activeHotspotIds.clear();
+            applySlate();
+
             if (openInfoAfterSceneChange) {
                 openDescription();
                 openInfoAfterSceneChange = false;
             }
+
+            openInfoAfterSceneChange = false;
         });
 
         currentSlate = getDefaultSlate(currentSceneConfig());
         renderSlateButtons();
-        if (currentSlate) {
-            loadSlate(currentSlate);
-        }
     }
     catch (error) {
         console.error(error);
@@ -526,18 +565,17 @@ async function initializeViewer() {
 }
 
 
-
-
-
 closeMediaButton.addEventListener(
     "click",
     closeMedia
 );
 
+
 closeDescriptionButton.addEventListener(
     "click",
     closeDescription
 );
+
 
 document.addEventListener("keydown", function(event) {
     if (event.key === "Escape") {
@@ -551,10 +589,12 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
+
 panorama.addEventListener("keydown", function(event) {
     if (event.key === "Shift" || event.key === "Control") {
         event.stopImmediatePropagation();
     }
 }, true);
+
 
 initializeViewer();

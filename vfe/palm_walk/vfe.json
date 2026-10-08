@@ -12,6 +12,17 @@
             "type": "cubemap",
             "description": "Palm walk 1 description",
             "descriptionFile": "descriptions/palmwalk1.html",
+            "defaultPitch": 2,
+            "defaultYaw": -85,
+            "infoOpen": true,
+            "hotSpotSlates": {
+                "interviews": {
+                    "label": "Interviews"
+                },
+                "info": {
+                    "label": "Information"
+                }
+            },
             "cubeMap": [
                 "media/pano_palm_walk1_edited_face_0.jpg",
                 "media/pano_palm_walk1_edited_face_1.jpg",
@@ -21,78 +32,60 @@
                 "media/pano_palm_walk1_edited_face_5.jpg"
             ],
             "hotSpotDebug": true,
-            "hotSpotSlates": {
-                "all": {
-                    "label": "All",
-                    "hotSpots": [
-                        {
-                            "id": "palm1-scene1",
-                            "pitch": -3,
-                            "yaw": -177,
-                            "type": "scene",
-                            "text": "palm 2",
-                            "sceneId": "palm2",
-                            "targetPitch": -1.5,
-                            "targetYaw": 180,
-                            "infoOpen": true,
-                            "icon": "../icons/arrow.svg"
-                        },
-                        {
-                            "id": "palm1-info1",
-                            "pitch": -90,
-                            "yaw": 0,
-                            "type": "info",
-                            "text": "Where the tripod used to be",
-                            "icon": "../icons/info.svg"
-                        },
-                        {
-                            "id": "palm1-video1",
-                            "pitch": -2,
-                            "yaw": -57,
-                            "hotspotType": "youtube",
-                            "text": "Interview",
-                            "videoTitle": "Stop 6",
-                            "youtubeId": "xe47COnXCYc"
-                        },
-                        {
-                            "id": "palm1-video2",
-                            "pitch": 10,
-                            "yaw": 180,
-                            "hotspotType": "youtube",
-                            "text": "Interview",
-                            "videoTitle": "Stop 4",
-                            "youtubeId": "o8sTZFCBCik",
-                            "icon": "../icons/pink_video.svg"
-                        },
-                        {
-                            "id": "palm1-audio1",
-                            "pitch": -5,
-                            "yaw": -70,
-                            "hotspotType": "audio",
-                            "text": "Audio",
-                            "audioTitle": "Field recording",
-                            "audioSrc": "media/260320-070452 - fwing tyler mall.mp3",
-                            "icon": "../icons/audio.svg"
-                        }
-                    ]
+            "hotSpots": [
+                {
+                    "id": "palm1-scene1",
+                    "pitch": -3,
+                    "yaw": -177,
+                    "type": "scene",
+                    "text": "palm 2",
+                    "sceneId": "palm2",
+                    "targetPitch": -1.5,
+                    "targetYaw": 180,
+                    "infoOpen": true,
+                    "icon": "../icons/arrow.svg"
                 },
-                "reduced": {
-                    "label": "Reduced",
-                    "hotSpots": [
-                        {
-                            "id": "palm1-scene1",
-                            "pitch": -3,
-                            "yaw": -177,
-                            "type": "scene",
-                            "text": "palm 2",
-                            "sceneId": "palm2",
-                            "targetPitch": -1.5,
-                            "targetYaw": 180,
-                            "icon": "../icons/arrow.svg"
-                        }
-                    ]
+                {
+                    "id": "palm1-info1",
+                    "pitch": -90,
+                    "yaw": 0,
+                    "type": "info",
+                    "text": "Where the tripod used to be",
+                    "icon": "../icons/info.svg",
+                    "slates": ["info"]
+                },
+                {
+                    "id": "palm1-video1",
+                    "pitch": -2,
+                    "yaw": -57,
+                    "hotspotType": "youtube",
+                    "text": "Interview",
+                    "videoTitle": "Stop 6",
+                    "youtubeId": "xe47COnXCYc",
+                    "slates": ["interviews"]
+                },
+                {
+                    "id": "palm1-video2",
+                    "pitch": 10,
+                    "yaw": 180,
+                    "hotspotType": "youtube",
+                    "text": "Interview",
+                    "videoTitle": "Stop 4",
+                    "youtubeId": "o8sTZFCBCik",
+                    "icon": "../icons/pink_video.svg",
+                    "slates": ["interviews"]
+                },
+                {
+                    "id": "palm1-audio1",
+                    "pitch": -5,
+                    "yaw": -70,
+                    "hotspotType": "audio",
+                    "text": "Audio",
+                    "audioTitle": "Field recording",
+                    "audioSrc": "media/260320-070452 - fwing tyler mall.mp3",
+                    "icon": "../icons/audio.svg"
                 }
-            }
+            ]
         },
         "palm2": {
             "title": "Palm Walk 2",
@@ -106,31 +99,29 @@
                 "media/pano_palm_walk2_edited_face_5.jpg"
             ],
             "hotSpotDebug": true,
-            "hotSpotSlates": {
-                "all": {
-                    "label": "All",
-                    "hotSpots": [
-                        {
-                            "id": "palm2-scene1",
-                            "pitch": -2,
-                            "yaw": 0,
-                            "type": "scene",
-                            "text": "palm 1",
-                            "sceneId": "palm1",
-                            "icon": "../icons/arrow.svg"
-                        },
-                        {
-                            "id": "palm2-video1",
-                            "pitch": -7,
-                            "yaw": -24,
-                            "hotspotType": "youtube",
-                            "text": "interview",
-                            "videoTitle": "Stop 5",
-                            "youtubeId": "ybzatb95e5Q"
-                        }
-                    ]
+            "hotSpots": [
+                {
+                    "id": "palm2-scene1",
+                    "pitch": -2,
+                    "yaw": 0,
+                    "type": "scene",
+                    "text": "palm 1",
+                    "sceneId": "palm1",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "infoOpen": false,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "palm2-video1",
+                    "pitch": -7,
+                    "yaw": -24,
+                    "hotspotType": "youtube",
+                    "text": "interview",
+                    "videoTitle": "Stop 5",
+                    "youtubeId": "ybzatb95e5Q"
                 }
-            }
+            ]
         }
     }
 }
