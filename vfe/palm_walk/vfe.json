@@ -23,6 +23,11 @@
                     "label": "Information"
                 }
             },
+            "dataLayer": {
+                "mode": "regions",
+                "source": "data/regions_palm1.json",
+                "slates": ["Information"]
+            },
             "cubeMap": [
                 "media/pano_palm_walk1_edited_face_0.jpg",
                 "media/pano_palm_walk1_edited_face_1.jpg",

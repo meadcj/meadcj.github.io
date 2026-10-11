@@ -347,3 +347,35 @@ body {
 #descriptionContent > :last-child {
     margin-bottom: 0;
 }
+
+#dataReadout {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    max-width: min(420px, calc(100vw - 32px));
+    padding: 10px 14px;
+    background: rgba(20,20,20,0.88);
+    color: #fff;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    pointer-events: none;
+}
+
+#dataReadout[hidden]{ display:none; }
+
+.pnlm-data-toggle {
+    font-family: system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.pnlm-data-toggle.active {
+    background: rgba(255,255,255,0.2);
+}

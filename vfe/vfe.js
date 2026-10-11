@@ -5,6 +5,8 @@ let configUrl;
 let currentSlate = null;
 let activeHotspotIds = new Set();
 let openInfoAfterSceneChange = false;
+let dataMode = false;
+let dataState = {regions: [], unit: ''};
 
 const mediaOverlay = document.getElementById("mediaOverlay");
 const video = document.getElementById("video");
@@ -25,6 +27,7 @@ const slateControls = document.getElementById("slateControls");
 const audio = document.getElementById("audio");
 const audioSource = document.getElementById("audioSource");
 const panorama = document.getElementById("panorama");
+const dataReadout = document.getElementById("dataReadout");
 
 
 function hideAllMedia() {
@@ -473,6 +476,71 @@ function closeDescription() {
 }
 
 
+async function loadDataLayer(sceneId) {
+    const scene = viewerConfig?.scenes?.[sceneId];
+    const dl = scene?.dataLayer;
+    if (!dl || dl.mode !== 'regions') { clearData(); return; }
+    if (!dataMode) return;
+
+    try {
+        const src = new URL(dl.source, configUrl).href;
+        const res = await fetch(src);
+        const regions = await res.json();
+        dataState = {regions, unit: dl.unit || ''};
+    } catch(e) {
+        console.error('Data regions load failed', e);
+        clearData();
+    }
+}
+
+
+function yawDiff(a, b) {
+    let d = Math.abs(a - b) % 360;
+    return Math.min(d, 360 - d);
+}
+
+
+function closeEnough(p1, p2, yawLim, pitchLim) {
+    return yawDiff(p1.yaw, p2.yaw) <= yawLim &&
+        Math.abs(p1.pitch - p2.pitch) <= pitchLim;
+}
+
+
+function handleDataPointer() {
+    if (!dataMode || !dataState.regions?.length) {
+        dataReadout.hidden = true;
+        return;
+    }
+    const pt = {yaw: viewer.getYaw(), pitch: viewer.getPitch()};
+    const hits = [];
+
+    for (const r of dataState.regions) {
+        if (r.yaw != null && r.pitch != null && r.yawLim != null && r.pitchLim != null) {
+            if (closeEnough(pt, { yaw: r.yaw, pitch: r.pitch }, r.yawLim, r.pitchLim)) {
+                hits.push(r);
+            }
+        }
+    }
+
+    if (!hits.length) { dataReadout.hidden = true; return; }
+
+    dataReadout.hidden = false;
+    dataReadout.innerHTML = hits.map(r => 
+        `<div><strong>${r.label || r.id}</strong><br>
+         ${r.value}${dataState.unit ? ' '+dataState.unit : ''}</div>`
+    ).join('<hr style="margin:8px 0;opacity:.3">');
+}
+
+
+function clearData() {
+    dataState = { canvas: null, ctx: null, lookup: null, unit: '' };
+    if (dataReadout) {
+        dataReadout.hidden = true;
+        dataReadout.textContent = '';
+    }
+}
+
+
 async function initializeViewer() {
     try {
         configUrl = new URL("vfe.json", document.baseURI);
@@ -534,12 +602,38 @@ async function initializeViewer() {
             .querySelector(".pnlm-controls-container")
             .appendChild(descriptionButton);
 
+        // Data toggle button
+        const dataButton = document.createElement('div');
+        dataButton.className = 'pnlm-controls pnlm-data-toggle';
+        dataButton.setAttribute('role','button');
+        dataButton.setAttribute('tabindex','0');
+        dataButton.setAttribute('aria-label','Toggle data layer');
+        dataButton.textContent = 'D';
+        dataButton.addEventListener('click', () => {
+            dataMode = !dataMode;
+            dataButton.classList.toggle('active', dataMode);
+            dataButton.setAttribute('aria-pressed', String(dataMode));
+            if (dataMode) {
+                loadDataLayer(viewer.getScene());
+            } else {
+                clearData();
+            }
+        });
+        dataButton.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                dataButton.click();
+            }
+        });
+        document.querySelector('.pnlm-controls-container').appendChild(dataButton);
+
         viewer.on("scenechange", () => {
             closeMedia();
             closeDescription();
             activeHotspotIds.clear();
             currentSlate = getDefaultSlate(currentSceneConfig());
             renderSlateButtons();
+            clearData();
         });
 
         viewer.on("load", () => {
@@ -550,7 +644,9 @@ async function initializeViewer() {
                 openDescription();
                 openInfoAfterSceneChange = false;
             }
-
+            if (dataMode) {
+                loadDataLayer(viewer.getScene());
+            }
             openInfoAfterSceneChange = false;
         });
 
@@ -595,6 +691,10 @@ panorama.addEventListener("keydown", function(event) {
         event.stopImmediatePropagation();
     }
 }, true);
+
+panorama.addEventListener("pointermove", () => {
+    if (dataMode) handleDataPointer();
+})
 
 
 initializeViewer();

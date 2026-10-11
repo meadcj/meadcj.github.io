@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "label": "hover label",
+        "value": "hover value",
+        "pitch": -30,
+        "yaw": 70,
+        "yawLim": 20,
+        "pitchLim": 90
+    }
+]
