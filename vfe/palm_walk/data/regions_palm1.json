@@ -7,5 +7,15 @@
         "yaw": -70,
         "yawLim": 20,
         "pitchLim": 20
+    },
+    {
+        "id": 2,
+        "label": "A Different Hover Title",
+        "value": "Multiple regions can overlap and display simultaneously.",
+        "pitch": -40,
+        "yaw": -70,
+        "yawLim": 20,
+        "pitchLim": 20
+
     }
 ]

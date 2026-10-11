@@ -71,8 +71,8 @@
                 },
                 {
                     "id": "palm1-video2",
-                    "pitch": 10,
-                    "yaw": 180,
+                    "pitch": 2,
+                    "yaw": 20,
                     "hotspotType": "youtube",
                     "text": "Interview",
                     "videoTitle": "Stop 4",
@@ -83,7 +83,7 @@
                 {
                     "id": "palm1-audio1",
                     "pitch": -5,
-                    "yaw": -70,
+                    "yaw": -100,
                     "hotspotType": "audio",
                     "text": "Audio",
                     "audioTitle": "Field recording",
@@ -119,8 +119,8 @@
                 },
                 {
                     "id": "palm2-video1",
-                    "pitch": -7,
-                    "yaw": -24,
+                    "pitch": -6,
+                    "yaw": -70,
                     "hotspotType": "youtube",
                     "text": "interview",
                     "videoTitle": "Stop 5",
