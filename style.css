@@ -517,7 +517,7 @@ table td {
 .footer-col-wrapper {
 color:#828282;
 display:flex
-},
+}
 .social-links {
  font-size:.9375rem;
  color:#828282
@@ -527,10 +527,10 @@ display:flex
 }
 .footer-col-1 {
   width:calc(60% - (30px / 2))
-},
+}
 .footer-col-2 {
-  width:calc(40% - (30px / 2))
- float:right
+    width:calc(40% - (30px / 2));
+    float:right
 }
 .page-content {
  padding:30px 0;
@@ -660,13 +660,13 @@ display:flex
 .container1 {
  max-width:900px;
  padding:0px 0px 10px;
- display:float
+ display:flex
 }
 .container1__image {
  margin:10px 30px 0 0;
  height:250px;
  object-fit:contain;
- float:left
+ align-self:flex-start
 }
 .container1__text {
  flex:1 1 auto
