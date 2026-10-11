@@ -14,7 +14,7 @@
             "descriptionFile": "descriptions/palmwalk1.html",
             "defaultPitch": 2,
             "defaultYaw": -85,
-            "infoOpen": true,
+            "infoOpen": false,
             "hotSpotSlates": {
                 "interviews": {
                     "label": "Interviews"

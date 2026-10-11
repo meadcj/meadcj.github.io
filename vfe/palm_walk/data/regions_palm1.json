@@ -1,11 +1,11 @@
 [
     {
         "id": 1,
-        "label": "hover label",
-        "value": "hover value",
+        "label": "Hover Title",
+        "value": "This hotspot appears when the view center falls on top of a prespecified region.",
         "pitch": -30,
         "yaw": 70,
         "yawLim": 20,
-        "pitchLim": 90
+        "pitchLim": 20
     }
 ]
