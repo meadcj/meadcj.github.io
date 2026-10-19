@@ -740,6 +740,7 @@ closeDescriptionButton.addEventListener(
 // Drag media overlay by title bar
 mediaTitle.addEventListener('pointerdown', (e) => {
     if (!mediaOverlay.classList.contains('open')) return;
+    if (e.pointerType !== 'mouse') return;
     dragState.active = true;
     const rect = mediaOverlay.getBoundingClientRect();
     dragState.offsetX = e.clientX - rect.left;
