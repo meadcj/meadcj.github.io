@@ -29,6 +29,9 @@ const audioSource = document.getElementById("audioSource");
 const panorama = document.getElementById("panorama");
 const dataReadout = document.getElementById("dataReadout");
 
+let pinnedHotspotEl = null;
+
+let dragState = { active:false, offsetX:0, offsetY:0 };
 
 function hideAllMedia() {
     youtubeContainer.classList.remove("active");
@@ -55,8 +58,48 @@ function hideAllMedia() {
     mediaOverlay.classList.remove("audio-mode");
 }
 
+function updatePinnedPosition() {
+    if (!pinnedHotspotEl || !mediaOverlay.classList.contains('pinned')) return;
+    const r = pinnedHotspotEl.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const margin = 12;
+    let left = r.right + 12;
+    let top = r.top;
+    // keep inside viewport
+    if (left + mediaOverlay.offsetWidth > vw - margin) {
+        left = r.left - mediaOverlay.offsetWidth - 12;
+    }
+    if (top + mediaOverlay.offsetHeight > vh - margin) {
+        top = vh - mediaOverlay.offsetHeight - margin;
+    }
+    if (top < margin) top = margin;
+    if (left < margin) left = margin;
+    mediaOverlay.style.left = left + 'px';
+    mediaOverlay.style.top = top + 'px';
+}
 
-function openYouTube(youtubeId, title) {
+function applyMediaPosition(anchor, hotSpotEl) {
+    // reset to default corner
+    mediaOverlay.classList.remove('pinned');
+    mediaOverlay.style.left = '';
+    mediaOverlay.style.top = '';
+    mediaOverlay.style.right = '24px';
+    mediaOverlay.style.bottom = '24px';
+    pinnedHotspotEl = null;
+
+    if (anchor === 'hotspot' && hotSpotEl) {
+        pinnedHotspotEl = hotSpotEl;
+        mediaOverlay.classList.add('pinned');
+        mediaOverlay.style.right = 'auto';
+        mediaOverlay.style.bottom = 'auto';
+        // initial placement
+        requestAnimationFrame(updatePinnedPosition);
+    }
+}
+
+
+function openYouTube(youtubeId, title, anchor = 'corner', hotSpotEl = null) {
     if (!youtubeId) {
         console.error("YouTube hotspot has no youtubeId.");
         return;
@@ -73,10 +116,11 @@ function openYouTube(youtubeId, title) {
     mediaTitle.textContent = title || "";
     mediaOverlay.classList.add("open");
     mediaOverlay.setAttribute("aria-hidden", "false");
+    applyMediaPosition(anchor, hotSpotEl);
 }
 
 
-function openImage(src, title) {
+function openImage(src, title, anchor = 'corner', hotSpotEl = null) {
     if (!src) {
         console.error("Image hotspot has no imageSrc.");
         return;
@@ -89,6 +133,7 @@ function openImage(src, title) {
     mediaTitle.textContent = title || "";
     mediaOverlay.classList.add("open");
     mediaOverlay.setAttribute("aria-hidden", "false");
+    applyMediaPosition(anchor, hotSpotEl);
 
     hotspotImage.onload = () => {
         imageContainer.classList.add("active");
@@ -110,7 +155,7 @@ function openImage(src, title) {
 }
 
 
-function openVideo(src, title) {
+function openVideo(src, title, anchor = 'corner', hotSpotEl = null) {
     if (!src) {
         console.error("Video hotspot has no videoSrc.");
         return;
@@ -124,6 +169,7 @@ function openVideo(src, title) {
     video.load();
     mediaOverlay.classList.add("open");
     mediaOverlay.setAttribute("aria-hidden", "false");
+    applyMediaPosition(anchor, hotSpotEl);
     video.play().catch(() => {});
 }
 
@@ -131,11 +177,17 @@ function openVideo(src, title) {
 function closeMedia() {
     hideAllMedia();
     mediaOverlay.classList.remove("open");
+    mediaOverlay.classList.remove("pinned");
     mediaOverlay.setAttribute("aria-hidden", "true");
+    mediaOverlay.style.left = '';
+    mediaOverlay.style.top = '';
+    mediaOverlay.style.right = '24px';
+    mediaOverlay.style.bottom = '24px';
+    pinnedHotspotEl = null;
 }
 
 
-function openAudio(src, title) {
+function openAudio(src, title, anchor = 'corner', hotSpotEl = null) {
     if (!src) {
         console.error("Audio hotspot has no audioSrc.");
         return;
@@ -149,6 +201,7 @@ function openAudio(src, title) {
     mediaOverlay.classList.add("open");
     mediaOverlay.classList.add("audio-mode");
     mediaOverlay.setAttribute("aria-hidden", "false");
+    applyMediaPosition(anchor, hotSpotEl);
     audio.play().catch(() => {});
 }
 
@@ -240,13 +293,15 @@ function prepareHotspot(hotspot) {
         };
         hotspot.clickHandlerFunc = function(event, args) {
             event.stopPropagation();
-            openImage( args.src, args.title);
+            const hotSpotEl = event.currentTarget || event.target.closest('.pnlm-hotspot, .pnlm-hotspot-base');
+            openImage(args.src, args.title, args.anchor, hotSpotEl);
         };
         hotspot.clickHandlerArgs = {
             src: hotspot.imageSrc
             ? new URL(hotspot.imageSrc, configUrl).href
             : "",
-            title: hotspot.imageTitle || hotspot.text || ""
+            title: hotspot.imageTitle || hotspot.text || "",
+            anchor: hotspot.mediaAnchor || 'corner'
         };
         return hotspot;
     }
@@ -262,11 +317,13 @@ function prepareHotspot(hotspot) {
         };
         hotspot.clickHandlerFunc = function(event, args) {
             event.stopPropagation();
-            openYouTube( args.youtubeId, args.title);
+            const hotSpotEl = event.currentTarget || event.target.closest('.pnlm-hotspot, .pnlm-hotspot-base');
+            openYouTube(args.youtubeId, args.title, args.anchor, hotSpotEl);
         };
         hotspot.clickHandlerArgs = {
             youtubeId: hotspot.youtubeId,
-            title: hotspot.mediaTitle || hotspot.text || ""
+            title: hotspot.mediaTitle || hotspot.text || "",
+            anchor: hotspot.mediaAnchor || 'corner'
         };
         return hotspot;
     }
@@ -282,14 +339,15 @@ function prepareHotspot(hotspot) {
         };
         hotspot.clickHandlerFunc = function(event, args) {
             event.stopPropagation();
-            openVideo( args.src, args.title
-            );
+            const hotSpotEl = event.currentTarget || event.target.closest('.pnlm-hotspot, .pnlm-hotspot-base');
+            openVideo(args.src, args.title, args.anchor, hotSpotEl);
         };
         hotspot.clickHandlerArgs = {
             src: hotspot.videoSrc
             ? new URL(hotspot.videoSrc, configUrl).href
             : "",
-            title: hotspot.mediaTitle || hotspot.text || ""
+            title: hotspot.mediaTitle || hotspot.text || "",
+            anchor: hotspot.mediaAnchor || 'corner'
         };
         return hotspot;
     }
@@ -305,14 +363,15 @@ function prepareHotspot(hotspot) {
         };
         hotspot.clickHandlerFunc = function(event, args) {
             event.stopPropagation();
-            openAudio( args.src, args.title
-            );
+            const hotSpotEl = event.currentTarget || event.target.closest('.pnlm-hotspot, .pnlm-hotspot-base');
+            openAudio(args.src, args.title, args.anchor, hotSpotEl);
         };
         hotspot.clickHandlerArgs = {
             src: hotspot.audioSrc
             ? new URL(hotspot.audioSrc, configUrl).href
             : "",
-            title: hotspot.audioTitle || hotspot.text || ""
+            title: hotspot.audioTitle || hotspot.text || "",
+            anchor: hotspot.mediaAnchor || 'corner'
         };
         return hotspot;
     }
@@ -650,6 +709,12 @@ async function initializeViewer() {
             openInfoAfterSceneChange = false;
         });
 
+        // Live tracking for pinned media overlay
+        viewer.on('pitchchanged', updatePinnedPosition);
+        viewer.on('yawchanged', updatePinnedPosition);
+        viewer.on('hfovchanged', updatePinnedPosition);
+        window.addEventListener('resize', updatePinnedPosition);
+
         currentSlate = getDefaultSlate(currentSceneConfig());
         renderSlateButtons();
     }
@@ -672,6 +737,40 @@ closeDescriptionButton.addEventListener(
     closeDescription
 );
 
+// Drag media overlay by title bar
+mediaTitle.addEventListener('pointerdown', (e) => {
+    if (!mediaOverlay.classList.contains('open')) return;
+    dragState.active = true;
+    const rect = mediaOverlay.getBoundingClientRect();
+    dragState.offsetX = e.clientX - rect.left;
+    dragState.offsetY = e.clientY - rect.top;
+    try { mediaTitle.setPointerCapture(e.pointerId); } catch {}
+});
+
+window.addEventListener('pointermove', (e) => {
+    if (!dragState.active) return;
+    if (!mediaOverlay.classList.contains('pinned')) {
+        mediaOverlay.classList.add('pinned');
+        mediaOverlay.style.right = 'auto';
+        mediaOverlay.style.bottom = 'auto';
+    }
+    if (pinnedHotspotEl) {
+        pinnedHotspotEl = null;
+    }
+    const margin = 12;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let left = e.clientX - dragState.offsetX;
+    let top  = e.clientY - dragState.offsetY;
+    left = Math.max(margin, Math.min(left, vw - mediaOverlay.offsetWidth - margin));
+    top  = Math.max(margin, Math.min(top,  vh - mediaOverlay.offsetHeight - margin));
+    mediaOverlay.style.left = left + 'px';
+    mediaOverlay.style.top  = top + 'px';
+});
+
+window.addEventListener('pointerup', () => {
+    dragState.active = false;
+});
 
 document.addEventListener("keydown", function(event) {
     if (event.key === "Escape") {

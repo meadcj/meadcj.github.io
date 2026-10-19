@@ -127,12 +127,23 @@ body {
     width: min(350px, calc(100vw - 32px));
 }
 
+#mediaOverlay.pinned {
+    right: auto;
+    bottom: auto;
+}
+
 #mediaTitle {
     padding: 10px 44px 10px 14px;
     background: #171717;
     color: #fff;
     font-size: 14px;
     font-weight: 600;
+    cursor: grab;
+    user-select: none;
+}
+
+#mediaTitle:active {
+    cursor: grabbing;
 }
 
 #video {
