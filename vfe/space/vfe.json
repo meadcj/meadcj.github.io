@@ -1,0 +1,44 @@
+
+{
+    "default": {
+        "firstScene": "space1",
+        "autoLoad": true,
+        "showControls": true
+    },
+
+    "scenes": {
+        "space1": {
+            "title": "Space",
+            "type": "equirectangular",
+            "description": "description",
+            "descriptionFile": "",
+            "defaultPitch": 0,
+            "defaultYaw": 0,
+            "infoOpen": false,
+            "hotSpotSlates": {
+            },
+            "dataLayer": {
+            },
+            "panorama": "media/starmap_2020_8k.jpg",
+            "hotSpotDebug": true,
+            "hotSpots": [
+                {
+                    "id": "nadir",
+                    "pitch": -90,
+                    "yaw": 0,
+                    "type": "info",
+                    "text": "Where the tripod used to be",
+                    "icon": "../icons/info.svg"
+                },
+                {
+                    "id": "zenith",
+                    "pitch": 90,
+                    "yaw": 0,
+                    "type": "info",
+                    "text": "Where God lives",
+                    "icon": "../icons/info.svg"
+                }
+            ]
+        }
+    }
+}
