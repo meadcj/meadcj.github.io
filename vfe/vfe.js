@@ -7,6 +7,7 @@ let activeHotspotIds = new Set();
 let openInfoAfterSceneChange = false;
 let dataMode = false;
 let dataState = {regions: [], unit: ''};
+let lastSceneId = null;
 
 const mediaOverlay = document.getElementById("mediaOverlay");
 const video = document.getElementById("video");
@@ -28,8 +29,6 @@ const audio = document.getElementById("audio");
 const audioSource = document.getElementById("audioSource");
 const panorama = document.getElementById("panorama");
 const dataReadout = document.getElementById("dataReadout");
-
-let pinnedHotspotEl = null;
 
 let dragState = { active:false, offsetX:0, offsetY:0 };
 
@@ -58,27 +57,6 @@ function hideAllMedia() {
     mediaOverlay.classList.remove("audio-mode");
 }
 
-function updatePinnedPosition() {
-    if (!pinnedHotspotEl || !mediaOverlay.classList.contains('pinned')) return;
-    const r = pinnedHotspotEl.getBoundingClientRect();
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const margin = 12;
-    let left = r.right + 12;
-    let top = r.top;
-    // keep inside viewport
-    if (left + mediaOverlay.offsetWidth > vw - margin) {
-        left = r.left - mediaOverlay.offsetWidth - 12;
-    }
-    if (top + mediaOverlay.offsetHeight > vh - margin) {
-        top = vh - mediaOverlay.offsetHeight - margin;
-    }
-    if (top < margin) top = margin;
-    if (left < margin) left = margin;
-    mediaOverlay.style.left = left + 'px';
-    mediaOverlay.style.top = top + 'px';
-}
-
 function applyMediaPosition(anchor, hotSpotEl) {
     // reset to default corner
     mediaOverlay.classList.remove('pinned');
@@ -86,15 +64,28 @@ function applyMediaPosition(anchor, hotSpotEl) {
     mediaOverlay.style.top = '';
     mediaOverlay.style.right = '24px';
     mediaOverlay.style.bottom = '24px';
-    pinnedHotspotEl = null;
 
     if (anchor === 'hotspot' && hotSpotEl) {
-        pinnedHotspotEl = hotSpotEl;
         mediaOverlay.classList.add('pinned');
         mediaOverlay.style.right = 'auto';
         mediaOverlay.style.bottom = 'auto';
-        // initial placement
-        requestAnimationFrame(updatePinnedPosition);
+        // initial placement adjacent to hotspot, screen anchored
+        const r = hotSpotEl.getBoundingClientRect();
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const margin = 12;
+        let left = r.right + 12;
+        let top = r.top;
+        if (left + mediaOverlay.offsetWidth > vw - margin) {
+            left = r.left - mediaOverlay.offsetWidth - 12;
+        }
+        if (top + mediaOverlay.offsetHeight > vh - margin) {
+            top = vh - mediaOverlay.offsetHeight - margin;
+        }
+        if (top < margin) top = margin;
+        if (left < margin) left = margin;
+        mediaOverlay.style.left = left + 'px';
+        mediaOverlay.style.top = top + 'px';
     }
 }
 
@@ -183,7 +174,6 @@ function closeMedia() {
     mediaOverlay.style.top = '';
     mediaOverlay.style.right = '24px';
     mediaOverlay.style.bottom = '24px';
-    pinnedHotspotEl = null;
 }
 
 
@@ -230,20 +220,29 @@ function prepareHotspot(hotspot) {
 
     // Scene hotspot
     if (hotspot.type === "scene") {
-        if (hotspot.icon) {
-            //hotspot.type = "info";
-            hotspot.cssClass = "media-hotspot";
-            hotspot.createTooltipFunc = createMediaHotspot;
-            hotspot.createTooltipArgs = {
-                title:
-                hotspot.sceneTitle ||
-                hotspot.text ||
-                "Go to scene",
-                icon: hotspot.icon
-            };
+        const h = {...hotspot};
+        const targetScene = config.scenes[h.sceneId];
+        if (targetScene && targetScene.title) {
+            h.text = targetScene.title;
+        }
+        if (h.icon) {
+            h.type = "info";
+            const safeId = h.id.replace(/[^a-zA-Z0-9_-]/g,'');
+            const className = `scene-icon-${safeId}`;
+            if (!document.getElementById(`style-scene-${safeId}`)) {
+                const style = document.createElement("style");
+                style.id = `style-scene-${safeId}`;
+                let iconUrl;
+                try { iconUrl = new URL(h.icon, configUrl).href; } catch(e) { iconUrl = h.icon; }
+                style.textContent = `.${className}{background-image:url("${iconUrl}") !important;}`;
+                document.head.appendChild(style);
+            }
+            h.cssClass = `pnlm-info ${className}`;
+            delete h.createTooltipFunc;
+            delete h.createTooltipArgs;
         }
 
-        hotspot.clickHandlerFunc = function(event, args) {
+        h.clickHandlerFunc = function(event, args) {
             event.stopPropagation();
 
             const scene = config.scenes[args.sceneId];
@@ -257,14 +256,14 @@ function prepareHotspot(hotspot) {
             );
         };
 
-        hotspot.clickHandlerArgs = {
-            sceneId: hotspot.sceneId,
-            targetPitch: hotspot.targetPitch,
-            targetYaw: hotspot.targetYaw,
-            targetHfov: hotspot.targetHfov,
-            infoOpen: hotspot.infoOpen
+        h.clickHandlerArgs = {
+            sceneId: h.sceneId,
+            targetPitch: h.targetPitch,
+            targetYaw: h.targetYaw,
+            targetHfov: h.targetHfov,
+            infoOpen: h.infoOpen
         };
-        return hotspot;
+        return h;
     }
 
     // Info hotspot
@@ -689,6 +688,12 @@ async function initializeViewer() {
         viewer.on("scenechange", () => {
             closeMedia();
             closeDescription();
+            // Remove hotspots from the scene we are leaving to avoid duplicates
+            if (lastSceneId) {
+                activeHotspotIds.forEach(id => {
+                    try { viewer.removeHotSpot(id, lastSceneId); } catch(e){}
+                });
+            }
             activeHotspotIds.clear();
             currentSlate = getDefaultSlate(currentSceneConfig());
             renderSlateButtons();
@@ -707,14 +712,8 @@ async function initializeViewer() {
                 loadDataLayer(viewer.getScene());
             }
             openInfoAfterSceneChange = false;
+            lastSceneId = viewer.getScene();
         });
-
-        // Live tracking for pinned media overlay
-        viewer.on('pitchchanged', updatePinnedPosition);
-        viewer.on('yawchanged', updatePinnedPosition);
-        viewer.on('hfovchanged', updatePinnedPosition);
-        window.addEventListener('resize', updatePinnedPosition);
-
         currentSlate = getDefaultSlate(currentSceneConfig());
         renderSlateButtons();
     }
@@ -754,9 +753,6 @@ window.addEventListener('pointermove', (e) => {
         mediaOverlay.classList.add('pinned');
         mediaOverlay.style.right = 'auto';
         mediaOverlay.style.bottom = 'auto';
-    }
-    if (pinnedHotspotEl) {
-        pinnedHotspotEl = null;
     }
     const margin = 12;
     const vw = window.innerWidth;

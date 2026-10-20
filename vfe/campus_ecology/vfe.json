@@ -1,0 +1,566 @@
+{
+    "default": {
+        "firstScene": "stop1",
+        "autoLoad": true,
+        "showControls": true
+    },
+    "scenes": {
+        "stop1": {
+            "title": "Stop 1",
+            "type": "equirectangular",
+            "panorama": "media/stop 1 - pano IMG_20261016_152131_00_078.jpg",
+            "defaultPitch": 0,
+            "defaultYaw": 0,
+            "hotSpotDebug": true,
+            "hotSpots": [
+                {
+                    "id": "stop1-scene-next",
+                    "pitch": -14,
+                    "yaw": -117,
+                    "type": "scene",
+                    "text": "Stop 2",
+                    "sceneId": "stop2",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop1-yt",
+                    "pitch": 0,
+                    "yaw": 15,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Stop 1 video",
+                    "youtubeId": "ybUC5VzaJ8Q",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop1-audio",
+                    "pitch": -26,
+                    "yaw": -140,
+                    "hotspotType": "audio",
+                    "text": "Audio",
+                    "audioTitle": "Stop 1 audio",
+                    "audioSrc": "media/stop 1 - 261019-075045 - arboretum edge with planes.mp3",
+                    "icon": "../icons/audio.svg"
+                },
+                {
+                    "id": "stop1-img-0",
+                    "pitch": -10,
+                    "yaw": -28,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 1 photo 1",
+                    "imageSrc": "media/stop 1 - IMG_0117.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "stop1-img-1",
+                    "pitch": -3,
+                    "yaw": 75,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 1 photo 2",
+                    "imageSrc": "media/stop 1 - IMG_0116.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "stop1-img-2",
+                    "pitch": -27,
+                    "yaw": -114,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 1 photo 3",
+                    "imageSrc": "media/stop 1 - IMG_0118.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "stop1-img-3",
+                    "pitch": -1,
+                    "yaw": 51,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 1 photo 4",
+                    "imageSrc": "media/stop 1 - IMG_0119.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "stop1-img-4",
+                    "pitch": 3.5,
+                    "yaw": -100,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 1 photo 5",
+                    "imageSrc": "media/stop 1 - IMG_0120.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                }
+            ]
+        },
+        "stop2": {
+            "title": "Stop 2",
+            "type": "equirectangular",
+            "panorama": "media/stop 2 - pano IMG_20261016_151925_00_076.jpg",
+            "defaultPitch": 0,
+            "defaultYaw": 0,
+            "hotSpotDebug": true,
+            "hotSpots": [
+                {
+                    "id": "stop2-scene-prev",
+                    "pitch": -6,
+                    "yaw": 170,
+                    "type": "scene",
+                    "text": "Stop 1",
+                    "sceneId": "stop1",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop2-scene-next",
+                    "pitch": 0,
+                    "yaw": -101,
+                    "type": "scene",
+                    "text": "Stop 3",
+                    "sceneId": "stop3",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop2-yt",
+                    "pitch": -23,
+                    "yaw": 19,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Stop 2 video",
+                    "youtubeId": "rCcb_jZQRy8",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop2-audio",
+                    "pitch": 0,
+                    "yaw": 30,
+                    "hotspotType": "audio",
+                    "text": "Audio",
+                    "audioTitle": "Stop 2 audio",
+                    "audioSrc": "media/stop 2 - 261019-074729 - arboretum interior.mp3",
+                    "icon": "../icons/audio.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "stop2-img-0",
+                    "pitch": 20,
+                    "yaw": -51.5,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 2 photo 1",
+                    "imageSrc": "media/stop 2 - IMG_0113.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "stop2-img-1",
+                    "pitch": -17,
+                    "yaw": 7,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 2 photo 2",
+                    "imageSrc": "media/stop 2 - IMG_0112.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "stop2-img-2",
+                    "pitch": -28,
+                    "yaw": -50,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 2 photo 3",
+                    "imageSrc": "media/stop 2 - IMG_0110.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "stop2-img-3",
+                    "pitch": -4,
+                    "yaw": 100,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 2 photo 4",
+                    "imageSrc": "media/stop 2 - IMG_0111.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "stop2-img-4",
+                    "pitch": 0,
+                    "yaw": -171,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 2 photo 5",
+                    "imageSrc": "media/stop 2 - IMG_0115.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "stop2-img-5",
+                    "pitch": -11,
+                    "yaw": -178,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 2 photo 6",
+                    "imageSrc": "media/stop 2 - IMG_0114.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                }
+            ]
+        },
+        "stop3": {
+            "title": "Stop 3",
+            "type": "equirectangular",
+            "panorama": "media/stop 3 - pano IMG_20261016_151523_00_074.jpg",
+            "defaultPitch": 0,
+            "defaultYaw": 0,
+            "hotSpotDebug": true,
+            "hotSpots": [
+                {
+                    "id": "stop3-scene-prev",
+                    "pitch": 0,
+                    "yaw": -120,
+                    "type": "scene",
+                    "text": "Stop 2",
+                    "sceneId": "stop2",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop3-scene-next",
+                    "pitch": 0,
+                    "yaw": -60,
+                    "type": "scene",
+                    "text": "Stop 4",
+                    "sceneId": "stop4",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop3-yt",
+                    "pitch": 0,
+                    "yaw": 0,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Stop 3 video",
+                    "youtubeId": "5I23vL-CU-4",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop3-audio",
+                    "pitch": 0,
+                    "yaw": 30,
+                    "hotspotType": "audio",
+                    "text": "Audio",
+                    "audioTitle": "Stop 3 audio",
+                    "audioSrc": "media/stop 3 - 261019-074248 - grass near arena and light rail.mp3",
+                    "icon": "../icons/audio.svg",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop3-img-0",
+                    "pitch": 0,
+                    "yaw": 60,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 3 photo 1",
+                    "imageSrc": "media/stop 3 - grass - IMG_0122.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": "hotspot"
+                }
+            ]
+        },
+        "stop4": {
+            "title": "Stop 4",
+            "type": "equirectangular",
+            "panorama": "media/stop 4 - pano IMG_20261016_151025_00_073.jpg",
+            "defaultPitch": 0,
+            "defaultYaw": 0,
+            "hotSpotDebug": true,
+            "hotSpots": [
+                {
+                    "id": "stop4-scene-prev",
+                    "pitch": 0,
+                    "yaw": -120,
+                    "type": "scene",
+                    "text": "Stop 3",
+                    "sceneId": "stop3",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop4-scene-next",
+                    "pitch": 0,
+                    "yaw": -60,
+                    "type": "scene",
+                    "text": "Stop 5",
+                    "sceneId": "stop5",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop4-yt",
+                    "pitch": 0,
+                    "yaw": 0,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Stop 4 video",
+                    "youtubeId": "o8sTZFCBCik",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop4-img-0",
+                    "pitch": 0,
+                    "yaw": 30,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 4 photo 1",
+                    "imageSrc": "media/stop 4 - IMG_0130.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop4-img-1",
+                    "pitch": 0,
+                    "yaw": 60,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 4 photo 2",
+                    "imageSrc": "media/stop 4 - IMG_0131.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": "hotspot"
+                }
+            ]
+        },
+        "stop5": {
+            "title": "Stop 5",
+            "type": "equirectangular",
+            "panorama": "media/stop 5 - pano palm_walk2_edited.jpg",
+            "defaultPitch": 0,
+            "defaultYaw": 0,
+            "hotSpotDebug": true,
+            "hotSpots": [
+                {
+                    "id": "stop5-scene-prev",
+                    "pitch": 0,
+                    "yaw": -120,
+                    "type": "scene",
+                    "text": "Stop 4",
+                    "sceneId": "stop4",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop5-scene-next",
+                    "pitch": 0,
+                    "yaw": -60,
+                    "type": "scene",
+                    "text": "Stop 6",
+                    "sceneId": "stop6",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop5-yt",
+                    "pitch": 0,
+                    "yaw": 0,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Stop 5 video",
+                    "youtubeId": "ybzatb95e5Q",
+                    "mediaAnchor": "hotspot"
+                }
+            ]
+        },
+        "stop6": {
+            "title": "Stop 6",
+            "type": "equirectangular",
+            "panorama": "media/stop 6 - pano palm_walk1_edited.jpg",
+            "defaultPitch": 0,
+            "defaultYaw": 0,
+            "hotSpotDebug": true,
+            "hotSpots": [
+                {
+                    "id": "stop6-scene-prev",
+                    "pitch": 0,
+                    "yaw": -120,
+                    "type": "scene",
+                    "text": "Stop 5",
+                    "sceneId": "stop5",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop6-scene-next",
+                    "pitch": 0,
+                    "yaw": -60,
+                    "type": "scene",
+                    "text": "Stop 9",
+                    "sceneId": "stop9",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop6-yt",
+                    "pitch": 0,
+                    "yaw": 0,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Stop 6 video",
+                    "youtubeId": "xe47COnXCYc",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop6-audio",
+                    "pitch": 0,
+                    "yaw": 30,
+                    "hotspotType": "audio",
+                    "text": "Audio",
+                    "audioTitle": "Stop 6 audio",
+                    "audioSrc": "media/stop 6 - 260320-070452 - fwing tyler mall.mp3",
+                    "icon": "../icons/audio.svg",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop6-img-0",
+                    "pitch": 0,
+                    "yaw": 60,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 6 photo 1",
+                    "imageSrc": "media/stop 6 - IMG_0128.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop6-img-1",
+                    "pitch": 0,
+                    "yaw": 90,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 6 photo 2",
+                    "imageSrc": "media/stop 6 - IMG_0124.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop6-img-2",
+                    "pitch": 0,
+                    "yaw": 120,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 6 photo 3",
+                    "imageSrc": "media/stop 6 - IMG_0125.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop6-img-3",
+                    "pitch": 0,
+                    "yaw": 150,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 6 photo 4",
+                    "imageSrc": "media/stop 6 - IMG_0127.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop6-img-4",
+                    "pitch": 0,
+                    "yaw": 180,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 6 photo 5",
+                    "imageSrc": "media/stop 6 - IMG_0126.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": "hotspot"
+                }
+            ]
+        },
+        "stop9": {
+            "title": "Stop 9",
+            "type": "equirectangular",
+            "panorama": "media/stop 9 - pano milkweed_edited.jpg",
+            "defaultPitch": 0,
+            "defaultYaw": 0,
+            "hotSpotDebug": true,
+            "hotSpots": [
+                {
+                    "id": "stop9-scene-prev",
+                    "pitch": 0,
+                    "yaw": -120,
+                    "type": "scene",
+                    "text": "Stop 6",
+                    "sceneId": "stop6",
+                    "targetPitch": 0,
+                    "targetYaw": 0,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop9-yt",
+                    "pitch": 0,
+                    "yaw": -60,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Stop 9 video",
+                    "youtubeId": "FWSlmTPWtdQ",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop9-img-0",
+                    "pitch": 0,
+                    "yaw": -30,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 9 photo 1",
+                    "imageSrc": "media/stop 9 - milkweed 1 - IMG_0091.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop9-img-1",
+                    "pitch": 0,
+                    "yaw": 0,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 9 photo 2",
+                    "imageSrc": "media/stop 9 - milkweed 2 - IMG_0092.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": "hotspot"
+                },
+                {
+                    "id": "stop9-img-2",
+                    "pitch": 0,
+                    "yaw": 30,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Stop 9 photo 3",
+                    "imageSrc": "media/stop 9 - milkweed bug - IMG_0093.JPG",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": "hotspot"
+                }
+            ]
+        }
+    }
+}
