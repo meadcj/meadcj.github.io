@@ -97,7 +97,12 @@ body {
 }
 
 .pnlm-scene {
+    width: 44px;
+    height: 44px;
     background-image: url("icons/arrow.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 
@@ -363,7 +368,7 @@ body {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     z-index: 1000;
     max-width: min(420px, calc(100vw - 32px));
     padding: 10px 14px;
@@ -377,6 +382,30 @@ body {
 }
 
 #dataReadout[hidden]{ display:none; }
+
+#dataCenterIndicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(255,255,255,0.95);
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    pointer-events: none;
+    z-index: 1005;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.6), 0 0 10px rgba(0,0,0,0.5);
+    display: none;
+}
+
+#dataCenterIndicator::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+}
 
 .pnlm-data-toggle {
     font-family: system-ui, sans-serif;

@@ -29,6 +29,7 @@ const audio = document.getElementById("audio");
 const audioSource = document.getElementById("audioSource");
 const panorama = document.getElementById("panorama");
 const dataReadout = document.getElementById("dataReadout");
+const dataCenterIndicator = document.getElementById("dataCenterIndicator");
 
 let dragState = { active:false, offsetX:0, offsetY:0 };
 
@@ -226,7 +227,6 @@ function prepareHotspot(hotspot) {
             h.text = targetScene.title;
         }
         if (h.icon) {
-            h.type = "info";
             const safeId = h.id.replace(/[^a-zA-Z0-9_-]/g,'');
             const className = `scene-icon-${safeId}`;
             if (!document.getElementById(`style-scene-${safeId}`)) {
@@ -237,7 +237,7 @@ function prepareHotspot(hotspot) {
                 style.textContent = `.${className}{background-image:url("${iconUrl}") !important;}`;
                 document.head.appendChild(style);
             }
-            h.cssClass = `pnlm-info ${className}`;
+            h.cssClass = `pnlm-scene ${className}`;
             delete h.createTooltipFunc;
             delete h.createTooltipArgs;
         }
@@ -248,10 +248,14 @@ function prepareHotspot(hotspot) {
             const scene = config.scenes[args.sceneId];
 
             openInfoAfterSceneChange = args.infoOpen ?? scene.infoOpen ?? false;
+            const targetPitch = args.targetPitch ?? config.scenes[args.sceneId].defaultPitch;
+            const targetYaw = args.targetYaw ?? config.scenes[args.sceneId].defaultYaw;
+            const pitch = targetPitch != null ? Math.max(-90, Math.min(90, targetPitch)) : undefined;
+            const yaw = targetYaw != null ? ((targetYaw % 360) + 360) % 360 : undefined;
             viewer.loadScene(
                 args.sceneId,
-                args.targetPitch ?? config.scenes[args.sceneId].defaultPitch,
-                args.targetYaw ?? config.scenes[args.sceneId].defaultYaw,
+                pitch,
+                yaw,
                 args.targetHfov
             );
         };
@@ -540,9 +544,14 @@ async function loadDataLayer(sceneId) {
     if (!dl || dl.mode !== 'regions') { clearData(); return; }
     if (!dataMode) return;
 
+    // Clear stale data immediately so old hits don't linger while fetching
+    clearData();
+
     try {
-        const src = new URL(dl.source, configUrl).href;
-        const res = await fetch(src);
+        const srcUrl = new URL(dl.source, configUrl);
+        srcUrl.searchParams.set('_t', Date.now());
+        const res = await fetch(srcUrl.href, {cache: 'no-store'});
+        if (!res.ok) throw new Error(`Data load ${res.status}`);
         const regions = await res.json();
         dataState = {regions, unit: dl.unit || ''};
     } catch(e) {
@@ -591,7 +600,7 @@ function handleDataPointer() {
 
 
 function clearData() {
-    dataState = { canvas: null, ctx: null, lookup: null, unit: '' };
+    dataState = {regions: [], unit: ''};
     if (dataReadout) {
         dataReadout.hidden = true;
         dataReadout.textContent = '';
@@ -602,7 +611,8 @@ function clearData() {
 async function initializeViewer() {
     try {
         configUrl = new URL("vfe.json", document.baseURI);
-        const response = await fetch(configUrl);
+        configUrl.searchParams.set('_t', Date.now());
+        const response = await fetch(configUrl.href, {cache: 'no-store'});
 
         if (!response.ok) {
             throw new Error(`Unable to load json: ${response.status}`);
@@ -613,7 +623,7 @@ async function initializeViewer() {
 
         // override default scene load before initial
         Object.values(config.scenes).forEach(scene => {
-            if (scene.pitch == null & scene.defaultPitch != null) {
+            if (scene.pitch == null && scene.defaultPitch != null) {
                 scene.pitch = scene.defaultPitch;
             }
             if (scene.yaw == null && scene.defaultYaw != null) {
@@ -673,8 +683,10 @@ async function initializeViewer() {
             dataButton.setAttribute('aria-pressed', String(dataMode));
             if (dataMode) {
                 loadDataLayer(viewer.getScene());
+                if (dataCenterIndicator) dataCenterIndicator.style.display = 'block';
             } else {
                 clearData();
+                if (dataCenterIndicator) dataCenterIndicator.style.display = 'none';
             }
         });
         dataButton.addEventListener('keydown', e => {

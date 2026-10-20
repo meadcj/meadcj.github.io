@@ -1,12 +1,12 @@
 [
     {
         "id": 1,
-        "label": "Hover Title",
-        "value": "This hotspot appears when the view center falls on top of a prespecified region.",
-        "pitch": -30,
-        "yaw": -70,
-        "yawLim": 20,
-        "pitchLim": 20
+        "label": "Manhole cover",
+        "value": "This is a manhole cover.",
+        "pitch": -15.5,
+        "yaw": -92,
+        "yawLim": 4,
+        "pitchLim": 1.5
     },
     {
         "id": 2,
