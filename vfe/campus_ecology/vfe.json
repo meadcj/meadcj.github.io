@@ -30,7 +30,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 1 video",
                     "youtubeId": "ybUC5VzaJ8Q",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 },
                 {
                     "id": "stop1-audio",
@@ -51,7 +51,7 @@
                     "imageTitle": "Stop 1 photo 1",
                     "imageSrc": "media/stop 1 - IMG_0117.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 },
                 {
                     "id": "stop1-img-1",
@@ -62,7 +62,7 @@
                     "imageTitle": "Stop 1 photo 2",
                     "imageSrc": "media/stop 1 - IMG_0116.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 },
                 {
                     "id": "stop1-img-2",
@@ -73,7 +73,7 @@
                     "imageTitle": "Stop 1 photo 3",
                     "imageSrc": "media/stop 1 - IMG_0118.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 },
                 {
                     "id": "stop1-img-3",
@@ -84,7 +84,7 @@
                     "imageTitle": "Stop 1 photo 4",
                     "imageSrc": "media/stop 1 - IMG_0119.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 },
                 {
                     "id": "stop1-img-4",
@@ -95,7 +95,7 @@
                     "imageTitle": "Stop 1 photo 5",
                     "imageSrc": "media/stop 1 - IMG_0120.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 }
             ]
         },
@@ -133,7 +133,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 2 video",
                     "youtubeId": "rCcb_jZQRy8",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 },
                 {
                     "id": "stop2-audio",
@@ -248,7 +248,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 3 video",
                     "youtubeId": "5I23vL-CU-4",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 },
                 {
                     "id": "stop3-audio",
@@ -310,7 +310,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 4 video",
                     "youtubeId": "o8sTZFCBCik",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 },
                 {
                     "id": "stop4-img-0",
@@ -370,7 +370,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 5 video",
                     "youtubeId": "ybzatb95e5Q",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 }
             ]
         },
@@ -410,7 +410,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 6 video",
                     "youtubeId": "xe47COnXCYc",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 },
                 {
                     "id": "stop6-audio",
@@ -474,7 +474,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 9 video",
                     "youtubeId": "FWSlmTPWtdQ",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 },
                 {
                     "id": "stop9-img-0",
