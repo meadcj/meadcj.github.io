@@ -71,22 +71,32 @@ function applyMediaPosition(anchor, hotSpotEl) {
         mediaOverlay.style.right = 'auto';
         mediaOverlay.style.bottom = 'auto';
         // initial placement adjacent to hotspot, screen anchored
-        const r = hotSpotEl.getBoundingClientRect();
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-        const margin = 12;
-        let left = r.right + 12;
-        let top = r.top;
-        if (left + mediaOverlay.offsetWidth > vw - margin) {
-            left = r.left - mediaOverlay.offsetWidth - 12;
-        }
-        if (top + mediaOverlay.offsetHeight > vh - margin) {
-            top = vh - mediaOverlay.offsetHeight - margin;
-        }
-        if (top < margin) top = margin;
-        if (left < margin) left = margin;
-        mediaOverlay.style.left = left + 'px';
-        mediaOverlay.style.top = top + 'px';
+        // Defer to next frame so overlay has a measured size and is laid out
+        requestAnimationFrame(() => {
+            const r = hotSpotEl.getBoundingClientRect();
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const margin = 12;
+            // Use actual measured size, fall back to estimated if not yet laid out
+            let width = mediaOverlay.offsetWidth || parseInt(getComputedStyle(mediaOverlay).width, 10) || 600;
+            let height = mediaOverlay.offsetHeight || parseInt(getComputedStyle(mediaOverlay).height, 10) || 400;
+            let left = r.right + 12;
+            let top = r.top;
+            // Prefer right side, flip to left if overflow
+            if (left + width > vw - margin) {
+                left = r.left - width - 12;
+            }
+            // Clamp horizontally within viewport
+            left = Math.max(margin, Math.min(left, vw - width - margin));
+            // Clamp vertically within viewport
+            if (top + height > vh - margin) {
+                top = vh - height - margin;
+            }
+            if (top < margin) top = margin;
+            top = Math.max(margin, Math.min(top, vh - height - margin));
+            mediaOverlay.style.left = left + 'px';
+            mediaOverlay.style.top = top + 'px';
+        });
     }
 }
 
@@ -129,6 +139,8 @@ function openImage(src, title, anchor = 'corner', hotSpotEl = null) {
 
     hotspotImage.onload = () => {
         imageContainer.classList.add("active");
+        // Re-position after image size is known to keep within viewport
+        requestAnimationFrame(() => applyMediaPosition(anchor, hotSpotEl));
         hotspotImage.onload = null;
         hotspotImage.onerror = null;
     };
@@ -779,6 +791,23 @@ window.addEventListener('pointermove', (e) => {
 
 window.addEventListener('pointerup', () => {
     dragState.active = false;
+});
+
+// Keep pinned media overlay within viewport on resize
+window.addEventListener('resize', () => {
+    if (mediaOverlay.classList.contains('open') && mediaOverlay.classList.contains('pinned')) {
+        const margin = 12;
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const width = mediaOverlay.offsetWidth || 600;
+        const height = mediaOverlay.offsetHeight || 400;
+        let left = parseFloat(mediaOverlay.style.left || '0');
+        let top = parseFloat(mediaOverlay.style.top || '0');
+        left = Math.max(margin, Math.min(left, vw - width - margin));
+        top = Math.max(margin, Math.min(top, vh - height - margin));
+        mediaOverlay.style.left = left + 'px';
+        mediaOverlay.style.top = top + 'px';
+    }
 });
 
 document.addEventListener("keydown", function(event) {

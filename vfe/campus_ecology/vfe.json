@@ -51,7 +51,7 @@
                     "imageTitle": "Stop 1 photo 1",
                     "imageSrc": "media/stop 1 - IMG_0117.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": ""
+                    "mediaAnchor": "hotspot"
                 },
                 {
                     "id": "stop1-img-1",
@@ -62,7 +62,7 @@
                     "imageTitle": "Stop 1 photo 2",
                     "imageSrc": "media/stop 1 - IMG_0116.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": ""
+                    "mediaAnchor": "hotspot"
                 },
                 {
                     "id": "stop1-img-2",
@@ -73,7 +73,7 @@
                     "imageTitle": "Stop 1 photo 3",
                     "imageSrc": "media/stop 1 - IMG_0118.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": ""
+                    "mediaAnchor": "hotspot"
                 },
                 {
                     "id": "stop1-img-3",
@@ -84,7 +84,7 @@
                     "imageTitle": "Stop 1 photo 4",
                     "imageSrc": "media/stop 1 - IMG_0119.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": ""
+                    "mediaAnchor": "hotspot"
                 },
                 {
                     "id": "stop1-img-4",
@@ -95,7 +95,7 @@
                     "imageTitle": "Stop 1 photo 5",
                     "imageSrc": "media/stop 1 - IMG_0120.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": ""
+                    "mediaAnchor": "hotspot"
                 }
             ]
         },
@@ -270,7 +270,7 @@
                     "imageTitle": "Stop 3 photo 1",
                     "imageSrc": "media/stop 3 - grass - IMG_0122.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 }
             ]
         },
@@ -321,7 +321,7 @@
                     "imageTitle": "Stop 4 photo 1",
                     "imageSrc": "media/stop 4 - IMG_0130.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 },
                 {
                     "id": "stop4-img-1",
@@ -332,7 +332,7 @@
                     "imageTitle": "Stop 4 photo 2",
                     "imageSrc": "media/stop 4 - IMG_0131.JPG",
                     "icon": "../icons/image.svg",
-                    "mediaAnchor": "hotspot"
+                    "mediaAnchor": ""
                 }
             ]
         },
