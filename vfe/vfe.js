@@ -32,6 +32,7 @@ const dataReadout = document.getElementById("dataReadout");
 const dataCenterIndicator = document.getElementById("dataCenterIndicator");
 
 let dragState = { active:false, offsetX:0, offsetY:0 };
+let dataButton = null;
 
 function hideAllMedia() {
     youtubeContainer.classList.remove("active");
@@ -619,6 +620,22 @@ function clearData() {
     }
 }
 
+function updateDataButtonVisibility() {
+    if (!dataButton || !viewer || !viewerConfig) return;
+    const sceneId = viewer.getScene();
+    const scene = viewerConfig.scenes?.[sceneId];
+    const hasData = !!scene?.dataLayer && scene.dataLayer.mode === 'regions' && !!scene.dataLayer.source;
+    dataButton.style.display = hasData ? '' : 'none';
+    // If we left a data scene, reset data mode and hide indicators
+    if (!hasData && dataMode) {
+        dataMode = false;
+        dataButton.classList.remove('active');
+        dataButton.setAttribute('aria-pressed', 'false');
+        clearData();
+        if (dataCenterIndicator) dataCenterIndicator.style.display = 'none';
+    }
+}
+
 
 async function initializeViewer() {
     try {
@@ -683,7 +700,7 @@ async function initializeViewer() {
             .appendChild(descriptionButton);
 
         // Data toggle button
-        const dataButton = document.createElement('div');
+        dataButton = document.createElement('div');
         dataButton.className = 'pnlm-controls pnlm-data-toggle';
         dataButton.setAttribute('role','button');
         dataButton.setAttribute('tabindex','0');
@@ -722,6 +739,7 @@ async function initializeViewer() {
             currentSlate = getDefaultSlate(currentSceneConfig());
             renderSlateButtons();
             clearData();
+            updateDataButtonVisibility();
         });
 
         viewer.on("load", () => {
@@ -737,9 +755,11 @@ async function initializeViewer() {
             }
             openInfoAfterSceneChange = false;
             lastSceneId = viewer.getScene();
+            updateDataButtonVisibility();
         });
         currentSlate = getDefaultSlate(currentSceneConfig());
         renderSlateButtons();
+        updateDataButtonVisibility();
     }
     catch (error) {
         console.error(error);
