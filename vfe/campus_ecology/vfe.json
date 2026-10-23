@@ -1,4 +1,14 @@
 {
+    "gatedMode": {
+        "enabled": true,
+        "initialSlate": "intro",
+        "unlockedSlate": "full",
+        "defaultHiddenTypes": ["video","scene"],
+        "prompt": {
+            "type": "button",
+            "text": "Take a minute to look around. Make sure to look at some of the close up images. Click continue when you're ready to hear from Prof. Chew."
+        }
+    },
     "default": {
         "firstScene": "stop1",
         "autoLoad": true,
@@ -9,8 +19,13 @@
             "title": "Stop 1",
             "type": "equirectangular",
             "panorama": "media/stop 1 - pano IMG_20261016_152131_00_078.jpg",
+            "descriptionFile": "descriptions/stop1.html",
             "defaultPitch": -6,
             "defaultYaw": 53,
+            "gateRecenter": {
+                "pitch": 0,
+                "yaw": 15
+            },
             "hotSpotDebug": true,
             "hotSpots": [
                 {
@@ -105,6 +120,10 @@
             "panorama": "media/stop 2 - pano IMG_20261016_151925_00_076.jpg",
             "defaultPitch": 0,
             "defaultYaw": 0,
+            "gateRecenter": {
+                "pitch": -23,
+                "yaw": 19
+            },
             "hotSpotDebug": true,
             "hotSpots": [
                 {
@@ -220,6 +239,10 @@
             "panorama": "media/stop 3 - pano IMG_20261016_151523_00_074.jpg",
             "defaultPitch": -20,
             "defaultYaw": 0,
+            "gateRecenter": {
+                "pitch": -4,
+                "yaw": 10
+            },
             "hotSpotDebug": true,
             "hotSpots": [
                 {
@@ -280,6 +303,10 @@
             "panorama": "media/stop 4 - pano IMG_20261016_151025_00_073.jpg",
             "defaultPitch": -15,
             "defaultYaw": 32,
+            "gateRecenter": {
+                "pitch": -12,
+                "yaw": 45
+            },
             "hotSpotDebug": true,
             "hotSpots": [
                 {
@@ -342,6 +369,10 @@
             "panorama": "media/stop 5 - pano palm_walk2_edited.jpg",
             "defaultPitch": 0,
             "defaultYaw": -46,
+            "gateRecenter": {
+                "pitch": 0,
+                "yaw": -70
+            },
             "hotSpotDebug": true,
             "hotSpots": [
                 {
@@ -380,6 +411,10 @@
             "panorama": "media/stop 6 - pano palm_walk1_edited.jpg",
             "defaultPitch": 0,
             "defaultYaw": -36,
+            "gateRecenter": {
+                "pitch": 0.5,
+                "yaw": -56
+            },
             "hotSpotDebug": true,
             "hotSpots": [
                 {
@@ -453,6 +488,10 @@
             "panorama": "media/stop 9 - pano milkweed_edited.jpg",
             "defaultPitch": 0,
             "defaultYaw": 0,
+            "gateRecenter": {
+                "pitch": 0,
+                "yaw": -20
+            },
             "hotSpotDebug": true,
             "hotSpots": [
                 {

@@ -33,6 +33,50 @@ const dataCenterIndicator = document.getElementById("dataCenterIndicator");
 
 let dragState = { active:false, offsetX:0, offsetY:0 };
 let dataButton = null;
+let gatedModeConfig = null;
+let unlockedScenes = new Set();
+let gatePromptInDesc = null;
+let lastAppliedSlate = null;
+let lastAppliedScene = null;
+let tutorialOverlay = null;
+let tutorialContent = null;
+let tutorialShown = false;
+
+function ensureTutorialOverlay() {
+    if (tutorialOverlay) return;
+    tutorialOverlay = document.createElement('div');
+    tutorialOverlay.id = 'tutorialOverlay';
+    tutorialOverlay.setAttribute('role', 'dialog');
+    tutorialOverlay.setAttribute('aria-modal', 'true');
+    tutorialOverlay.setAttribute('aria-hidden', 'true');
+    tutorialOverlay.innerHTML = '<div id="tutorialContent"></div>';
+    document.body.appendChild(tutorialOverlay);
+    tutorialContent = document.getElementById('tutorialContent');
+    tutorialOverlay.addEventListener('click', closeTutorial);
+}
+
+function closeTutorial() {
+    if (!tutorialOverlay) return;
+    tutorialOverlay.classList.remove('open');
+    tutorialOverlay.setAttribute('aria-hidden', 'true');
+    tutorialShown = true;
+}
+
+async function showTutorial() {
+    if (tutorialShown) return;
+    ensureTutorialOverlay();
+    try {
+        const url = new URL('descriptions/tutorial.html', configUrl);
+        const res = await fetch(url.href, {cache:'no-store'});
+        if (!res.ok) return;
+        const html = await res.text();
+        tutorialContent.innerHTML = html;
+        tutorialOverlay.classList.add('open');
+        tutorialOverlay.setAttribute('aria-hidden', 'false');
+    } catch(e) {
+        console.warn('Tutorial load failed', e);
+    }
+}
 
 function hideAllMedia() {
     youtubeContainer.classList.remove("active");
@@ -426,25 +470,37 @@ function getVisibleHotspots(sceneId) {
     return scene.allHotSpots.filter(hotspotIsVisible);
 }
 
-
 function applySlate() {
     const sceneId = viewer.getScene();
+    if (lastAppliedScene === sceneId && lastAppliedSlate === currentSlate) {
+        return;
+    }
     const visibleHotspots = getVisibleHotspots(sceneId);
-    const wantedIds = new Set(visibleHotspots.map(hotspot => hotspot.id));
+    const wantedIds = new Set(visibleHotspots.map(h => h.id));
 
+    // Remove hotspots no longer wanted
     activeHotspotIds.forEach(id => {
         if (!wantedIds.has(id)) {
-            viewer.removeHotSpot(id, sceneId);
+            try { viewer.removeHotSpot(id, sceneId); } catch(e){}
             activeHotspotIds.delete(id);
         }
     });
 
-    visibleHotspots.forEach(hotspot => {
-        if (!activeHotspotIds.has(hotspot.id)) {
-            viewer.addHotSpot(hotspot, sceneId);
-            activeHotspotIds.add(hotspot.id);
-        }
-    });
+    // Mark as in-progress to prevent re-entrancy
+    lastAppliedScene = sceneId;
+    lastAppliedSlate = currentSlate;
+
+    // Defer add to allow removals to settle
+    setTimeout(() => {
+        visibleHotspots.forEach(hotspot => {
+            if (!activeHotspotIds.has(hotspot.id)) {
+                // Shallow clone to give Pannellum a fresh object reference while keeping functions
+                const clone = Object.assign({}, hotspot);
+                viewer.addHotSpot(clone, sceneId);
+                activeHotspotIds.add(hotspot.id);
+            }
+        });
+    }, 0);
 }
 
 
@@ -542,6 +598,14 @@ async function openDescription() {
 
     descriptionOverlay.classList.add("open");
     descriptionOverlay.setAttribute("aria-hidden", "false");
+
+    // If scene is gated and locked, show gate prompt inside description
+    const effective = getEffectiveGatedConfig(scene);
+    if (effective?.enabled && !unlockedScenes.has(sceneId)) {
+        showGatePrompt(scene);
+    } else {
+        hideGatePrompt();
+    }
 }
 
 
@@ -636,6 +700,127 @@ function updateDataButtonVisibility() {
     }
 }
 
+function createGatePromptInDesc() {
+    if (gatePromptInDesc) return;
+    gatePromptInDesc = document.createElement('div');
+    gatePromptInDesc.id = 'gatePromptInDesc';
+    gatePromptInDesc.className = 'gate-prompt-in-desc';
+    gatePromptInDesc.setAttribute('aria-hidden','true');
+    gatePromptInDesc.innerHTML = `
+      <div class="gate-prompt-box">
+        <div id="gatePromptText" class="gate-prompt-text"></div>
+        <div id="gatePromptInputWrap" class="gate-prompt-input-wrap" style="display:none">
+          <input id="gatePromptInput" type="text" class="gate-prompt-input" placeholder="" />
+        </div>
+        <div class="gate-prompt-actions">
+          <button id="gatePromptSubmit" type="button" class="gate-prompt-btn primary">Continue</button>
+        </div>
+      </div>`;
+    // Append inside description overlay, after descriptionContent
+    if (descriptionOverlay) {
+      descriptionOverlay.appendChild(gatePromptInDesc);
+    } else {
+      document.body.appendChild(gatePromptInDesc);
+    }
+    document.getElementById('gatePromptSubmit').addEventListener('click', () => handleGateSubmit());
+}
+
+function showGatePrompt(sceneConfig) {
+    if (!gatePromptInDesc) return;
+    const textEl = document.getElementById('gatePromptText');
+    const inputWrap = document.getElementById('gatePromptInputWrap');
+    const input = document.getElementById('gatePromptInput');
+    const promptCfg = sceneConfig?.prompt || gatedModeConfig?.prompt || {};
+    textEl.textContent = promptCfg.text || 'Complete the step to continue.';
+    if (promptCfg.type === 'text') {
+        inputWrap.style.display = 'block';
+        input.placeholder = promptCfg.placeholder || '';
+        input.value = '';
+        input.focus();
+    } else {
+        inputWrap.style.display = 'none';
+    }
+    gatePromptInDesc.setAttribute('aria-hidden','false');
+    gatePromptInDesc.style.display = '';
+}
+
+function hideGatePrompt() {
+    if (!gatePromptInDesc) return;
+    gatePromptInDesc.setAttribute('aria-hidden','true');
+    gatePromptInDesc.style.display = 'none';
+}
+
+function handleGateSubmit() {
+    if (!viewer) return;
+    const sceneId = viewer.getScene();
+    const scene = viewerConfig?.scenes?.[sceneId];
+    const effective = getEffectiveGatedConfig(scene);
+    if (!effective?.enabled) { hideGatePrompt(); return; }
+    // Optionally capture text
+    const input = document.getElementById('gatePromptInput');
+    const textValue = input ? input.value.trim() : '';
+    // Mark unlocked
+    unlockedScenes.add(sceneId);
+    hideGatePrompt();
+    const unlockedSlate = effective.unlockedSlate || 'full';
+    setSlate(unlockedSlate);
+
+    // Recenter view if scene defines gateRecenter
+    const recenter = scene?.gateRecenter || scene?.gatedMode?.recenter;
+    if (recenter && typeof recenter === 'object') {
+        const pitch = recenter.pitch ?? recenter.p;
+        const yaw = recenter.yaw ?? recenter.y;
+        const hfov = recenter.hfov ?? recenter.fov;
+        if (pitch != null && yaw != null) {
+            try {
+                // Defer to next frame so slate change settles
+                requestAnimationFrame(() => {
+                    viewer.setPitch(Number(pitch));
+                    viewer.setYaw(Number(yaw));
+                    if (hfov != null) viewer.setHfov(Number(hfov));
+                });
+            } catch(e) {
+                console.warn('gateRecenter failed', e);
+            }
+        }
+    }
+}
+
+function getEffectiveGatedConfig(scene) {
+    if (!gatedModeConfig) return null;
+    const top = gatedModeConfig;
+    const sceneGated = scene?.gatedMode;
+    const enabled = sceneGated?.enabled ?? top.enabled;
+    if (!enabled) return null;
+    return {
+        enabled: true,
+        initialSlate: sceneGated?.initialSlate || top.initialSlate || 'intro',
+        unlockedSlate: sceneGated?.unlockedSlate || top.unlockedSlate || 'full',
+        prompt: sceneGated?.prompt || top.prompt || { type:'button', text:'Continue to view more content.' },
+        defaultHiddenTypes: sceneGated?.defaultHiddenTypes || top.defaultHiddenTypes || ['video','scene']
+    };
+}
+
+async function checkGateForScene() {
+    if (!viewer || !viewerConfig || !gatedModeConfig) { hideGatePrompt(); return; }
+    const sceneId = viewer.getScene();
+    const scene = viewerConfig.scenes[sceneId];
+    const effective = getEffectiveGatedConfig(scene);
+    if (!effective?.enabled) { hideGatePrompt(); return; }
+    if (unlockedScenes.has(sceneId)) {
+        // ensure unlocked slate
+        const unlockedSlate = effective.unlockedSlate || 'full';
+        if (currentSlate !== unlockedSlate) setSlate(unlockedSlate);
+        hideGatePrompt();
+        return;
+    }
+    // locked
+    const initialSlate = effective.initialSlate || 'intro';
+    if (currentSlate !== initialSlate) setSlate(initialSlate);
+    // Ensure description is loaded before showing gate prompt
+    await openDescription();
+    // openDescription already handles showing/hiding gate prompt
+}
 
 async function initializeViewer() {
     try {
@@ -649,6 +834,36 @@ async function initializeViewer() {
 
         config = await response.json();
         config.configUrl = configUrl;
+
+        gatedModeConfig = config.gatedMode || null;
+
+        // Preprocess gated mode hotspot slates
+        if (gatedModeConfig?.enabled) {
+            const top = gatedModeConfig;
+            const initialSlate = top.initialSlate || 'intro';
+            const unlockedSlate = top.unlockedSlate || 'full';
+            const hiddenTypes = top.defaultHiddenTypes || ['video','scene'];
+            Object.values(config.scenes).forEach(scene => {
+                // ensure scene has a defaultHotSpotSlate for gated entry
+                if (!scene.defaultHotSpotSlate && scene.gatedMode?.enabled !== false) {
+                    scene.defaultHotSpotSlate = initialSlate;
+                }
+                (scene.hotSpots || []).forEach(hs => {
+                    const isSceneNav = hs.type === 'scene';
+                    const isVideo = hs.hotspotType === 'video' || hs.hotspotType === 'youtube';
+                    const isAudio = hs.hotspotType === 'audio';
+                    const matches = (hiddenTypes.includes('scene') && isSceneNav) ||
+                                    (hiddenTypes.includes('video') && isVideo) ||
+                                    (hiddenTypes.includes('audio') && isAudio);
+                    if (matches) {
+                        if (!Array.isArray(hs.slates)) hs.slates = [];
+                        if (!hs.slates.includes(unlockedSlate)) hs.slates.push(unlockedSlate);
+                        // ensure not visible in initial slate by default
+                        hs.slates = hs.slates.filter(s => s !== initialSlate);
+                    }
+                });
+            });
+        }
 
         // override default scene load before initial
         Object.values(config.scenes).forEach(scene => {
@@ -726,6 +941,10 @@ async function initializeViewer() {
         });
         document.querySelector('.pnlm-controls-container').appendChild(dataButton);
 
+        if (gatedModeConfig?.enabled) {
+            createGatePromptInDesc();
+        }
+
         viewer.on("scenechange", () => {
             closeMedia();
             closeDescription();
@@ -740,6 +959,7 @@ async function initializeViewer() {
             renderSlateButtons();
             clearData();
             updateDataButtonVisibility();
+            checkGateForScene();
         });
 
         viewer.on("load", () => {
@@ -756,10 +976,17 @@ async function initializeViewer() {
             openInfoAfterSceneChange = false;
             lastSceneId = viewer.getScene();
             updateDataButtonVisibility();
+            checkGateForScene();
+
+            // Show tutorial once on initial scene load
+            if (!tutorialShown && viewer.getScene() === config?.default?.firstScene) {
+                showTutorial();
+            }
         });
         currentSlate = getDefaultSlate(currentSceneConfig());
         renderSlateButtons();
         updateDataButtonVisibility();
+        checkGateForScene();
     }
     catch (error) {
         console.error(error);

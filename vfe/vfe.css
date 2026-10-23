@@ -428,3 +428,149 @@ body {
         cursor: default;
     }
 }
+
+/* Gate prompt overlay - legacy, kept for reference */
+#gatePromptOverlay {
+    position: fixed;
+    top: 60px;
+    left: 72px;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s;
+}
+#gatePromptOverlay[aria-hidden="false"] {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Gate prompt inside Description window */
+#gatePromptInDesc {
+    padding: 14px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.15);
+    font-size: 14px;
+}
+#gatePromptInDesc[aria-hidden="true"] {
+    display: none;
+}
+#gatePromptInDesc .gate-prompt-box {
+    background: transparent;
+    color: #fff;
+    padding: 0;
+    border-radius: 0;
+    max-width: none;
+    box-shadow: none;
+    font-size: 14px;
+}
+#gatePromptInDesc .gate-prompt-text {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+#gatePromptInDesc .gate-prompt-input-wrap {
+    margin: 8px 0;
+}
+#gatePromptInDesc .gate-prompt-input {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #0b0b0b;
+    color: #fff;
+}
+#gatePromptInDesc .gate-prompt-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+#gatePromptInDesc .gate-prompt-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+    font-size: 13px;
+}
+#gatePromptInDesc .gate-prompt-btn.primary {
+    background: #fff;
+    color: #111;
+}
+#gatePromptInDesc .gate-prompt-btn.secondary {
+    background: #333;
+    color: #fff;
+}
+
+/* Legacy styles retained */
+#gatePromptOverlay .gate-prompt-box {
+    background: #171717;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    max-width: 320px;
+    box-shadow: 0 6px 24px rgba(0,0,0,.5);
+    font-size: 14px;
+}
+#gatePromptOverlay .gate-prompt-text {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+#gatePromptOverlay .gate-prompt-input {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #0b0b0b;
+    color: #fff;
+    margin: 8px 0;
+}
+#gatePromptOverlay .gate-prompt-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+#gatePromptOverlay .gate-prompt-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 0;
+    cursor: pointer;
+    font-size: 13px;
+}
+#gatePromptOverlay .gate-prompt-btn.primary {
+    background: #fff;
+    color: #111;
+}
+#gatePromptOverlay .gate-prompt-btn.secondary {
+    background: #333;
+    color: #fff;
+}
+
+/* Tutorial overlay */
+#tutorialOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+#tutorialOverlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+#tutorialContent {
+    max-width: min(720px, 90vw);
+    max-height: 90vh;
+    overflow: auto;
+    background: rgba(20,20,20,0.95);
+    color: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+#tutorialContent > :first-child { margin-top:0; }
+#tutorialContent > :last-child { margin-bottom:0; }
+
