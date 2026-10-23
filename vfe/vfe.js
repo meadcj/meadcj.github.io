@@ -730,7 +730,10 @@ function showGatePrompt(sceneConfig) {
     const textEl = document.getElementById('gatePromptText');
     const inputWrap = document.getElementById('gatePromptInputWrap');
     const input = document.getElementById('gatePromptInput');
-    const promptCfg = sceneConfig?.prompt || gatedModeConfig?.prompt || {};
+    const effective = getEffectiveGatedConfig(sceneConfig);
+    const basePrompt = effective?.prompt || {};
+    const overridePrompt = sceneConfig?.prompt || {};
+    const promptCfg = { ...basePrompt, ...overridePrompt };
     textEl.textContent = promptCfg.text || 'Complete the step to continue.';
     if (promptCfg.type === 'text') {
         inputWrap.style.display = 'block';

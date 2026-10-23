@@ -26,7 +26,12 @@
                 "pitch": 0,
                 "yaw": 15
             },
+            "prompt": {
+                "text": "Take a minute to look around. Make sure to look at some of the close up images. Click continue when you're ready to hear from Prof. Chew."
+            },
             "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": 230,
             "hotSpots": [
                 {
                     "id": "stop1-scene-next",
@@ -118,13 +123,19 @@
             "title": "Stop 2",
             "type": "equirectangular",
             "panorama": "media/stop 2 - pano IMG_20261016_151925_00_076.jpg",
+            "descriptionFile": "descriptions/stop2.html",
             "defaultPitch": 0,
             "defaultYaw": 0,
             "gateRecenter": {
                 "pitch": -23,
                 "yaw": 19
             },
+            "prompt": {
+                "text": "Once again, take a minute to look around. Click continue when you're ready to hear from Prof. Chew."
+            },
             "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": 205,
             "hotSpots": [
                 {
                     "id": "stop2-scene-prev",
@@ -237,13 +248,19 @@
             "title": "Stop 3",
             "type": "equirectangular",
             "panorama": "media/stop 3 - pano IMG_20261016_151523_00_074.jpg",
+            "descriptionFile": "descriptions/stop3.html",
             "defaultPitch": -20,
             "defaultYaw": 0,
             "gateRecenter": {
                 "pitch": -4,
                 "yaw": 10
             },
+            "prompt": {
+                "text": "Once again, take a minute to look around. Click continue when you're ready to hear from Prof. Chew."
+            },
             "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": 220,
             "hotSpots": [
                 {
                     "id": "stop3-scene-prev",
@@ -308,6 +325,8 @@
                 "yaw": 45
             },
             "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": 0,
             "hotSpots": [
                 {
                     "id": "stop4-scene-prev",
@@ -374,6 +393,8 @@
                 "yaw": -70
             },
             "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": 180,
             "hotSpots": [
                 {
                     "id": "stop5-scene-prev",
@@ -416,6 +437,8 @@
                 "yaw": -56
             },
             "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": 180,
             "hotSpots": [
                 {
                     "id": "stop6-scene-prev",
@@ -493,6 +516,8 @@
                 "yaw": -20
             },
             "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": -60,
             "hotSpots": [
                 {
                     "id": "stop9-scene-prev",
