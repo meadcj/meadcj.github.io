@@ -69,7 +69,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 1 photo 1",
-                    "imageSrc": "media/stop 1 - IMG_0117.JPG",
+                    "imageSrc": "media/stop 1 - IMG_0117_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -80,7 +80,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 1 photo 2",
-                    "imageSrc": "media/stop 1 - IMG_0116.JPG",
+                    "imageSrc": "media/stop 1 - IMG_0116_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -91,7 +91,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 1 photo 3",
-                    "imageSrc": "media/stop 1 - IMG_0118.JPG",
+                    "imageSrc": "media/stop 1 - IMG_0118_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -102,7 +102,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 1 photo 4",
-                    "imageSrc": "media/stop 1 - IMG_0119.JPG",
+                    "imageSrc": "media/stop 1 - IMG_0119_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -113,7 +113,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 1 photo 5",
-                    "imageSrc": "media/stop 1 - IMG_0120.JPG",
+                    "imageSrc": "media/stop 1 - IMG_0120_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 }
@@ -183,7 +183,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 1",
-                    "imageSrc": "media/stop 2 - IMG_0113.JPG",
+                    "imageSrc": "media/stop 2 - IMG_0113_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -194,7 +194,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 2",
-                    "imageSrc": "media/stop 2 - IMG_0112.JPG",
+                    "imageSrc": "media/stop 2 - IMG_0112_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -205,7 +205,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 3",
-                    "imageSrc": "media/stop 2 - IMG_0110.JPG",
+                    "imageSrc": "media/stop 2 - IMG_0110_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -216,7 +216,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 4",
-                    "imageSrc": "media/stop 2 - IMG_0111.JPG",
+                    "imageSrc": "media/stop 2 - IMG_0111_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -227,7 +227,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 5",
-                    "imageSrc": "media/stop 2 - IMG_0115.JPG",
+                    "imageSrc": "media/stop 2 - IMG_0115_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -238,7 +238,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 6",
-                    "imageSrc": "media/stop 2 - IMG_0114.JPG",
+                    "imageSrc": "media/stop 2 - IMG_0114_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 }
@@ -308,7 +308,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 3 photo 1",
-                    "imageSrc": "media/stop 3 - grass - IMG_0122.JPG",
+                    "imageSrc": "media/stop 3 - grass - IMG_0122_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 }
@@ -366,7 +366,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 4 photo 1",
-                    "imageSrc": "media/stop 4 - IMG_0130.JPG",
+                    "imageSrc": "media/stop 4 - IMG_0137.JPG",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -377,7 +377,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 4 photo 2",
-                    "imageSrc": "media/stop 4 - IMG_0131.JPG",
+                    "imageSrc": "media/stop 4 - IMG_0138.JPG",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 }
@@ -491,7 +491,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 6 photo 1",
-                    "imageSrc": "media/stop 6 - IMG_0128.JPG",
+                    "imageSrc": "media/stop 6 - IMG_0128_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -502,7 +502,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 6 photo 4",
-                    "imageSrc": "media/stop 6 - IMG_0126.JPG",
+                    "imageSrc": "media/stop 6 - IMG_0126_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 }
@@ -513,12 +513,15 @@
             "type": "equirectangular",
             "panorama": "media/stop 7 - pano IMG_20261023_112011_00_081_edited.jpg",
             "descriptionFile": "descriptions/stop7.html",
+            "prompt": {
+                "text": "Take a minute to look around. Click continue when you're ready to move on."
+            },
+            "gateRecenter": {
+                "pitch": 2,
+                "yaw": 180
+            },
             "defaultPitch": 6,
             "defaultYaw": 356,
-            "gateRecenter": {
-                "pitch": 0,
-                "yaw": -70
-            },
             "hotSpotDebug": true,
             "compass": true,
             "northOffset": 180,
@@ -551,8 +554,8 @@
             "defaultPitch": -1,
             "defaultYaw": -10,
             "gateRecenter": {
-                "pitch": 0,
-                "yaw": -70
+                "pitch": 2.5,
+                "yaw": 87
             },
             "hotSpotDebug": true,
             "compass": true,
@@ -597,7 +600,7 @@
             "defaultYaw": 17,
             "gateRecenter": {
                 "pitch": 0,
-                "yaw": -70
+                "yaw": 0
             },
             "hotSpotDebug": true,
             "compass": true,
@@ -687,7 +690,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 10 photo 1",
-                    "imageSrc": "media/stop 10 - milkweed 1 - IMG_0091.JPG",
+                    "imageSrc": "media/stop 10 - milkweed 1 - IMG_0091_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
@@ -698,7 +701,7 @@
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 10 photo 3",
-                    "imageSrc": "media/stop 10 - milkweed bug - IMG_0093.JPG",
+                    "imageSrc": "media/stop 10 - milkweed bug - IMG_0093_small.jpg",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 }
