@@ -33,6 +33,7 @@ const dataCenterIndicator = document.getElementById("dataCenterIndicator");
 
 let dragState = { active:false, offsetX:0, offsetY:0 };
 let dataButton = null;
+let descriptionButtonEl = null;
 let gatedModeConfig = null;
 let unlockedScenes = new Set();
 let gatePromptInDesc = null;
@@ -280,9 +281,7 @@ function prepareHotspot(hotspot) {
     if (hotspot.type === "scene") {
         const h = {...hotspot};
         const targetScene = config.scenes[h.sceneId];
-        if (targetScene && targetScene.title) {
-            h.text = targetScene.title;
-        }
+        h.text = h.text ?? targetScene?.title;
         if (h.icon) {
             const safeId = h.id.replace(/[^a-zA-Z0-9_-]/g,'');
             const className = `scene-icon-${safeId}`;
@@ -606,12 +605,28 @@ async function openDescription() {
     } else {
         hideGatePrompt();
     }
+    updateInfoButtonPulse();
 }
 
 
 function closeDescription() {
     descriptionOverlay.classList.remove("open");
     descriptionOverlay.setAttribute("aria-hidden", "true");
+    updateInfoButtonPulse();
+}
+
+function updateInfoButtonPulse() {
+    if (!descriptionButtonEl || !viewer || !viewerConfig) return;
+    const sceneId = viewer.getScene();
+    const scene = viewerConfig.scenes?.[sceneId];
+    const effective = getEffectiveGatedConfig(scene);
+    const isGatedActive = !!(effective?.enabled && !unlockedScenes.has(sceneId));
+    const descOpen = descriptionOverlay.classList.contains("open");
+    if (isGatedActive && !descOpen) {
+        descriptionButtonEl.classList.add("pulse");
+    } else {
+        descriptionButtonEl.classList.remove("pulse");
+    }
 }
 
 
@@ -787,6 +802,7 @@ function handleGateSubmit() {
             }
         }
     }
+    updateInfoButtonPulse();
 }
 
 function getEffectiveGatedConfig(scene) {
@@ -815,6 +831,7 @@ async function checkGateForScene() {
         const unlockedSlate = effective.unlockedSlate || 'full';
         if (currentSlate !== unlockedSlate) setSlate(unlockedSlate);
         hideGatePrompt();
+        updateInfoButtonPulse();
         return;
     }
     // locked
@@ -823,6 +840,7 @@ async function checkGateForScene() {
     // Ensure description is loaded before showing gate prompt
     await openDescription();
     // openDescription already handles showing/hiding gate prompt
+    updateInfoButtonPulse();
 }
 
 async function initializeViewer() {
@@ -884,17 +902,17 @@ async function initializeViewer() {
         viewerConfig = config;
         viewer = pannellum.viewer("panorama", config);
 
-        const descriptionButton = document.createElement("div");
+        descriptionButtonEl = document.createElement("div");
 
-        descriptionButton.className =
+        descriptionButtonEl.className =
             "pnlm-controls pnlm-description-toggle";
 
-        descriptionButton.setAttribute("role", "button");
-        descriptionButton.setAttribute("tabindex", "0");
-        descriptionButton.setAttribute("aria-label", "Scene description");
-        descriptionButton.textContent = "i";
+        descriptionButtonEl.setAttribute("role", "button");
+        descriptionButtonEl.setAttribute("tabindex", "0");
+        descriptionButtonEl.setAttribute("aria-label", "Scene description");
+        descriptionButtonEl.textContent = "i";
 
-        descriptionButton.addEventListener("click", () => {
+        descriptionButtonEl.addEventListener("click", () => {
             if (descriptionOverlay.classList.contains("open")) {
                 closeDescription();
             } else {
@@ -902,7 +920,7 @@ async function initializeViewer() {
             }
         });
 
-        descriptionButton.addEventListener("keydown", event => {
+        descriptionButtonEl.addEventListener("keydown", event => {
             if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
                 if (descriptionOverlay.classList.contains("open")) {
@@ -915,7 +933,7 @@ async function initializeViewer() {
 
         document
             .querySelector(".pnlm-controls-container")
-            .appendChild(descriptionButton);
+            .appendChild(descriptionButtonEl);
 
         // Data toggle button
         dataButton = document.createElement('div');

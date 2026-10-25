@@ -2,13 +2,32 @@
     box-sizing: border-box;
 }
 
+:root {
+    --bg-page: #111;
+    --panel-bg: rgba(20, 20, 20, 0.92);
+    --panel-bg-solid: #171717;
+    --panel-fg: #fff;
+    --panel-fg-dim: rgba(255,255,255,0.85);
+    --accent-bg: rgba(255,255,255,0.15);
+    --accent-bg-hover: rgba(255,255,255,0.25);
+    --close-bg: rgba(0,0,0,0.7);
+    --close-bg-hover: rgba(0,0,0,0.95);
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+    --radius-xl: 12px;
+    --shadow-sm: 0 2px 12px rgba(0,0,0,0.35);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
+}
+
 html,
 body {
     width: 100%;
     height: 100%;
     margin: 0;
     overflow: hidden;
-    background: #111;
+    background: var(--bg-page);
     font-family: system-ui, sans-serif;
 }
 
@@ -29,9 +48,9 @@ body {
     display: flex;
     gap: 6px;
     padding: 5px;
-    border-radius: 8px;
-    background: rgba(20, 20, 20, 0.78);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    border-radius: var(--radius-md);
+    background: var(--panel-bg);
+    box-shadow: var(--shadow-sm);
 }
 
 #slateControls[hidden] {
@@ -41,28 +60,29 @@ body {
 #slateControls button {
     padding: 7px 11px;
     border: 0;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.15);
-    color: #fff;
+    border-radius: var(--radius-sm);
+    background: var(--accent-bg);
+    color: var(--panel-fg);
     font: inherit;
     font-size: 13px;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 #slateControls button:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: var(--accent-bg-hover);
 }
 
 #slateControls button.active {
-    background: #fff;
-    color: #111;
+    background: var(--panel-fg);
+    color: var(--bg-page);
 }
 
 .media-hotspot {
     width: 44px;
     height: 44px;
-    /*margin-left: -22px;*/
-    /*margin-top: -22px;*/
     cursor: pointer;
 }
 
@@ -85,6 +105,19 @@ body {
     text-align: center;
     line-height: 30px;
     cursor: pointer;
+}
+
+.pnlm-description-toggle.pulse {
+    animation: info-pulse 4s ease-in-out infinite;
+}
+
+@keyframes info-pulse {
+    0%, 100% {
+        filter: invert(0);
+    }
+    50% {
+        filter: invert(1);
+    }
 }
 
 .pnlm-info {
@@ -112,10 +145,10 @@ body {
     bottom: 24px;
     width: min(600px, calc(100vw - 32px));
     z-index: 9999;
-    background: #000;
-    border-radius: 10px;
+    background: var(--panel-bg);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--shadow-lg);
     opacity: 0;
     transform: translateY(12px);
     pointer-events: none;
@@ -138,9 +171,9 @@ body {
 }
 
 #mediaTitle {
-    padding: 10px 44px 10px 14px;
-    background: #171717;
-    color: #fff;
+    padding: 10px 44px 10px 10px;
+    background: var(--panel-bg-solid);
+    color: var(--panel-fg);
     font-size: 14px;
     font-weight: 600;
     cursor: grab;
@@ -157,24 +190,24 @@ body {
     background: #000;
 }
 
-#closeMedia {
+#closeMedia, #closeDescription {
     position: absolute;
     top: 7px;
     right: 7px;
-    width: 32px;
-    height: 32px;
+    /*width: 32px;*/
+    /*height: 32px;*/
     z-index: 2;
     border: 0;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.7);
-    color: #fff;
+    background: var(--close-bg);
+    color: var(--panel-fg);
     font-size: 22px;
     line-height: 1;
     cursor: pointer;
 }
 
-#closeMedia:hover {
-    background: rgba(0, 0, 0, 0.95);
+#closeMedia:hover, #closeDescription:hover {
+    background: var(--close-bg-hover);
 }
 
 #error {
@@ -185,9 +218,9 @@ body {
     max-width: 600px;
     padding: 12px 16px;
     z-index: 10000;
-    background: #fff;
-    color: #111;
-    border-radius: 6px;
+    background: var(--panel-bg);
+    color: var(--panel-fg);
+    border-radius: var(--radius-md);
     font-family: monospace;
     font-size: 14px;
 }
@@ -213,19 +246,12 @@ body {
     border: 0;
 }
 
-#imageContainer img {
+#imageContainer img, #hotspotImage {
     width: 100%;
     max-height: 75vh;
     display: block;
     object-fit: contain;
-}
-
-#hotspotImage {
-    display: block;
-    width: 100%;
     height: auto;
-    max-height: 75vh;
-    object-fit: contain;
 }
 
 #videoContainer video {
@@ -261,12 +287,6 @@ body {
     }
 }
 
-#slateControls button {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-
 #slateControls button img {
     width: 18px;
     height: 18px;
@@ -276,21 +296,21 @@ body {
 
 #descriptionOverlay {
     position: fixed;
-    top: 60px;
-    left: 72px;
+    left: 36px;
+    top: 4px;
 
     width: min(400px, calc(100vw - 96px));
     max-height: calc(100vh - 48px);
 
     z-index: 9999;
 
-    background: rgba(20, 20, 20, 0.95);
-    color: #fff;
+    background: var(--panel-bg);
+    color: var(--panel-fg);
 
-    border-radius: 10px;
+    border-radius: var(--radius-lg);
     overflow: hidden;
 
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--shadow-lg);
 
     opacity: 0;
     transform: translateX(-12px);
@@ -308,46 +328,21 @@ body {
 }
 
 #descriptionTitle {
-    padding: 10px 44px 10px 14px;
-    background: #171717;
-
+    padding: 10px 44px 0px 10px;
+    background: var(--panel-bg-solid);
+    color: var(--panel-fg);
     font-size: 16px;
     font-weight: 600;
 }
 
 #descriptionContent {
-    padding: 14px;
+    padding: 10px;
+    background: var(--panel-bg-solid);
     max-height: calc(100vh - 120px);
     overflow-y: auto;
 
     font-size: 14px;
     line-height: 1.5;
-}
-
-#closeDescription {
-    position: absolute;
-    top: 7px;
-    right: 7px;
-
-    width: 32px;
-    height: 32px;
-
-    z-index: 2;
-
-    border: 0;
-    border-radius: 50%;
-
-    background: rgba(0, 0, 0, 0.7);
-    color: #fff;
-
-    font-size: 22px;
-    line-height: 1;
-
-    cursor: pointer;
-}
-
-#closeDescription:hover {
-    background: rgba(0, 0, 0, 0.95);
 }
 
 #descriptionContent img {
@@ -371,13 +366,13 @@ body {
     transform: translate(-50%, 0);
     z-index: 1000;
     max-width: min(420px, calc(100vw - 32px));
-    padding: 10px 14px;
-    background: rgba(20,20,20,0.88);
-    color: #fff;
-    border-radius: 8px;
+    padding: 10px 10px;
+    background: var(--panel-bg);
+    color: var(--panel-fg);
+    border-radius: var(--radius-md);
     font-size: 13px;
     line-height: 1.4;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    box-shadow: var(--shadow-md);
     pointer-events: none;
 }
 
@@ -429,26 +424,12 @@ body {
     }
 }
 
-/* Gate prompt overlay - legacy, kept for reference */
-#gatePromptOverlay {
-    position: fixed;
-    top: 60px;
-    left: 72px;
-    z-index: 10000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .2s;
-}
-#gatePromptOverlay[aria-hidden="false"] {
-    opacity: 1;
-    pointer-events: auto;
-}
 
 /* Gate prompt inside Description window */
 #gatePromptInDesc {
-    padding: 14px;
+    padding: 10px;
     border-top: 1px solid rgba(255,255,255,0.08);
-    background: rgba(0,0,0,0.15);
+    background: var(--panel-bg-solid);
     font-size: 14px;
 }
 #gatePromptInDesc[aria-hidden="true"] {
@@ -456,7 +437,7 @@ body {
 }
 #gatePromptInDesc .gate-prompt-box {
     background: transparent;
-    color: #fff;
+    color: var(--panel-fg);
     padding: 0;
     border-radius: 0;
     max-width: none;
@@ -464,7 +445,7 @@ body {
     font-size: 14px;
 }
 #gatePromptInDesc .gate-prompt-text {
-    margin-bottom: 8px;
+    /*margin-bottom: 8px;*/
     line-height: 1.4;
 }
 #gatePromptInDesc .gate-prompt-input-wrap {
@@ -473,76 +454,33 @@ body {
 #gatePromptInDesc .gate-prompt-input {
     width: 100%;
     padding: 6px 8px;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     border: 1px solid #444;
     background: #0b0b0b;
-    color: #fff;
+    color: var(--panel-fg);
 }
 #gatePromptInDesc .gate-prompt-actions {
     display: flex;
     gap: 8px;
     justify-content: flex-end;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
 }
 #gatePromptInDesc .gate-prompt-btn {
     padding: 6px 12px;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     border: 0;
     cursor: pointer;
     font-size: 13px;
 }
 #gatePromptInDesc .gate-prompt-btn.primary {
-    background: #fff;
-    color: #111;
+    background: var(--panel-fg);
+    color: var(--bg-page);
 }
 #gatePromptInDesc .gate-prompt-btn.secondary {
     background: #333;
-    color: #fff;
+    color: var(--panel-fg);
 }
 
-/* Legacy styles retained */
-#gatePromptOverlay .gate-prompt-box {
-    background: #171717;
-    color: #fff;
-    padding: 12px 16px;
-    border-radius: 8px;
-    max-width: 320px;
-    box-shadow: 0 6px 24px rgba(0,0,0,.5);
-    font-size: 14px;
-}
-#gatePromptOverlay .gate-prompt-text {
-    margin-bottom: 8px;
-    line-height: 1.4;
-}
-#gatePromptOverlay .gate-prompt-input {
-    width: 100%;
-    padding: 6px 8px;
-    border-radius: 6px;
-    border: 1px solid #444;
-    background: #0b0b0b;
-    color: #fff;
-    margin: 8px 0;
-}
-#gatePromptOverlay .gate-prompt-actions {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-}
-#gatePromptOverlay .gate-prompt-btn {
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 0;
-    cursor: pointer;
-    font-size: 13px;
-}
-#gatePromptOverlay .gate-prompt-btn.primary {
-    background: #fff;
-    color: #111;
-}
-#gatePromptOverlay .gate-prompt-btn.secondary {
-    background: #333;
-    color: #fff;
-}
 
 /* Tutorial overlay */
 #tutorialOverlay {
@@ -565,11 +503,11 @@ body {
     max-width: min(720px, 90vw);
     max-height: 90vh;
     overflow: auto;
-    background: rgba(20,20,20,0.95);
-    color: #fff;
-    border-radius: 12px;
+    background: var(--panel-bg);
+    color: var(--panel-fg);
+    border-radius: var(--radius-xl);
     padding: 24px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    box-shadow: var(--shadow-lg);
 }
 #tutorialContent > :first-child { margin-top:0; }
 #tutorialContent > :last-child { margin-bottom:0; }

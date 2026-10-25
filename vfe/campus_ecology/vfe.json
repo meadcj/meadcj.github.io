@@ -318,6 +318,7 @@
             "title": "Stop 4",
             "type": "equirectangular",
             "panorama": "media/stop 4 - pano IMG_20261016_151025_00_073.jpg",
+            "descriptionFile": "descriptions/stop4.html",
             "defaultPitch": -15,
             "defaultYaw": 32,
             "gateRecenter": {
@@ -386,6 +387,7 @@
             "title": "Stop 5",
             "type": "equirectangular",
             "panorama": "media/stop 5 - pano palm_walk2_edited.jpg",
+            "descriptionFile": "descriptions/stop5.html",
             "defaultPitch": 0,
             "defaultYaw": -46,
             "gateRecenter": {
@@ -430,6 +432,7 @@
             "title": "Stop 6",
             "type": "equirectangular",
             "panorama": "media/stop 6 - pano palm_walk1_edited.jpg",
+            "descriptionFile": "descriptions/stop6.html",
             "defaultPitch": 0,
             "defaultYaw": -36,
             "gateRecenter": {
@@ -453,11 +456,11 @@
                 },
                 {
                     "id": "stop6-scene-next",
-                    "pitch": 0,
-                    "yaw": 4,
+                    "pitch": -5,
+                    "yaw": 109,
                     "type": "scene",
-                    "text": "Stop 9",
-                    "sceneId": "stop9",
+                    "text": "Stop 7",
+                    "sceneId": "stop7",
                     "icon": "../icons/arrow.svg"
                 },
                 {
@@ -505,10 +508,136 @@
                 }
             ]
         },
+        "stop7": {
+            "title": "Stop 7",
+            "type": "equirectangular",
+            "panorama": "media/stop 7 - pano IMG_20261023_112011_00_081_edited.jpg",
+            "descriptionFile": "descriptions/stop7.html",
+            "defaultPitch": 6,
+            "defaultYaw": 356,
+            "gateRecenter": {
+                "pitch": 0,
+                "yaw": -70
+            },
+            "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": 180,
+            "hotSpots": [
+                {
+                    "id": "stop7-scene-prev",
+                    "pitch": 1,
+                    "yaw": 27,
+                    "type": "scene",
+                    "text": "Back to Stop 6",
+                    "sceneId": "stop6",
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop7-scene-next",
+                    "pitch": 2,
+                    "yaw": 180,
+                    "type": "scene",
+                    "text": "Stop 8",
+                    "sceneId": "stop8",
+                    "icon": "../icons/arrow.svg"
+                }
+            ]
+        },
+        "stop8": {
+            "title": "Stop 8",
+            "type": "equirectangular",
+            "panorama": "media/stop 8 - pano IMG_20261023_111244_00_079_edited.jpg",
+            "descriptionFile": "descriptions/stop8.html",
+            "defaultPitch": -1,
+            "defaultYaw": -10,
+            "gateRecenter": {
+                "pitch": 0,
+                "yaw": -70
+            },
+            "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": 180,
+            "hotSpots": [
+                {
+                    "id": "stop8-scene-prev",
+                    "pitch": 2,
+                    "yaw": 113,
+                    "type": "scene",
+                    "text": "Stop 7",
+                    "sceneId": "stop7",
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop8-scene-next",
+                    "pitch": -10,
+                    "yaw": 34,
+                    "type": "scene",
+                    "text": "Stop 9",
+                    "sceneId": "stop9",
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop8-yt",
+                    "pitch": 2.5,
+                    "yaw": 87,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Stop 8 video",
+                    "youtubeId": "q_e8lqQQ2GQ",
+                    "mediaAnchor": ""
+                }
+            ]
+        },
         "stop9": {
             "title": "Stop 9",
             "type": "equirectangular",
-            "panorama": "media/stop 9 - pano milkweed_edited.jpg",
+            "panorama": "media/stop 9 - pano IMG_20261023_111319_00_080_edited.jpg",
+            "descriptionFile": "descriptions/stop9.html",
+            "defaultPitch": -15,
+            "defaultYaw": 17,
+            "gateRecenter": {
+                "pitch": 0,
+                "yaw": -70
+            },
+            "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": 180,
+            "hotSpots": [
+                {
+                    "id": "stop8-scene-prev",
+                    "pitch": -5,
+                    "yaw": 108,
+                    "type": "scene",
+                    "text": "Stop 8",
+                    "sceneId": "stop8",
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop10-scene-next",
+                    "pitch": 2,
+                    "yaw": -104,
+                    "type": "scene",
+                    "text": "Stop 10",
+                    "sceneId": "stop10",
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop9-yt",
+                    "pitch": 0,
+                    "yaw": 0,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Stop 9 video",
+                    "youtubeId": "SqdapMyD2zc",
+                    "mediaAnchor": ""
+                }
+            ]
+        },
+        "stop10": {
+            "title": "Stop 10",
+            "type": "equirectangular",
+            "panorama": "media/stop 10 - pano milkweed_edited.jpg",
+            "descriptionFile": "descriptions/stop10.html",
             "defaultPitch": 0,
             "defaultYaw": 0,
             "gateRecenter": {
@@ -520,45 +649,56 @@
             "northOffset": -60,
             "hotSpots": [
                 {
-                    "id": "stop9-scene-prev",
+                    "id": "stop10-scene-prev",
                     "pitch": 0,
                     "yaw": 121,
                     "type": "scene",
-                    "text": "Stop 6",
-                    "sceneId": "stop6",
+                    "text": "Stop 7",
+                    "sceneId": "stop7",
                     "targetPitch": 0,
                     "targetYaw": -178,
                     "icon": "../icons/arrow.svg"
                 },
                 {
-                    "id": "stop9-yt",
+                    "id": "stop10-scene-prev2",
+                    "pitch": 0,
+                    "yaw": 134,
+                    "type": "scene",
+                    "text": "Stop 9",
+                    "sceneId": "stop9",
+                    "targetPitch": 0,
+                    "targetYaw": -178,
+                    "icon": "../icons/arrow.svg"
+                },
+                {
+                    "id": "stop10-yt",
                     "pitch": 0,
                     "yaw": -20,
                     "hotspotType": "youtube",
                     "text": "Video",
-                    "mediaTitle": "Stop 9 video",
+                    "mediaTitle": "Stop 10 video",
                     "youtubeId": "FWSlmTPWtdQ",
                     "mediaAnchor": ""
                 },
                 {
-                    "id": "stop9-img-0",
+                    "id": "stop10-img-0",
                     "pitch": 7,
                     "yaw": -33,
                     "hotspotType": "image",
                     "text": "Photo",
-                    "imageTitle": "Stop 9 photo 1",
-                    "imageSrc": "media/stop 9 - milkweed 1 - IMG_0091.JPG",
+                    "imageTitle": "Stop 10 photo 1",
+                    "imageSrc": "media/stop 10 - milkweed 1 - IMG_0091.JPG",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 },
                 {
-                    "id": "stop9-img-2",
+                    "id": "stop10-img-2",
                     "pitch": 7,
                     "yaw": -14,
                     "hotspotType": "image",
                     "text": "Photo",
-                    "imageTitle": "Stop 9 photo 3",
-                    "imageSrc": "media/stop 9 - milkweed bug - IMG_0093.JPG",
+                    "imageTitle": "Stop 10 photo 3",
+                    "imageSrc": "media/stop 10 - milkweed bug - IMG_0093.JPG",
                     "icon": "../icons/image.svg",
                     "mediaAnchor": ""
                 }
