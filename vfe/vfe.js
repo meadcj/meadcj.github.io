@@ -31,7 +31,8 @@ const panorama = document.getElementById("panorama");
 const dataReadout = document.getElementById("dataReadout");
 const dataCenterIndicator = document.getElementById("dataCenterIndicator");
 
-let dragState = { active:false, offsetX:0, offsetY:0 };
+let dragState = { active:false, offsetX:0, offsetY:0, window:null };
+let mediaWindows = { image:null, video:null, audio:null };
 let dataButton = null;
 let descriptionButtonEl = null;
 let gatedModeConfig = null;
@@ -63,8 +64,96 @@ function closeTutorial() {
     tutorialShown = true;
 }
 
-async function showTutorial() {
-    if (tutorialShown) return;
+function createMediaWindow(type) {
+    if (mediaWindows[type]) return mediaWindows[type];
+    const win = document.createElement('div');
+    win.className = `media-window media-window--${type}`;
+    win.setAttribute('role', 'dialog');
+    win.setAttribute('aria-modal', 'false');
+    win.setAttribute('aria-hidden', 'true');
+    win.innerHTML = `
+      <div class="media-window-header">
+        <div class="media-window-title"></div>
+        <button type="button" class="media-window-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="media-window-body"></div>
+    `;
+    document.body.appendChild(win);
+    const header = win.querySelector('.media-window-header');
+    const titleEl = win.querySelector('.media-window-title');
+    const closeBtn = win.querySelector('.media-window-close');
+    const body = win.querySelector('.media-window-body');
+    // Prevent clicks/drags inside the window from closing it via outside-click handlers
+    win.addEventListener('pointerdown', (e) => e.stopPropagation());
+    win.addEventListener('click', (e) => e.stopPropagation());
+    closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeMediaWindow(type); });
+    header.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); });
+    header.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.media-window-close')) return;
+      if (e.pointerType !== 'mouse') return;
+      e.preventDefault();
+      e.stopPropagation();
+      const rect = win.getBoundingClientRect();
+      dragState.active = true;
+      dragState.window = win;
+      dragState.offsetX = e.clientX - rect.left;
+      dragState.offsetY = e.clientY - rect.top;
+      try { header.setPointerCapture(e.pointerId); } catch {}
+      win.classList.add('pinned');
+      win.style.left = rect.left + 'px';
+      win.style.top = rect.top + 'px';
+      win.style.right = 'auto';
+      win.style.bottom = 'auto';
+    });
+    mediaWindows[type] = { el: win, titleEl, body, header };
+    return mediaWindows[type];
+}
+
+function closeMediaWindow(type) {
+    const w = mediaWindows[type];
+    if (!w) return;
+    w.el.classList.remove('open');
+    w.el.setAttribute('aria-hidden', 'true');
+    w.titleEl.textContent = '';
+    // clear media
+    w.body.innerHTML = '';
+}
+
+function positionWindow(winEl, anchor, hotSpotEl) {
+    // reset to default corner per window type
+    winEl.classList.remove('pinned');
+    winEl.style.left = '';
+    winEl.style.top = '';
+    winEl.style.right = '';
+    winEl.style.bottom = '';
+    if (anchor === 'hotspot' && hotSpotEl) {
+        winEl.classList.add('pinned');
+        requestAnimationFrame(() => {
+            const r = hotSpotEl.getBoundingClientRect();
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const margin = 12;
+            let width = winEl.offsetWidth || 600;
+            let height = winEl.offsetHeight || 400;
+            let left = r.right + 12;
+            let top = r.top;
+            if (left + width > vw - margin) {
+                left = r.left - width - 12;
+            }
+            left = Math.max(margin, Math.min(left, vw - width - margin));
+            if (top + height > vh - margin) {
+                top = vh - height - margin;
+            }
+            if (top < margin) top = margin;
+            top = Math.max(margin, Math.min(top, vh - height - margin));
+            winEl.style.left = left + 'px';
+            winEl.style.top = top + 'px';
+        });
+    }
+}
+
+async function showTutorial(force = false) {
+    if (!force && tutorialShown) return;
     ensureTutorialOverlay();
     try {
         const url = new URL('descriptions/tutorial.html', configUrl);
@@ -152,19 +241,22 @@ function openYouTube(youtubeId, title, anchor = 'corner', hotSpotEl = null) {
         console.error("YouTube hotspot has no youtubeId.");
         return;
     }
-
-    hideAllMedia();
-
-    youtubeFrame.src =
-        "https://www.youtube.com/embed/" +
-        encodeURIComponent(youtubeId) +
-        "?autoplay=1&rel=0";
-
-    youtubeContainer.classList.add("active");
-    mediaTitle.textContent = title || "";
-    mediaOverlay.classList.add("open");
-    mediaOverlay.setAttribute("aria-hidden", "false");
-    applyMediaPosition(anchor, hotSpotEl);
+    const w = createMediaWindow('video');
+    w.titleEl.textContent = title || "";
+    positionWindow(w.el, anchor, hotSpotEl);
+    w.body.innerHTML = '';
+    const iframe = document.createElement('iframe');
+    iframe.src = "https://www.youtube.com/embed/" + encodeURIComponent(youtubeId) + "?autoplay=1&rel=0";
+    iframe.title = "YouTube video";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.allowFullscreen = true;
+    iframe.style.width = "100%";
+    iframe.style.aspectRatio = "16/9";
+    iframe.style.border = "0";
+    iframe.style.display = "block";
+    w.body.appendChild(iframe);
+    w.el.classList.add('open');
+    w.el.setAttribute('aria-hidden', 'false');
 }
 
 
@@ -173,35 +265,26 @@ function openImage(src, title, anchor = 'corner', hotSpotEl = null) {
         console.error("Image hotspot has no imageSrc.");
         return;
     }
-
-    hideAllMedia();
-
-    errorElement.style.display = "none";
-    hotspotImage.alt = title || "";
-    mediaTitle.textContent = title || "";
-    mediaOverlay.classList.add("open");
-    mediaOverlay.setAttribute("aria-hidden", "false");
-    applyMediaPosition(anchor, hotSpotEl);
-
-    hotspotImage.onload = () => {
-        imageContainer.classList.add("active");
-        // Re-position after image size is known to keep within viewport
-        requestAnimationFrame(() => applyMediaPosition(anchor, hotSpotEl));
-        hotspotImage.onload = null;
-        hotspotImage.onerror = null;
+    const w = createMediaWindow('image');
+    w.titleEl.textContent = title || "";
+    positionWindow(w.el, anchor, hotSpotEl);
+    w.body.innerHTML = '';
+    const img = document.createElement('img');
+    img.alt = title || "";
+    img.style.maxWidth = '100%';
+    img.style.height = 'auto';
+    img.style.display = 'block';
+    img.onload = () => {
+        requestAnimationFrame(() => positionWindow(w.el, anchor, hotSpotEl));
     };
-
-    hotspotImage.onerror = () => {
-        const message = `Unable to load image: ${src}`;
-        hotspotImage.onload = null;
-        hotspotImage.onerror = null;
-        console.error(message);
-        errorElement.textContent = message;
-        errorElement.style.display = "block";
-        closeMedia();
+    img.onerror = () => {
+        console.error(`Unable to load image: ${src}`);
+        closeMediaWindow('image');
     };
-
-    hotspotImage.src = src;
+    img.src = src;
+    w.body.appendChild(img);
+    w.el.classList.add('open');
+    w.el.setAttribute('aria-hidden', 'false');
 }
 
 
@@ -210,21 +293,30 @@ function openVideo(src, title, anchor = 'corner', hotSpotEl = null) {
         console.error("Video hotspot has no videoSrc.");
         return;
     }
-
-    hideAllMedia();
-
-    videoSource.src = src;
-    mediaTitle.textContent = title || "";
-    videoContainer.classList.add("active");
-    video.load();
-    mediaOverlay.classList.add("open");
-    mediaOverlay.setAttribute("aria-hidden", "false");
-    applyMediaPosition(anchor, hotSpotEl);
-    video.play().catch(() => {});
+    const w = createMediaWindow('video');
+    w.titleEl.textContent = title || "";
+    positionWindow(w.el, anchor, hotSpotEl);
+    w.body.innerHTML = '';
+    const videoEl = document.createElement('video');
+    videoEl.controls = true;
+    videoEl.playsInline = true;
+    videoEl.preload = 'metadata';
+    videoEl.style.width = '100%';
+    videoEl.style.display = 'block';
+    videoEl.style.background = '#000';
+    const source = document.createElement('source');
+    source.src = src;
+    source.type = 'video/mp4';
+    videoEl.appendChild(source);
+    w.body.appendChild(videoEl);
+    w.el.classList.add('open');
+    w.el.setAttribute('aria-hidden', 'false');
+    videoEl.play().catch(() => {});
 }
 
 
 function closeMedia() {
+    // Close legacy overlay
     hideAllMedia();
     mediaOverlay.classList.remove("open");
     mediaOverlay.classList.remove("pinned");
@@ -233,6 +325,8 @@ function closeMedia() {
     mediaOverlay.style.top = '';
     mediaOverlay.style.right = '24px';
     mediaOverlay.style.bottom = '24px';
+    // Close new media windows
+    Object.keys(mediaWindows).forEach(type => closeMediaWindow(type));
 }
 
 
@@ -241,17 +335,23 @@ function openAudio(src, title, anchor = 'corner', hotSpotEl = null) {
         console.error("Audio hotspot has no audioSrc.");
         return;
     }
-
-    hideAllMedia();
-    audioSource.src = src;
-    audio.load();
-    mediaTitle.textContent = title || "";
-    audio.classList.add("active");
-    mediaOverlay.classList.add("open");
-    mediaOverlay.classList.add("audio-mode");
-    mediaOverlay.setAttribute("aria-hidden", "false");
-    applyMediaPosition(anchor, hotSpotEl);
-    audio.play().catch(() => {});
+    const w = createMediaWindow('audio');
+    w.titleEl.textContent = title || "";
+    positionWindow(w.el, anchor, hotSpotEl);
+    w.body.innerHTML = '';
+    const audioEl = document.createElement('audio');
+    audioEl.controls = true;
+    audioEl.preload = 'metadata';
+    audioEl.style.width = '100%';
+    audioEl.style.display = 'block';
+    const source = document.createElement('source');
+    source.src = src;
+    source.type = 'audio/mpeg';
+    audioEl.appendChild(source);
+    w.body.appendChild(audioEl);
+    w.el.classList.add('open');
+    w.el.setAttribute('aria-hidden', 'false');
+    audioEl.play().catch(() => {});
 }
 
 
@@ -935,6 +1035,24 @@ async function initializeViewer() {
             .querySelector(".pnlm-controls-container")
             .appendChild(descriptionButtonEl);
 
+        // Tutorial toggle button
+        const tutorialButtonEl = document.createElement("div");
+        tutorialButtonEl.className = "pnlm-controls pnlm-tutorial-toggle";
+        tutorialButtonEl.setAttribute("role", "button");
+        tutorialButtonEl.setAttribute("tabindex", "0");
+        tutorialButtonEl.setAttribute("aria-label", "Tutorial");
+        tutorialButtonEl.textContent = "?";
+        tutorialButtonEl.addEventListener("click", () => {
+            showTutorial(true);
+        });
+        tutorialButtonEl.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                showTutorial(true);
+            }
+        });
+        document.querySelector(".pnlm-controls-container").appendChild(tutorialButtonEl);
+
         // Data toggle button
         dataButton = document.createElement('div');
         dataButton.className = 'pnlm-controls pnlm-data-toggle';
@@ -1041,20 +1159,24 @@ mediaTitle.addEventListener('pointerdown', (e) => {
 
 window.addEventListener('pointermove', (e) => {
     if (!dragState.active) return;
-    if (!mediaOverlay.classList.contains('pinned')) {
-        mediaOverlay.classList.add('pinned');
-        mediaOverlay.style.right = 'auto';
-        mediaOverlay.style.bottom = 'auto';
+    const win = dragState.window || mediaOverlay;
+    if (win && !win.classList.contains('pinned')) {
+        win.classList.add('pinned');
+        win.style.right = 'auto';
+        win.style.bottom = 'auto';
+        win.style.top = 'auto';
+        win.style.left = 'auto';
     }
+    if (!win) return;
     const margin = 12;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     let left = e.clientX - dragState.offsetX;
     let top  = e.clientY - dragState.offsetY;
-    left = Math.max(margin, Math.min(left, vw - mediaOverlay.offsetWidth - margin));
-    top  = Math.max(margin, Math.min(top,  vh - mediaOverlay.offsetHeight - margin));
-    mediaOverlay.style.left = left + 'px';
-    mediaOverlay.style.top  = top + 'px';
+    left = Math.max(margin, Math.min(left, vw - win.offsetWidth - margin));
+    top  = Math.max(margin, Math.min(top,  vh - win.offsetHeight - margin));
+    win.style.left = left + 'px';
+    win.style.top  = top + 'px';
 });
 
 window.addEventListener('pointerup', () => {
@@ -1063,10 +1185,11 @@ window.addEventListener('pointerup', () => {
 
 // Keep pinned media overlay within viewport on resize
 window.addEventListener('resize', () => {
+    const margin = 12;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    // legacy overlay
     if (mediaOverlay.classList.contains('open') && mediaOverlay.classList.contains('pinned')) {
-        const margin = 12;
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
         const width = mediaOverlay.offsetWidth || 600;
         const height = mediaOverlay.offsetHeight || 400;
         let left = parseFloat(mediaOverlay.style.left || '0');
@@ -1076,11 +1199,27 @@ window.addEventListener('resize', () => {
         mediaOverlay.style.left = left + 'px';
         mediaOverlay.style.top = top + 'px';
     }
+    // new windows
+    Object.values(mediaWindows).forEach(w => {
+        if (!w) return;
+        const el = w.el;
+        if (el.classList.contains('open') && el.classList.contains('pinned')) {
+            const width = el.offsetWidth || 600;
+            const height = el.offsetHeight || 400;
+            let left = parseFloat(el.style.left || '0');
+            let top = parseFloat(el.style.top || '0');
+            left = Math.max(margin, Math.min(left, vw - width - margin));
+            top = Math.max(margin, Math.min(top, vh - height - margin));
+            el.style.left = left + 'px';
+            el.style.top = top + 'px';
+        }
+    });
 });
 
 document.addEventListener("keydown", function(event) {
     if (event.key === "Escape") {
-        if (mediaOverlay.classList.contains("open")) {
+        const anyMediaOpen = mediaOverlay.classList.contains("open") || Object.values(mediaWindows).some(w => w && w.el.classList.contains('open'));
+        if (anyMediaOpen) {
             closeMedia();
         }
 
