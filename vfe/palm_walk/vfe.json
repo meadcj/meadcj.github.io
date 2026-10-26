@@ -37,6 +37,12 @@
                 "media/pano_palm_walk1_edited_face_5.jpg"
             ],
             "hotSpotDebug": true,
+            "ambientAudio": {
+                "src": "media/260320-070452 - fwing tyler mall.mp3",
+                "autoplay": false,
+                "volume": 0.5,
+                "title": "Ambient Audio"
+            },
             "hotSpots": [
                 {
                     "id": "palm1-scene1",
@@ -80,16 +86,6 @@
                     "youtubeId": "o8sTZFCBCik",
                     "icon": "../icons/pink_video.svg",
                     "slates": ["interviews"]
-                },
-                {
-                    "id": "palm1-audio1",
-                    "pitch": -5,
-                    "yaw": -100,
-                    "hotspotType": "audio",
-                    "text": "Audio",
-                    "audioTitle": "Field recording",
-                    "audioSrc": "media/260320-070452 - fwing tyler mall.mp3",
-                    "icon": "../icons/audio.svg"
                 }
             ]
         },

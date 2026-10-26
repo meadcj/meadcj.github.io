@@ -14,7 +14,10 @@
 
         <body>
             <div id="panorama">
-                <div id="slateControls" aria-label="Hotspot slates"></div>
+                <div id="topRightStack">
+                    <div id="ambientAudioBar" hidden aria-label="Ambient audio controls"></div>
+                    <div id="slateControls" aria-label="Hotspot slates"></div>
+                </div>
                 <div id="error"></div>
                 <div id="dataReadout" aria-live="polite" hidden></div>
                 <div id="dataCenterIndicator" aria-hidden="true"></div>
@@ -77,6 +80,8 @@
                     <div id="descriptionTitle"></div>
                     <div id="descriptionContent"></div>
                 </div>
+
+                <audio id="ambientAudio" preload="auto" loop></audio>
 
                 <!--<script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js"></script>-->
                 <script src="../pannellum.js"></script>

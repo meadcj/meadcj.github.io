@@ -33,6 +33,11 @@
             "hotSpotDebug": true,
             "compass": true,
             "northOffset": 230,
+            "ambientAudio": {
+                "src": "media/stop 1 - 261019-075045 - arboretum edge with planes.mp3",
+                "title": "Ambient Audio",
+                "autoplay": true
+            },
             "hotSpots": [
                 {
                     "id": "stop1-scene-next",
@@ -52,16 +57,6 @@
                     "mediaTitle": "Stop 1 video",
                     "youtubeId": "ybUC5VzaJ8Q",
                     "mediaAnchor": ""
-                },
-                {
-                    "id": "stop1-audio",
-                    "pitch": -26,
-                    "yaw": -140,
-                    "hotspotType": "audio",
-                    "text": "Audio",
-                    "audioTitle": "Stop 1 audio",
-                    "audioSrc": "media/stop 1 - 261019-075045 - arboretum edge with planes.mp3",
-                    "icon": "../icons/audio.svg"
                 },
                 {
                     "id": "stop1-img-0",
@@ -138,6 +133,11 @@
             "hotSpotDebug": true,
             "compass": true,
             "northOffset": 205,
+            "ambientAudio": {
+                "src": "media/stop 2 - 261019-074729 - arboretum interior.mp3",
+                "title": "Ambient Audio",
+                "autoplay": true
+            },
             "hotSpots": [
                 {
                     "id": "stop2-scene-prev",
@@ -165,17 +165,6 @@
                     "text": "Video",
                     "mediaTitle": "Stop 2 video",
                     "youtubeId": "rCcb_jZQRy8",
-                    "mediaAnchor": ""
-                },
-                {
-                    "id": "stop2-audio",
-                    "pitch": 0,
-                    "yaw": 30,
-                    "hotspotType": "audio",
-                    "text": "Audio",
-                    "audioTitle": "Stop 2 audio",
-                    "audioSrc": "media/stop 2 - 261019-074729 - arboretum interior.mp3",
-                    "icon": "../icons/audio.svg",
                     "mediaAnchor": ""
                 },
                 {
@@ -264,6 +253,11 @@
             "hotSpotDebug": true,
             "compass": true,
             "northOffset": 220,
+            "ambientAudio": {
+                "src": "media/stop 3 - 261019-074248 - grass near arena and light rail.mp3",
+                "title": "Ambient Audio",
+                "autoplay": true
+            },
             "hotSpots": [
                 {
                     "id": "stop3-scene-prev",
@@ -291,17 +285,6 @@
                     "text": "Video",
                     "mediaTitle": "Stop 3 video",
                     "youtubeId": "5I23vL-CU-4",
-                    "mediaAnchor": ""
-                },
-                {
-                    "id": "stop3-audio",
-                    "pitch": -19,
-                    "yaw": -42,
-                    "hotspotType": "audio",
-                    "text": "Audio",
-                    "audioTitle": "Stop 3 audio",
-                    "audioSrc": "media/stop 3 - 261019-074248 - grass near arena and light rail.mp3",
-                    "icon": "../icons/audio.svg",
                     "mediaAnchor": ""
                 },
                 {
@@ -448,6 +431,11 @@
             "hotSpotDebug": true,
             "compass": true,
             "northOffset": 180,
+            "ambientAudio": {
+                "src": "media/stop 6 - 260320-070452 - fwing tyler mall.mp3",
+                "title": "Ambient Audio",
+                "autoplay": true
+            },
             "hotSpots": [
                 {
                     "id": "stop6-scene-prev",
@@ -477,17 +465,6 @@
                     "text": "Video",
                     "mediaTitle": "Stop 6 video",
                     "youtubeId": "xe47COnXCYc",
-                    "mediaAnchor": ""
-                },
-                {
-                    "id": "stop6-audio",
-                    "pitch": -37,
-                    "yaw": 13,
-                    "hotspotType": "audio",
-                    "text": "Audio",
-                    "audioTitle": "Stop 6 audio",
-                    "audioSrc": "media/stop 6 - 260320-070452 - fwing tyler mall.mp3",
-                    "icon": "../icons/audio.svg",
                     "mediaAnchor": ""
                 },
                 {

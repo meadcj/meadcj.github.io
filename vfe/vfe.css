@@ -40,11 +40,19 @@ body {
     display: none !important;
 }
 
-#slateControls {
+#topRightStack {
     position: fixed;
     top: 16px;
     right: 16px;
     z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: stretch;
+}
+
+#slateControls {
     display: flex;
     gap: 6px;
     padding: 5px;
@@ -55,6 +63,70 @@ body {
 
 #slateControls[hidden] {
     display: none;
+}
+
+#ambientAudioBar {
+    background: var(--panel-bg);
+    color: var(--panel-fg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 220px;
+    max-width: min(320px, calc(100vw - 32px));
+    font-size: 13px;
+}
+
+#ambientAudioBar[hidden] {
+    display: none;
+}
+
+#ambientAudioBar .aa-title {
+    flex: 1 1 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#ambientAudioBar .aa-volume-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--accent-bg);
+    border-radius: var(--radius-sm);
+    padding: 2px 6px;
+}
+
+#ambientAudioBar .aa-volume-label {
+    font-size: 13px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+#ambientAudioBar button {
+    background: var(--accent-bg);
+    border: 0;
+    border-radius: var(--radius-sm);
+    color: var(--panel-fg);
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+}
+
+#ambientAudioBar button:hover {
+    background: var(--accent-bg-hover);
+}
+
+#ambientAudioBar input[type=range] {
+    width: 70px;
 }
 
 #slateControls button {
@@ -215,7 +287,7 @@ body {
     user-select: none;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    position: relative;
 }
 .media-window-header:active {
     cursor: grabbing;
@@ -227,7 +299,9 @@ body {
     text-overflow: ellipsis;
 }
 .media-window-close {
-    position: static;
+    position: absolute;
+    top: 7px;
+    right: 7px;
     width: 32px;
     height: 32px;
     border: 0;
@@ -359,9 +433,12 @@ body {
 }
 
 @media (max-width: 600px) {
-    #slateControls {
+    #topRightStack {
         top: 10px;
         right: 10px;
+    }
+
+    #slateControls {
         gap: 3px;
     }
 

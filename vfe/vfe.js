@@ -25,6 +25,8 @@ const youtubeContainer = document.getElementById("youtubeContainer");
 const imageContainer = document.getElementById("imageContainer");
 const videoContainer = document.getElementById("videoContainer");
 const slateControls = document.getElementById("slateControls");
+const ambientAudioBar = document.getElementById("ambientAudioBar");
+const ambientAudioEl = document.getElementById("ambientAudio");
 const audio = document.getElementById("audio");
 const audioSource = document.getElementById("audioSource");
 const panorama = document.getElementById("panorama");
@@ -43,6 +45,7 @@ let lastAppliedScene = null;
 let tutorialOverlay = null;
 let tutorialContent = null;
 let tutorialShown = false;
+let currentAmbientConfig = null;
 
 function ensureTutorialOverlay() {
     if (tutorialOverlay) return;
@@ -152,11 +155,100 @@ function positionWindow(winEl, anchor, hotSpotEl) {
     }
 }
 
+function initAmbientBar() {
+    if (ambientAudioBar.dataset.initialized) return;
+    ambientAudioBar.innerHTML = `
+        <button id="ambientPlayPause" type="button" aria-label="Play/Pause">▶</button>
+        <span class="aa-title" id="ambientTitle"></span>
+        <span class="aa-volume-wrap">
+            <span class="aa-volume-label" aria-hidden="true">Vol:</span>
+            <input id="ambientVolume" type="range" min="0" max="1" step="0.01" aria-label="Volume">
+        </span>
+    `;
+    const playBtn = document.getElementById('ambientPlayPause');
+    const volSlider = document.getElementById('ambientVolume');
+    playBtn.addEventListener('click', () => {
+        if (!ambientAudioEl.src) return;
+        if (ambientAudioEl.paused) {
+            ambientAudioEl.play().catch(()=>{});
+        } else {
+            ambientAudioEl.pause();
+        }
+    });
+    ambientAudioEl.addEventListener('play', () => {
+        playBtn.textContent = '⏸';
+        playBtn.setAttribute('aria-label', 'Pause');
+    });
+    ambientAudioEl.addEventListener('pause', () => {
+        playBtn.textContent = '▶';
+        playBtn.setAttribute('aria-label', 'Play');
+    });
+    volSlider.addEventListener('input', (e) => {
+        ambientAudioEl.volume = parseFloat(e.target.value);
+    });
+    ambientAudioEl.addEventListener('volumechange', () => {
+        volSlider.value = ambientAudioEl.volume;
+    });
+    ambientAudioBar.dataset.initialized = 'true';
+}
+
+function stopAmbientAudio() {
+    if (!ambientAudioEl) return;
+    ambientAudioEl.pause();
+    ambientAudioEl.currentTime = 0;
+    ambientAudioEl.src = '';
+    ambientAudioEl.load();
+    if (ambientAudioBar) {
+        ambientAudioBar.hidden = true;
+        const titleEl = document.getElementById('ambientTitle');
+        if (titleEl) titleEl.textContent = '';
+    }
+    currentAmbientConfig = null;
+}
+
+function updateAmbientAudio(scene) {
+    initAmbientBar();
+    if (!scene?.ambientAudio?.src) {
+        stopAmbientAudio();
+        return;
+    }
+    // Avoid reload if same config
+    if (currentAmbientConfig && currentAmbientConfig.src === scene.ambientAudio.src) {
+        return;
+    }
+    stopAmbientAudio();
+    const cfg = scene.ambientAudio;
+    let srcUrl;
+    try {
+        srcUrl = new URL(cfg.src, configUrl).href;
+    } catch(e) {
+        console.error('Ambient audio URL resolve failed', e);
+        return;
+    }
+    ambientAudioEl.src = srcUrl;
+    ambientAudioEl.loop = true;
+    ambientAudioEl.volume = typeof cfg.volume === 'number' ? cfg.volume : 0.5;
+    const titleEl = document.getElementById('ambientTitle');
+    if (titleEl) titleEl.textContent = cfg.title || '';
+    const volSlider = document.getElementById('ambientVolume');
+    if (volSlider) volSlider.value = ambientAudioEl.volume;
+    ambientAudioBar.hidden = false;
+    currentAmbientConfig = { src: cfg.src };
+    if (cfg.autoplay) {
+        ambientAudioEl.play().catch(() => {
+            // Autoplay blocked – user can press play
+        });
+    } else {
+        ambientAudioEl.pause();
+    }
+}
+
 async function showTutorial(force = false) {
     if (!force && tutorialShown) return;
     ensureTutorialOverlay();
     try {
         const url = new URL('descriptions/tutorial.html', configUrl);
+        // TODO: Re-enable caching once project is stable. Remove cache:'no-store' when stable.
         const res = await fetch(url.href, {cache:'no-store'});
         if (!res.ok) return;
         const html = await res.text();
@@ -676,7 +768,9 @@ async function openDescription() {
     if (scene.descriptionFile) {
         try {
             const url = new URL(scene.descriptionFile, viewerConfig.configUrl);
-            const response = await fetch(url);
+            url.searchParams.set('_t', Date.now());
+            // TODO: Re-enable caching once project is stable. Remove cache: 'no-store' and the _t bust when stable.
+            const response = await fetch(url, {cache: 'no-store'});
 
             if (!response.ok) {
                 throw new Error(
@@ -1087,6 +1181,7 @@ async function initializeViewer() {
         viewer.on("scenechange", () => {
             closeMedia();
             closeDescription();
+            stopAmbientAudio();
             // Remove hotspots from the scene we are leaving to avoid duplicates
             if (lastSceneId) {
                 activeHotspotIds.forEach(id => {
@@ -1116,6 +1211,7 @@ async function initializeViewer() {
             lastSceneId = viewer.getScene();
             updateDataButtonVisibility();
             checkGateForScene();
+            updateAmbientAudio(currentSceneConfig());
 
             // Show tutorial once on initial scene load
             if (!tutorialShown && viewer.getScene() === config?.default?.firstScene) {
@@ -1126,6 +1222,7 @@ async function initializeViewer() {
         renderSlateButtons();
         updateDataButtonVisibility();
         checkGateForScene();
+        updateAmbientAudio(currentSceneConfig());
     }
     catch (error) {
         console.error(error);
