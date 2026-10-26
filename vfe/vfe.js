@@ -158,7 +158,7 @@ function positionWindow(winEl, anchor, hotSpotEl) {
 function initAmbientBar() {
     if (ambientAudioBar.dataset.initialized) return;
     ambientAudioBar.innerHTML = `
-        <button id="ambientPlayPause" type="button" aria-label="Play/Pause">▶</button>
+        <button id="ambientPlayPause" type="button" aria-label="Play/Pause"><span class="aa-icon">▶</span><span class="aa-spinner" aria-hidden="true"></span></button>
         <span class="aa-title" id="ambientTitle"></span>
         <span class="aa-volume-wrap">
             <span class="aa-volume-label" aria-hidden="true">Vol:</span>
@@ -166,6 +166,7 @@ function initAmbientBar() {
         </span>
     `;
     const playBtn = document.getElementById('ambientPlayPause');
+    const iconSpan = playBtn.querySelector('.aa-icon');
     const volSlider = document.getElementById('ambientVolume');
     playBtn.addEventListener('click', () => {
         if (!ambientAudioEl.src) return;
@@ -176,12 +177,28 @@ function initAmbientBar() {
         }
     });
     ambientAudioEl.addEventListener('play', () => {
-        playBtn.textContent = '⏸';
+        if (iconSpan) iconSpan.textContent = '⏸';
         playBtn.setAttribute('aria-label', 'Pause');
+        playBtn.classList.remove('loading');
     });
     ambientAudioEl.addEventListener('pause', () => {
-        playBtn.textContent = '▶';
+        if (iconSpan) iconSpan.textContent = '▶';
         playBtn.setAttribute('aria-label', 'Play');
+    });
+    ambientAudioEl.addEventListener('loadstart', () => {
+        playBtn.classList.add('loading');
+    });
+    ambientAudioEl.addEventListener('canplay', () => {
+        playBtn.classList.remove('loading');
+    });
+    ambientAudioEl.addEventListener('playing', () => {
+        playBtn.classList.remove('loading');
+    });
+    ambientAudioEl.addEventListener('error', () => {
+        playBtn.classList.remove('loading');
+    });
+    ambientAudioEl.addEventListener('emptied', () => {
+        playBtn.classList.remove('loading');
     });
     volSlider.addEventListener('input', (e) => {
         ambientAudioEl.volume = parseFloat(e.target.value);
@@ -197,11 +214,17 @@ function stopAmbientAudio() {
     ambientAudioEl.pause();
     ambientAudioEl.currentTime = 0;
     ambientAudioEl.src = '';
-    ambientAudioEl.load();
     if (ambientAudioBar) {
         ambientAudioBar.hidden = true;
         const titleEl = document.getElementById('ambientTitle');
         if (titleEl) titleEl.textContent = '';
+        const playBtn = document.getElementById('ambientPlayPause');
+        if (playBtn) {
+            playBtn.classList.remove('loading');
+            const iconSpan = playBtn.querySelector('.aa-icon');
+            if (iconSpan) iconSpan.textContent = '▶';
+            playBtn.setAttribute('aria-label', 'Play');
+        }
     }
     currentAmbientConfig = null;
 }
@@ -225,6 +248,8 @@ function updateAmbientAudio(scene) {
         console.error('Ambient audio URL resolve failed', e);
         return;
     }
+    const playBtn = document.getElementById('ambientPlayPause');
+    if (playBtn) playBtn.classList.add('loading');
     ambientAudioEl.src = srcUrl;
     ambientAudioEl.loop = true;
     ambientAudioEl.volume = typeof cfg.volume === 'number' ? cfg.volume : 0.5;

@@ -679,3 +679,27 @@ body {
 #tutorialContent > :first-child { margin-top:0; }
 #tutorialContent > :last-child { margin-bottom:0; }
 
+/* Ambient audio loading spinner */
+#ambientAudioBar button .aa-spinner {
+    display: none;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: var(--panel-fg);
+    border-radius: 50%;
+    animation: aa-spin 0.8s linear infinite;
+    vertical-align: middle;
+}
+#ambientAudioBar button.loading .aa-icon {
+    display: none;
+}
+#ambientAudioBar button.loading .aa-spinner {
+    display: inline-block;
+}
+#ambientAudioBar button.loading {
+    cursor: default;
+}
+@keyframes aa-spin {
+    to { transform: rotate(360deg); }
+}
+

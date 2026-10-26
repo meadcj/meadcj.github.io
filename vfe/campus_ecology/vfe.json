@@ -46,7 +46,7 @@
                     "type": "scene",
                     "text": "Stop 2",
                     "sceneId": "stop2",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop1-yt",
@@ -56,6 +56,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 1 video",
                     "youtubeId": "ybUC5VzaJ8Q",
+                    "icon": "../icons/white_on_red_video.svg",
                     "mediaAnchor": ""
                 },
                 {
@@ -146,7 +147,7 @@
                     "type": "scene",
                     "text": "Stop 1",
                     "sceneId": "stop1",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop2-scene-next",
@@ -155,7 +156,7 @@
                     "type": "scene",
                     "text": "Stop 3",
                     "sceneId": "stop3",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop2-yt",
@@ -165,6 +166,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 2 video",
                     "youtubeId": "rCcb_jZQRy8",
+                    "icon": "../icons/white_on_red_video.svg",
                     "mediaAnchor": ""
                 },
                 {
@@ -266,7 +268,7 @@
                     "type": "scene",
                     "text": "Stop 2",
                     "sceneId": "stop2",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop3-scene-next",
@@ -275,7 +277,7 @@
                     "type": "scene",
                     "text": "Stop 4",
                     "sceneId": "stop4",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop3-yt",
@@ -285,6 +287,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 3 video",
                     "youtubeId": "5I23vL-CU-4",
+                    "icon": "../icons/white_on_red_video.svg",
                     "mediaAnchor": ""
                 },
                 {
@@ -325,7 +328,7 @@
                     "sceneId": "stop3",
                     "targetPitch": -8,
                     "targetYaw": -191,
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop4-scene-next",
@@ -334,7 +337,7 @@
                     "type": "scene",
                     "text": "Stop 5",
                     "sceneId": "stop5",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop4-yt",
@@ -344,6 +347,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 4 video",
                     "youtubeId": "o8sTZFCBCik",
+                    "icon": "../icons/white_on_red_video.svg",
                     "mediaAnchor": ""
                 },
                 {
@@ -393,7 +397,7 @@
                     "type": "scene",
                     "text": "Stop 4",
                     "sceneId": "stop4",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop5-scene-next",
@@ -402,7 +406,7 @@
                     "type": "scene",
                     "text": "Stop 6",
                     "sceneId": "stop6",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop5-yt",
@@ -412,6 +416,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 5 video",
                     "youtubeId": "ybzatb95e5Q",
+                    "icon": "../icons/white_on_red_video.svg",
                     "mediaAnchor": ""
                 }
             ]
@@ -446,7 +451,7 @@
                     "sceneId": "stop5",
                     "targetPitch": 0,
                     "targetYaw": 180,
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop6-scene-next",
@@ -455,7 +460,7 @@
                     "type": "scene",
                     "text": "Stop 7",
                     "sceneId": "stop7",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop6-yt",
@@ -465,6 +470,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 6 video",
                     "youtubeId": "xe47COnXCYc",
+                    "icon": "../icons/white_on_red_video.svg",
                     "mediaAnchor": ""
                 },
                 {
@@ -504,11 +510,11 @@
                 "pitch": 2,
                 "yaw": 180
             },
-            "defaultPitch": 6,
-            "defaultYaw": 356,
+            "defaultPitch": 10,
+            "defaultYaw": -25,
             "hotSpotDebug": true,
             "compass": true,
-            "northOffset": 180,
+            "northOffset": 90,
             "hotSpots": [
                 {
                     "id": "stop7-scene-prev",
@@ -517,7 +523,7 @@
                     "type": "scene",
                     "text": "Back to Stop 6",
                     "sceneId": "stop6",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop7-scene-next",
@@ -526,7 +532,7 @@
                     "type": "scene",
                     "text": "Stop 8",
                     "sceneId": "stop8",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 }
             ]
         },
@@ -536,15 +542,15 @@
             "panorama": "media/stop 8 - pano IMG_20261023_111244_00_079_edited.jpg",
             "descriptionFile": "descriptions/stop8.html",
             "infoOpen": true,
-            "defaultPitch": -1,
-            "defaultYaw": -10,
+            "defaultPitch": -3,
+            "defaultYaw": -315,
             "gateRecenter": {
                 "pitch": 2.5,
                 "yaw": 87
             },
             "hotSpotDebug": true,
             "compass": true,
-            "northOffset": 180,
+            "northOffset": 280,
             "hotSpots": [
                 {
                     "id": "stop8-scene-prev",
@@ -553,7 +559,7 @@
                     "type": "scene",
                     "text": "Stop 7",
                     "sceneId": "stop7",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop8-scene-next",
@@ -562,7 +568,7 @@
                     "type": "scene",
                     "text": "Stop 9",
                     "sceneId": "stop9",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop8-yt",
@@ -572,6 +578,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 8 video",
                     "youtubeId": "q_e8lqQQ2GQ",
+                    "icon": "../icons/white_on_red_video.svg",
                     "mediaAnchor": ""
                 }
             ]
@@ -590,7 +597,7 @@
             },
             "hotSpotDebug": true,
             "compass": true,
-            "northOffset": 180,
+            "northOffset": 60,
             "hotSpots": [
                 {
                     "id": "stop8-scene-prev",
@@ -599,7 +606,7 @@
                     "type": "scene",
                     "text": "Stop 8",
                     "sceneId": "stop8",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop10-scene-next",
@@ -608,7 +615,7 @@
                     "type": "scene",
                     "text": "Stop 10",
                     "sceneId": "stop10",
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop9-yt",
@@ -618,6 +625,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 9 video",
                     "youtubeId": "SqdapMyD2zc",
+                    "icon": "../icons/white_on_red_video.svg",
                     "mediaAnchor": ""
                 }
             ]
@@ -647,7 +655,7 @@
                     "sceneId": "stop7",
                     "targetPitch": 0,
                     "targetYaw": -178,
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop10-scene-prev2",
@@ -656,9 +664,7 @@
                     "type": "scene",
                     "text": "Stop 9",
                     "sceneId": "stop9",
-                    "targetPitch": 0,
-                    "targetYaw": -178,
-                    "icon": "../icons/arrow.svg"
+                    "icon": "../icons/white_on_blue_arrow.svg"
                 },
                 {
                     "id": "stop10-yt",
@@ -668,6 +674,7 @@
                     "text": "Video",
                     "mediaTitle": "Stop 10 video",
                     "youtubeId": "FWSlmTPWtdQ",
+                    "icon": "../icons/white_on_red_video.svg",
                     "mediaAnchor": ""
                 },
                 {
