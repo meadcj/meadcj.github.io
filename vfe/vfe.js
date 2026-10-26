@@ -235,8 +235,22 @@ function updateAmbientAudio(scene) {
     ambientAudioBar.hidden = false;
     currentAmbientConfig = { src: cfg.src };
     if (cfg.autoplay) {
-        ambientAudioEl.play().catch(() => {
-            // Autoplay blocked – user can press play
+        // Attempt autoplay. Browsers often block audible autoplay on HTTPS sites.
+        // Try muted first, then unmute on success, otherwise leave for user gesture.
+        const tryPlay = () => ambientAudioEl.play();
+        ambientAudioEl.muted = true;
+        tryPlay().then(() => {
+            // Play started muted – unmute now if the user has interacted, otherwise keep muted until first interaction
+            const unmuteOnFirstInteraction = () => {
+                ambientAudioEl.muted = false;
+                document.removeEventListener('pointerdown', unmuteOnFirstInteraction);
+                document.removeEventListener('keydown', unmuteOnFirstInteraction);
+            };
+            document.addEventListener('pointerdown', unmuteOnFirstInteraction, {once:true});
+            document.addEventListener('keydown', unmuteOnFirstInteraction, {once:true});
+        }).catch(() => {
+            // Autoplay blocked completely – keep paused for user-initiated play
+            ambientAudioEl.muted = false;
         });
     } else {
         ambientAudioEl.pause();
