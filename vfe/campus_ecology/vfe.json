@@ -36,7 +36,7 @@
             "ambientAudio": {
                 "src": "media/stop 1 - 261019-075045 - arboretum edge with planes.mp3",
                 "title": "Ambient Audio",
-                "autoplay": true
+                "autoplay": false
             },
             "hotSpots": [
                 {
@@ -137,7 +137,7 @@
             "ambientAudio": {
                 "src": "media/stop 2 - 261019-074729 - arboretum interior.mp3",
                 "title": "Ambient Audio",
-                "autoplay": true
+                "autoplay": false
             },
             "hotSpots": [
                 {
@@ -258,7 +258,7 @@
             "ambientAudio": {
                 "src": "media/stop 3 - 261019-074248 - grass near arena and light rail.mp3",
                 "title": "Ambient Audio",
-                "autoplay": true
+                "autoplay": false
             },
             "hotSpots": [
                 {
@@ -439,7 +439,7 @@
             "ambientAudio": {
                 "src": "media/stop 6 - 260320-070452 - fwing tyler mall.mp3",
                 "title": "Ambient Audio",
-                "autoplay": true
+                "autoplay": false
             },
             "hotSpots": [
                 {
