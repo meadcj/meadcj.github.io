@@ -18,7 +18,7 @@
         "stop1": {
             "title": "Stop 1",
             "type": "equirectangular",
-            "panorama": "media/stop 1 - pano IMG_20261016_152131_00_078.jpg",
+            "panorama": "media/stop 1 - pano2 IMG_20261028_140725_00_082 edited.jpg",
             "descriptionFile": "descriptions/stop1.html",
             "infoOpen": true,
             "defaultPitch": -6,
@@ -41,8 +41,8 @@
             "hotSpots": [
                 {
                     "id": "stop1-scene-next",
-                    "pitch": -14,
-                    "yaw": -117,
+                    "pitch": -15,
+                    "yaw": -111,
                     "type": "scene",
                     "text": "Stop 2",
                     "sceneId": "stop2",
@@ -61,8 +61,8 @@
                 },
                 {
                     "id": "stop1-img-0",
-                    "pitch": -10,
-                    "yaw": -28,
+                    "pitch": -16,
+                    "yaw": -16,
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 1 photo 1",
@@ -83,8 +83,8 @@
                 },
                 {
                     "id": "stop1-img-2",
-                    "pitch": -27,
-                    "yaw": -114,
+                    "pitch": -34,
+                    "yaw": -109,
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 1 photo 3",
@@ -94,8 +94,8 @@
                 },
                 {
                     "id": "stop1-img-3",
-                    "pitch": -1,
-                    "yaw": 51,
+                    "pitch": -15,
+                    "yaw": 44,
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 1 photo 4",
@@ -105,8 +105,8 @@
                 },
                 {
                     "id": "stop1-img-4",
-                    "pitch": 3.5,
-                    "yaw": -100,
+                    "pitch": -4,
+                    "yaw": -98,
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 1 photo 5",
@@ -119,7 +119,7 @@
         "stop2": {
             "title": "Stop 2",
             "type": "equirectangular",
-            "panorama": "media/stop 2 - pano IMG_20261016_151925_00_076.jpg",
+            "panorama": "media/stop 2 - pano2 IMG_20261028_140947_00_084 edited.jpg",
             "descriptionFile": "descriptions/stop2.html",
             "infoOpen": true,
             "defaultPitch": 0,
@@ -133,7 +133,7 @@
             },
             "hotSpotDebug": true,
             "compass": true,
-            "northOffset": 205,
+            "northOffset": 240,
             "ambientAudio": {
                 "src": "media/stop 2 - 261019-074729 - arboretum interior.mp3",
                 "title": "Ambient Audio",
@@ -143,7 +143,7 @@
                 {
                     "id": "stop2-scene-prev",
                     "pitch": -6,
-                    "yaw": 170,
+                    "yaw": 154,
                     "type": "scene",
                     "text": "Stop 1",
                     "sceneId": "stop1",
@@ -152,7 +152,7 @@
                 {
                     "id": "stop2-scene-next",
                     "pitch": 0,
-                    "yaw": -101,
+                    "yaw": -117,
                     "type": "scene",
                     "text": "Stop 3",
                     "sceneId": "stop3",
@@ -161,7 +161,7 @@
                 {
                     "id": "stop2-yt",
                     "pitch": -23,
-                    "yaw": 19,
+                    "yaw": 3,
                     "hotspotType": "youtube",
                     "text": "Video",
                     "mediaTitle": "Stop 2 video",
@@ -172,7 +172,7 @@
                 {
                     "id": "stop2-img-0",
                     "pitch": 20,
-                    "yaw": -51.5,
+                    "yaw": -66,
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 1",
@@ -183,7 +183,7 @@
                 {
                     "id": "stop2-img-1",
                     "pitch": -17,
-                    "yaw": 7,
+                    "yaw": -7,
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 2",
@@ -194,7 +194,7 @@
                 {
                     "id": "stop2-img-2",
                     "pitch": -28,
-                    "yaw": -50,
+                    "yaw": -66,
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 3",
@@ -205,7 +205,7 @@
                 {
                     "id": "stop2-img-3",
                     "pitch": -4,
-                    "yaw": 100,
+                    "yaw": 84,
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 4",
@@ -216,7 +216,7 @@
                 {
                     "id": "stop2-img-4",
                     "pitch": 0,
-                    "yaw": -171,
+                    "yaw": 177,
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 5",
@@ -227,7 +227,7 @@
                 {
                     "id": "stop2-img-5",
                     "pitch": -11,
-                    "yaw": -178,
+                    "yaw": 170,
                     "hotspotType": "image",
                     "text": "Photo",
                     "imageTitle": "Stop 2 photo 6",
