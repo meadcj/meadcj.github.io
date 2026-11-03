@@ -1,0 +1,214 @@
+{
+    "gatedMode": {
+        "enabled": false,
+        "initialSlate": "intro",
+        "unlockedSlate": "full",
+        "defaultHiddenTypes": ["video","scene"],
+        "prompt": {
+            "type": "button",
+            "text": "Take a minute to look around. Make sure to look at some of the close up images. Click continue when you're ready to hear from Prof. Disbrow."
+        }
+    },
+    "default": {
+        "firstScene": "fushia",
+        "autoLoad": true,
+        "showControls": true
+    },
+    "scenes": {
+        "fushia": {
+            "title": "Fushia",
+            "type": "equirectangular",
+            "panorama": "media/Fushia 360_edited pano.jpg",
+            "descriptionFile": "descriptions/fushia.html",
+            "infoOpen": true,
+            "defaultPitch": -23,
+            "defaultYaw": 50,
+            "vfeHotspotDebug": true,
+            "compass": true,
+            "northOffset": 230,
+            "hotSpots": [
+                {
+                    "id": "fushia-scene-next",
+                    "pitch": -7,
+                    "yaw": 104,
+                    "type": "scene",
+                    "text": "Penstemon",
+                    "sceneId": "penstemon",
+                    "icon": "../icons/white_on_blue_arrow.svg"
+                },
+                {
+                    "id": "fushia-scene-prev",
+                    "pitch": -7,
+                    "yaw": 98,
+                    "type": "scene",
+                    "text": "Toyon",
+                    "sceneId": "toyon",
+                    "icon": "../icons/white_on_blue_arrow.svg"
+                },
+                {
+                    "id": "fushia-yt",
+                    "pitch": -13,
+                    "yaw": 63,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Fushia video",
+                    "youtubeId": "JpzvXn2bY-s",
+                    "icon": "../icons/white_on_red_video.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "fushia-img-0",
+                    "pitch": -29,
+                    "yaw": 48,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Photo 1",
+                    "imageSrc": "media/Fushia 1.jpg",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "fushia-img-1",
+                    "pitch": -18,
+                    "yaw": 96,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Photo 2",
+                    "imageSrc": "media/Fushia 2.jpg",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                }
+            ]
+        },
+        "penstemon": {
+            "title": "Penstemon",
+            "type": "equirectangular",
+            "panorama": "media/Penstemon 360_edited pano.jpg",
+            "descriptionFile": "descriptions/penstemon.html",
+            "infoOpen": true,
+            "defaultPitch": -28,
+            "defaultYaw": -317,
+            "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": 230,
+            "hotSpots": [
+                {
+                    "id": "penstemon-scene-next",
+                    "pitch": -4,
+                    "yaw": -45,
+                    "type": "scene",
+                    "text": "Toyon",
+                    "sceneId": "toyon",
+                    "icon": "../icons/white_on_blue_arrow.svg"
+                },
+                {
+                    "id": "penstemon-scene-prev",
+                    "pitch": -5,
+                    "yaw": 121,
+                    "type": "scene",
+                    "text": "Fushia",
+                    "sceneId": "fushia",
+                    "icon": "../icons/white_on_blue_arrow.svg"
+                },
+                {
+                    "id": "penstemon-yt",
+                    "pitch": -40,
+                    "yaw": 55,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Penstemon video",
+                    "youtubeId": "tHfl1weOAkE",
+                    "icon": "../icons/white_on_red_video.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "penstemon-img-0",
+                    "pitch": -22,
+                    "yaw": 5,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Photo 1",
+                    "imageSrc": "media/Penstemon 1.jpg",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "penstemon-img-1",
+                    "pitch": -24,
+                    "yaw": 72,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Photo 2",
+                    "imageSrc": "media/Penstemon 2.jpg",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                }
+            ]
+        },
+        "toyon": {
+            "title": "Toyon",
+            "type": "equirectangular",
+            "panorama": "media/Toyon 360_edited pano.jpg",
+            "descriptionFile": "descriptions/toyon.html",
+            "infoOpen": true,
+            "defaultPitch": -17,
+            "defaultYaw": -77,
+            "hotSpotDebug": true,
+            "compass": true,
+            "northOffset": 230,
+            "hotSpots": [
+                {
+                    "id": "toyon-scene-next",
+                    "pitch": -2,
+                    "yaw": 52,
+                    "type": "scene",
+                    "text": "Penstemon",
+                    "sceneId": "penstemon",
+                    "icon": "../icons/white_on_blue_arrow.svg"
+                },
+                {
+                    "id": "toyon-scene-prev",
+                    "pitch": -2,
+                    "yaw": 61,
+                    "type": "scene",
+                    "text": "Fushia",
+                    "sceneId": "fushia",
+                    "icon": "../icons/white_on_blue_arrow.svg"
+                },
+                {
+                    "id": "toyon-yt",
+                    "pitch": -8,
+                    "yaw": -109,
+                    "hotspotType": "youtube",
+                    "text": "Video",
+                    "mediaTitle": "Toyon video",
+                    "youtubeId": "CLjhw84aBOc",
+                    "icon": "../icons/white_on_red_video.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "toyon-img-0",
+                    "pitch": -22,
+                    "yaw": -66,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Photo 1",
+                    "imageSrc": "media/Toyon 1.jpg",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                },
+                {
+                    "id": "toyon-img-1",
+                    "pitch": 0,
+                    "yaw": -100,
+                    "hotspotType": "image",
+                    "text": "Photo",
+                    "imageTitle": "Photo 2",
+                    "imageSrc": "media/Toyon 2.jpg",
+                    "icon": "../icons/image.svg",
+                    "mediaAnchor": ""
+                }
+            ]
+        }
+    }
+}

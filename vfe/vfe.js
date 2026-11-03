@@ -8,6 +8,7 @@ let openInfoAfterSceneChange = false;
 let dataMode = false;
 let dataState = {regions: [], unit: ''};
 let lastSceneId = null;
+let vfeHotspotDebugActive = false;
 
 const mediaOverlay = document.getElementById("mediaOverlay");
 const video = document.getElementById("video");
@@ -46,6 +47,26 @@ let tutorialOverlay = null;
 let tutorialContent = null;
 let tutorialShown = false;
 let currentAmbientConfig = null;
+
+// VFE hotspot debug formatter – replaces Pannellum's raw console.log with nicer output
+(function(){
+  const _origLog = console.log;
+  const fmt = v => Number(parseFloat(v)).toFixed(1);
+  console.log = function(...args){
+    const msg = typeof args[0] === 'string' ? args[0] : '';
+    if (vfeHotspotDebugActive && msg.startsWith('Pitch:')) {
+      const m = msg.match(/Pitch:\s*([^,]+),\s*Yaw:\s*([^,]+),\s*Center Pitch:\s*([^,]+),\s*Center Yaw:\s*([^,]+),\s*HFOV:\s*([^,]+)/);
+      if (m) {
+        const [, p, y, cp, cy, hf] = m;
+        _origLog('--- VFE Hotspot Debug ---');
+        _origLog(`Hotspot   pitch: ${fmt(p)}°   yaw: ${fmt(y)}°`);
+        _origLog(`Center    pitch: ${fmt(cp)}°   yaw: ${fmt(cy)}°   hfov: ${fmt(hf)}°`);
+        return; // suppress original raw log
+      }
+    }
+    _origLog.apply(console, args);
+  };
+})();
 
 function ensureTutorialOverlay() {
     if (tutorialOverlay) return;
@@ -1127,6 +1148,10 @@ async function initializeViewer() {
             if (scene.yaw == null && scene.defaultYaw != null) {
                 scene.yaw = scene.defaultYaw;
             }
+            // VFE hotspot debug: enable Pannellum logging when requested, but we will reformat it
+            if (scene.vfeHotspotDebug) {
+                scene.hotSpotDebug = true;
+            }
             scene.allHotSpots = (scene.hotSpots || []).map(prepareHotspot);
             scene.hotSpots = [];
         })
@@ -1134,6 +1159,7 @@ async function initializeViewer() {
 
         viewerConfig = config;
         viewer = pannellum.viewer("panorama", config);
+        vfeHotspotDebugActive = !!config.scenes[viewer.getScene()]?.vfeHotspotDebug;
 
         descriptionButtonEl = document.createElement("div");
 
@@ -1233,6 +1259,7 @@ async function initializeViewer() {
             clearData();
             updateDataButtonVisibility();
             checkGateForScene();
+            vfeHotspotDebugActive = !!currentSceneConfig()?.vfeHotspotDebug;
         });
 
         viewer.on("load", () => {
@@ -1251,6 +1278,7 @@ async function initializeViewer() {
             updateDataButtonVisibility();
             checkGateForScene();
             updateAmbientAudio(currentSceneConfig());
+            vfeHotspotDebugActive = !!currentSceneConfig()?.vfeHotspotDebug;
 
             // Show tutorial once on initial scene load
             if (!tutorialShown && viewer.getScene() === config?.default?.firstScene) {
