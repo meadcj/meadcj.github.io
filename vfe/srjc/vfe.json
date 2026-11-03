@@ -88,7 +88,7 @@
             "infoOpen": true,
             "defaultPitch": -28,
             "defaultYaw": -317,
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": 230,
             "hotSpots": [
@@ -153,7 +153,7 @@
             "infoOpen": true,
             "defaultPitch": -17,
             "defaultYaw": -77,
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": 230,
             "hotSpots": [

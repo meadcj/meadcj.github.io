@@ -30,7 +30,7 @@
             "prompt": {
                 "text": "Take a minute to look around. Make sure to look at some of the close up images. Click continue when you're ready to hear from Prof. Chew."
             },
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": 230,
             "ambientAudio": {
@@ -131,7 +131,7 @@
             "prompt": {
                 "text": "Once again, take a minute to look around. Click continue when you're ready to hear from Prof. Chew."
             },
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": 240,
             "ambientAudio": {
@@ -252,7 +252,7 @@
             "prompt": {
                 "text": "Once again, take a minute to look around. Click continue when you're ready to hear from Prof. Chew."
             },
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": 220,
             "ambientAudio": {
@@ -315,7 +315,7 @@
                 "pitch": -12,
                 "yaw": 45
             },
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": 0,
             "hotSpots": [
@@ -386,7 +386,7 @@
                 "pitch": 0,
                 "yaw": -70
             },
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": 180,
             "hotSpots": [
@@ -433,7 +433,7 @@
                 "pitch": 0.5,
                 "yaw": -56
             },
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": 180,
             "ambientAudio": {
@@ -512,7 +512,7 @@
             },
             "defaultPitch": 10,
             "defaultYaw": -25,
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": 90,
             "hotSpots": [
@@ -548,7 +548,7 @@
                 "pitch": 2.5,
                 "yaw": 87
             },
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": 280,
             "hotSpots": [
@@ -595,7 +595,7 @@
                 "pitch": 0,
                 "yaw": 0
             },
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": 60,
             "hotSpots": [
@@ -642,7 +642,7 @@
                 "pitch": 0,
                 "yaw": -20
             },
-            "hotSpotDebug": true,
+            "vfeHotspotDebug": true,
             "compass": true,
             "northOffset": -60,
             "hotSpots": [
